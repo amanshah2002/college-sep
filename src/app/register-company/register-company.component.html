@@ -1,0 +1,89 @@
+<div class="reg-company" fxLayoutAlign="center center">
+<mat-card class="reg-company-card">
+<h2 class="reg-company-card-header">Register Company</h2>
+<p class="reg-company-card-subheader">You can register with us by filling this form.</p>
+
+<form fxLayout="column" [formGroup]="registerCompanyForm">
+
+  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Name of Company</mat-label>
+      <input type="text" matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="45" fxFlex="45" appearance="fill">
+      <mat-label>Founder</mat-label>
+      <input type="text" matInput formControlName="founder">
+    </mat-form-field>
+  </section>
+
+  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input type="text" matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input type="text" matInput formControlName="password">
+    </mat-form-field>
+  </section>
+
+  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Website</mat-label>
+      <input type="text" matInput formControlName="website">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Qr Code Link</mat-label>
+      <input type="text" matInput formControlName="qrCode">
+    </mat-form-field>
+  </section>
+
+  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Description</mat-label>
+      <input type="text" matInput formControlName="description">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Product</mat-label>
+      <input type="text" matInput formControlName="product">
+    </mat-form-field>
+  </section>
+
+  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
+     <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Type</mat-label>
+      <!-- <input type="text" matInput> -->
+
+      <mat-select formControlName="type">
+        <mat-option>Tech</mat-option>
+        <mat-option>Tech</mat-option>
+        <mat-option>Tech</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="45" appearance="fill">
+      <mat-label>Date of Registration</mat-label>
+      <input type="text" matInput [matDatepicker]="picker" formControlName="dateOfReg">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </section>
+
+  <!-- <mat-form-field appearance="fill"> -->
+    <!-- <mat-label>Logo of startup</mat-label> -->
+    <input type="file"  accept="image/*">
+  <!-- </mat-form-field> -->
+
+
+
+  <section fxFlex="100" fxLayoutAlign="space-between center">
+    <button mat-button class="reg-company-clear-btn" (click)="onClear()">Clear</button>
+    <button mat-button class="reg-company-save-btn" (click)="onSave()">Save</button>
+  </section>
+</form>
+</mat-card>
+</div>

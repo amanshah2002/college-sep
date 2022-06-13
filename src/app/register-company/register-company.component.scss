@@ -1,0 +1,41 @@
+@import "../../styles/main.scss";
+
+.reg-company {
+  height: 100vh;
+
+  &-card {
+    @include card;
+    width: 35vw;
+
+    &-header {
+      @include header;
+    }
+
+    &-subheader {
+      color: $text-grey;
+      margin-bottom: 25px;
+    }
+  }
+
+    &-clear-btn {
+      @include primary-no-btn;
+      width: 40%;
+      margin-top: 25px;
+    }
+
+    &-save-btn {
+      @include primary-yes-btn;
+      width: 40%;
+      margin-top: 25px;
+    }
+
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 20px !important;
+  padding: 0.75em 0.75em 0 0.75em;
+}
+
+::ng-deep .mat-form-field-underline {
+  width: 0 !important;
+}

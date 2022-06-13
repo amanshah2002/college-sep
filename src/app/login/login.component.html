@@ -1,0 +1,59 @@
+<div class="login" fxLayoutAlign="center center">
+  <mat-card class="login-card">
+    <p class="login-card-banner action-icon" [mat-menu-trigger-for]="loginMenu">
+      {{ category }}
+    </p>
+    <section class="login-card-form" fxFlex="100" fxLayout="column">
+      <section fxLayout="row" fxLayoutAlign="space-between center">
+        <h2>{{isLogin?'Login' : 'Sign up'}}</h2>
+      </section>
+      <p>Get started .... some text</p>
+      <form fxLayout="column" [formGroup]="loginForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="text" matInput formControlName="email" />
+          <mat-icon matSuffix class="material-icons-outlined">email</mat-icon>
+
+          <mat-error *ngIf="
+              loginForm.controls['email'].hasError('required') &&
+              loginForm.controls['email'].touched
+            ">Email field is required!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input type="{{visibility?'text' : 'password'}}" matInput formControlName="password" />
+          <mat-icon matSuffix class="material-icons-outlined action-icon" (click)="onToggleVisibility()">
+            {{visibility?'visibility_on' : 'visibility_off'}}</mat-icon>
+
+          <mat-error *ngIf="
+              loginForm.controls['password'].hasError('required') &&
+              loginForm.controls['password'].touched
+            ">Password field is required!</mat-error>
+        </mat-form-field>
+
+        <button class="login-card-form-btn" mat-button (click)="onLogin()" [disabled]="this.loginForm.invalid">
+          {{isLogin?'Login' : 'Sign up'}}
+          <i class="fa fa-spinner fa-spin" *ngIf="loader"></i>
+        </button>
+      </form>
+
+      <p *ngIf="isLogin" class="login-card-form-signin-text action-icon">
+        Don't have an account? <a (click)="onSignupToggle()">Sign up</a>
+      </p>
+
+      <p *ngIf="!isLogin" class="login-card-form-signin-text action-icon">
+        Already have an account? <a (click)="onSignupToggle()">Login</a>
+      </p>
+    </section>
+  </mat-card>
+</div>
+
+<mat-menu #loginMenu="matMenu">
+  <section class="menu" fxLayout="column" fxLayoutGap="7px">
+    <a class="action-icon" (click)="this.changeSignInType('Company')">{{isLogin?'Login as' : 'Register'}} Company</a>
+    <a class="action-icon" (click)="this.changeSignInType('Investor')">Login as investor</a>
+    <a class="action-icon" (click)="this.changeSignInType('Employee')">Login as employee</a>
+    <a class="action-icon" (click)="this.changeSignInType('Client')">Login as client</a>
+  </section>
+</mat-menu>

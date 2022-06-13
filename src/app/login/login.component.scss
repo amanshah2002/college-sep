@@ -1,0 +1,89 @@
+@import '../../styles/main.scss';
+
+.login{
+  height: 100vh;
+
+  &-card{
+    position: relative;
+    @include card;
+    width: 30vw;
+    min-width: 300px;
+
+    &-toggle{
+      width: fit-content;
+      margin: 0 auto;
+      position: absolute;
+      top: -17px;
+      left: 36%;
+    }
+
+    &-banner{
+      background-color: $black;
+      color: $white;
+      padding: 7px;
+      border-radius: 25px;
+      font-size: 18px;
+      left: 41.5%;
+      margin: 0 auto;
+      display: block;
+      position: absolute;
+      top: -17px;
+      box-shadow: 5px 15px 30px $primary-shadow;
+    }
+
+    &-form{
+
+      width: 300px;
+      h2{
+        @include header;
+        margin-bottom: 25px;
+      }
+
+      p{
+        color: $text-grey;
+        margin-bottom: 25px;
+      }
+
+      &-btn{
+        @include primary-yes-btn;
+      }
+
+      &-signin-text{
+        margin-top: 20px;
+        color: $text-grey;
+
+        a{
+          color: $black;
+        }
+      }
+
+    }
+  }
+
+}
+.menu{
+  padding: 10px 15px;
+
+  a{
+    color: $text-grey;
+    transition: 0.3s ease-in-out;
+
+    &:hover{
+      color: $black;
+      transition: 0.3s ease-in-out;
+    }
+  }
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 20px!important;
+  padding: 0.75em 0.75em 0 0.75em;
+}
+
+::ng-deep .mat-form-field-underline{
+  width: 0 !important;
+}
+
+mat-form-field{
+  margin-bottom: 10px;
+}

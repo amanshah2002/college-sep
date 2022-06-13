@@ -32,3 +32,9 @@
   border-radius: 5px;
   box-shadow: 5px 15px 30px $primary-shadow;
 }
+
+@mixin less-than-960{
+  @media (max-width: 960px) {
+    @content
+  }
+}

@@ -11,6 +11,9 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
+import { AuthenticationService } from '../services/authentication.service';
+import { company } from '../interfaces/interface';
+import { startupCategory } from '../enums/enum.enum';
 
 const moment = _moment;
 export const MY_FORMATS = {
@@ -40,35 +43,52 @@ export const MY_FORMATS = {
   // ]
 })
 export class RegisterCompanyComponent implements OnInit {
-
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) {}
 
   registerCompanyForm = new FormGroup({
-    name: new FormControl(null,Validators.required),
-    founder: new FormControl(null,Validators.required),
-    type: new FormControl(null,Validators.required),
-    email: new FormControl(null,Validators.required),
-    password: new FormControl(null,Validators.required),
-    website: new FormControl(null,Validators.required),
-    qrCode: new FormControl(null,Validators.required),
-    description: new FormControl(null,Validators.required),
-    product: new FormControl(null,Validators.required),
-    dateOfReg: new FormControl(null,Validators.required),
-  })
+    name: new FormControl(null, Validators.required),
+    founder: new FormControl(null, Validators.required),
+    type: new FormControl(null, Validators.required),
+    email: new FormControl(null, Validators.required),
+    password: new FormControl(null, Validators.required),
+    website: new FormControl(null, Validators.required),
+    qrCode: new FormControl(null, Validators.required),
+    description: new FormControl(null, Validators.required),
+    product: new FormControl(null, Validators.required),
+    dateOfReg: new FormControl(null, Validators.required),
+  });
 
-   currentDate:any;
+  currentDate: any;
+  startupType = [
+    { label: 'Tech', value: startupCategory.tech },
+    { label: 'AI', value: startupCategory.AI },
+    { label: 'Finance', value: startupCategory.finance },
+    { label: 'NGO', value: startupCategory.NGO },
+    { label: 'agricultural', value: startupCategory.agriculture },
+  ];
 
   ngOnInit(): void {
-    this.currentDate = moment()
-    console.log("RegisterCompanyComponent ~ ngOnInit ~ this.currentDate", this.currentDate);
+    this.currentDate = moment();
+    console.log(
+      'RegisterCompanyComponent ~ ngOnInit ~ this.currentDate',
+      this.currentDate
+    );
   }
 
   onSave = () => {
-    console.log("RegisterCompanyComponent ~ this.registerCompanyForm.getRawValue()", this.registerCompanyForm.getRawValue());
-  }
+    console.log(
+      'RegisterCompanyComponent ~ this.registerCompanyForm.getRawValue()',
+      this.registerCompanyForm.getRawValue()
+    );
+    const companyData: company = this.registerCompanyForm.getRawValue();
+    this.authenticationService
+      .registerCompany(companyData)
+      .subscribe((data) => {
+        console.log(data);
+      });
+  };
 
   onClear = () => {
     this.registerCompanyForm.reset();
-  }
-
+  };
 }

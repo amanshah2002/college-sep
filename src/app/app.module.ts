@@ -10,12 +10,16 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CompanyComponent } from './company/company.component';
+import { LayoutComponent } from './shared/layout/layout.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterCompanyComponent,
+    CompanyComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,14 +6,25 @@
   &-card {
     @include card;
     width: 35vw;
+    min-width: 300px;
+    height: auto;
 
     &-header {
       @include header;
+      @include less-than-960{
+        text-align: center;
+        font-size: 24px;
+      }
     }
 
     &-subheader {
       color: $text-grey;
       margin-bottom: 25px;
+
+      @include less-than-960{
+        text-align: center;
+        // font-size: 24px;
+      }
     }
   }
 
@@ -29,6 +40,17 @@
       margin-top: 25px;
     }
 
+}
+
+mat-form-field{
+  margin-bottom: 10px;
+  @include less-than-960{
+    width: 100% !important;
+  }
+}
+
+mat-error{
+  font-size: 12px;
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {

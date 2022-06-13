@@ -1,89 +1,122 @@
 <div class="reg-company" fxLayoutAlign="center center">
-<mat-card class="reg-company-card">
-<h2 class="reg-company-card-header">Register Company</h2>
-<p class="reg-company-card-subheader">You can register with us by filling this form.</p>
+  <mat-card class="reg-company-card">
+    <h2 class="reg-company-card-header">Register Company</h2>
+    <p class="reg-company-card-subheader">You can register with us by filling this form.</p>
 
-<form fxLayout="column" [formGroup]="registerCompanyForm">
+    <form fxLayout="column" [formGroup]="registerCompanyForm">
 
-  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
-    <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Name of Company</mat-label>
-      <input type="text" matInput formControlName="name">
-    </mat-form-field>
+      <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Name of Company</mat-label>
+          <input type="text" matInput formControlName="name">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['name'].hasError('required') &&
+      registerCompanyForm.controls['name'].touched
+    ">Name field is required!</mat-error>
+        </mat-form-field>
 
-    <mat-form-field fxFlex="45" fxFlex="45" appearance="fill">
-      <mat-label>Founder</mat-label>
-      <input type="text" matInput formControlName="founder">
-    </mat-form-field>
-  </section>
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Founder</mat-label>
+          <input type="text" matInput formControlName="founder">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['founder'].hasError('required') &&
+      registerCompanyForm.controls['founder'].touched
+    ">Founder field is required!</mat-error>
+        </mat-form-field>
+      </section>
 
-  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
-    <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Email</mat-label>
-      <input type="text" matInput formControlName="email">
-    </mat-form-field>
+      <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input type="text" matInput formControlName="email">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['email'].hasError('required') &&
+      registerCompanyForm.controls['email'].touched
+    ">Email field is required!</mat-error>
+        </mat-form-field>
 
-    <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Password</mat-label>
-      <input type="text" matInput formControlName="password">
-    </mat-form-field>
-  </section>
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input type="text" matInput formControlName="password">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['password'].hasError('required') &&
+      registerCompanyForm.controls['password'].touched
+    ">Password field is required!</mat-error>
+        </mat-form-field>
+      </section>
 
-  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
-    <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Website</mat-label>
-      <input type="text" matInput formControlName="website">
-    </mat-form-field>
+      <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Website</mat-label>
+          <input type="text" matInput formControlName="website">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['website'].hasError('required') &&
+      registerCompanyForm.controls['website'].touched
+    ">Website field is required!</mat-error>
+        </mat-form-field>
 
-    <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Qr Code Link</mat-label>
-      <input type="text" matInput formControlName="qrCode">
-    </mat-form-field>
-  </section>
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Qr Code Link</mat-label>
+          <input type="text" matInput formControlName="qrCode">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['qrCode'].hasError('required') &&
+      registerCompanyForm.controls['qrCode'].touched
+    ">Qr code field is required!</mat-error>
+        </mat-form-field>
+      </section>
 
-  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
-    <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Description</mat-label>
-      <input type="text" matInput formControlName="description">
-    </mat-form-field>
+      <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Description</mat-label>
+          <input type="text" matInput formControlName="description">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['description'].hasError('required') &&
+      registerCompanyForm.controls['description'].touched
+    ">Description field is required!</mat-error>
+        </mat-form-field>
 
-    <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Product</mat-label>
-      <input type="text" matInput formControlName="product">
-    </mat-form-field>
-  </section>
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Product</mat-label>
+          <input type="text" matInput formControlName="product">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['product'].hasError('required') &&
+      registerCompanyForm.controls['product'].touched
+    ">Product field is required!</mat-error>
+        </mat-form-field>
+      </section>
 
-  <section fxFlex="100" fxLayout="row" fxLayoutAlign="space-between center">
-     <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Type</mat-label>
-      <!-- <input type="text" matInput> -->
+      <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Type</mat-label>
+          <!-- <input type="text" matInput> -->
 
-      <mat-select formControlName="type">
-        <mat-option>Tech</mat-option>
-        <mat-option>Tech</mat-option>
-        <mat-option>Tech</mat-option>
-      </mat-select>
-    </mat-form-field>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let type of startupType" [value]="type.value">{{type.label}}</mat-option>
+          </mat-select>
 
-    <mat-form-field fxFlex="45" appearance="fill">
-      <mat-label>Date of Registration</mat-label>
-      <input type="text" matInput [matDatepicker]="picker" formControlName="dateOfReg">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-  </section>
+          <mat-error *ngIf="
+      registerCompanyForm.controls['type'].hasError('required') &&
+      registerCompanyForm.controls['type'].touched
+    ">Type field is required!</mat-error>
+        </mat-form-field>
 
-  <!-- <mat-form-field appearance="fill"> -->
-    <!-- <mat-label>Logo of startup</mat-label> -->
-    <input type="file"  accept="image/*">
-  <!-- </mat-form-field> -->
+        <mat-form-field fxFlex="45" appearance="fill">
+          <mat-label>Date of Registration</mat-label>
+          <input type="text" matInput [matDatepicker]="picker" formControlName="dateOfReg">
+          <mat-error *ngIf="
+      registerCompanyForm.controls['dateOfReg'].hasError('required') &&
+      registerCompanyForm.controls['dateOfReg'].touched
+    ">Date is required!</mat-error>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </section>
 
-
-
-  <section fxFlex="100" fxLayoutAlign="space-between center">
-    <button mat-button class="reg-company-clear-btn" (click)="onClear()">Clear</button>
-    <button mat-button class="reg-company-save-btn" (click)="onSave()">Save</button>
-  </section>
-</form>
-</mat-card>
+      <section fxFlex="100" fxLayoutAlign="space-between center">
+        <button mat-button class="reg-company-clear-btn" (click)="onClear()">Clear</button>
+        <button mat-button class="reg-company-save-btn" (click)="onSave()"
+          [disabled]="this.registerCompanyForm.invalid">Save</button>
+      </section>
+    </form>
+  </mat-card>
 </div>

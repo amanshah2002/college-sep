@@ -1,5 +1,5 @@
 <div class="layout" >
-  <mat-toolbar *ngIf="this.user" class="layout-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+  <mat-toolbar *ngIf="this.isLoggedIn" class="layout-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
     <!-- <mat-form-field>
       <mat-label>Filter Companies</mat-label>
       <mat-option *ngFor="let type of startupType" [value]="type.value">{{type.label}}</mat-option>
@@ -12,10 +12,9 @@
       <input matInput>
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field> -->
-
+    <img src="" alt="">
     <h2 class="layout-header">Welcome Aman</h2>
-    <h2 class="layout-header">Welcome Aman</h2>
-    <h2 class="layout-header">Welcome Aman</h2>
+    <h2 class="layout-header">{{this.user?.type}}</h2>
   </mat-toolbar>
 
   <ng-container>

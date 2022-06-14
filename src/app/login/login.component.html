@@ -7,7 +7,7 @@
       <section fxLayout="row" fxLayoutAlign="space-between center">
         <h2>{{isLogin?'Login' : 'Sign up'}}</h2>
       </section>
-      <p>Get started .... some text</p>
+      <p>{{isLogin?'Login' : 'Sign up'}} to get started.</p>
       <form fxLayout="column" [formGroup]="loginForm">
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>

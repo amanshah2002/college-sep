@@ -19,18 +19,24 @@ export class LayoutComponent implements OnInit {
     { label: 'agricultural', value: startupCategory.agriculture },
   ];
 
-  user:boolean = false;
+  isLoggedIn:boolean = false;
+  user:loginData = {};
 
   ngOnInit(): void {
     this.getCurrentUser();
-    console.log(this.user);
+    console.log(this.isLoggedIn);
   }
 
   getCurrentUser = () => {
     this.authenticationService.isLoggedIn.subscribe((data) => {
       if (data) {
-        this.user = data;
+        this.isLoggedIn = data;
       }
     });
+
+    this.authenticationService.getUser.subscribe(data => {
+      this.user = data
+    }
+    )
   };
 }

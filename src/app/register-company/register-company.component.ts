@@ -1,3 +1,4 @@
+import { CompanyService } from './../services/company.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import * as _moment from 'moment';
@@ -14,6 +15,7 @@ import {
 import { AuthenticationService } from '../services/authentication.service';
 import { company } from '../interfaces/interface';
 import { startupCategory } from '../enums/enum.enum';
+import { catchError } from 'rxjs';
 
 const moment = _moment;
 export const MY_FORMATS = {
@@ -43,13 +45,13 @@ export const MY_FORMATS = {
   // ]
 })
 export class RegisterCompanyComponent implements OnInit {
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(private companyService: CompanyService) {}
 
   registerCompanyForm = new FormGroup({
     name: new FormControl(null, Validators.required),
     founder: new FormControl(null, Validators.required),
     type: new FormControl(null, Validators.required),
-    email: new FormControl(null, Validators.required),
+    email: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,63}$')]),
     password: new FormControl(null, Validators.required),
     website: new FormControl(null, Validators.required),
     qrCode: new FormControl(null, Validators.required),
@@ -65,6 +67,7 @@ export class RegisterCompanyComponent implements OnInit {
     { label: 'Finance', value: startupCategory.finance },
     { label: 'NGO', value: startupCategory.NGO },
     { label: 'agricultural', value: startupCategory.agriculture },
+    { label: 'E-commerce', value: startupCategory['E-commerce'] },
   ];
 
   ngOnInit(): void {
@@ -81,11 +84,7 @@ export class RegisterCompanyComponent implements OnInit {
       this.registerCompanyForm.getRawValue()
     );
     const companyData: company = this.registerCompanyForm.getRawValue();
-    this.authenticationService
-      .registerCompany(companyData)
-      .subscribe((data) => {
-        console.log(data);
-      });
+    this.companyService.registerCompany(companyData)
   };
 
   onClear = () => {

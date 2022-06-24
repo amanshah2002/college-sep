@@ -33,6 +33,11 @@
       registerCompanyForm.controls['email'].hasError('required') &&
       registerCompanyForm.controls['email'].touched
     ">Email field is required!</mat-error>
+
+          <mat-error *ngIf="
+      registerCompanyForm.controls['email'].hasError('pattern') &&
+      registerCompanyForm.controls['email'].touched
+    ">Please enter valid email format!</mat-error>
         </mat-form-field>
 
         <mat-form-field fxFlex="45" appearance="fill">

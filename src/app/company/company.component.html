@@ -1,1 +1,111 @@
+<div class="companies">
+
+  <section class="companies-header">
+    <h2>Companies</h2>
+    <p>View all registered companies here</p>
+  </section>
+  <!-- <mat-card *ngFor="let company of companyArray" class="companies-card" fxLayout="row" fxLayoutGap="50px">
+    <img fxFlex="15" src="../../assets/images/login.jpg" alt="">
+
+    <div fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="space-around center">
+      <section fxFlex="30"  class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
+        <p>
+          <span>Name:</span>
+          {{company.name}}
+        </p>
+
+        <p>
+          <span>Founder:</span>
+          {{company.founder}}
+        </p>
+
+        <p>
+          <span>email:</span>
+          {{company.email}}
+        </p>
+
+        <p>
+          <span>Description:</span>
+          {{company.description}}
+        </p>
+      </section>
+
+      <section fxFlex="30" class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
+        <p>
+          <span>Name:</span>
+          {{company.name}}
+        </p>
+
+        <p>
+          <span>Founder:</span>
+          {{company.founder}}
+        </p>
+
+        <p>
+          <span>email:</span>
+          {{company.email}}
+        </p>
+
+        <p>
+          <span>Description:</span>
+          {{company.description}}
+        </p>
+      </section>
+    </div>
+
+  </mat-card> -->
+<mat-accordion fxLayout="column" fxLayoutGap="40px" hideToggle [multi]="true">
+  <mat-expansion-panel *ngFor="let company of companyArray"  class="companies-card">
+    <mat-expansion-panel-header [collapsedHeight]="'fit-content'" [expandedHeight]="'fit-content'">
+      <div fxFlex="100" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
+        <section class="companies-card-header" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
+          <p>
+            <span>Name:</span>
+            {{company.name}}
+          </p>
+
+          <p>
+            <span>Founder:</span>
+            {{company.founder}}
+          </p>
+
+          <p>
+            <span>Email:</span>
+            {{company.email}}
+          </p>
+
+          <p>
+            <span>Description:</span>
+            {{company.description}}
+          </p>
+        </section>
+
+        <qr-code [value]="company.qrCode"></qr-code>
+      </div>
+    </mat-expansion-panel-header>
+
+    <section class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
+      <p>
+        <span>Date of registration:</span>
+        {{company.dateOfReg}}
+      </p>
+
+      <p>
+        <span>Product:</span>
+        {{company.product}}
+      </p>
+
+      <p>
+        <span>Website:</span>
+        {{company.website}}
+      </p>
+
+      <p>
+        <span>Company type:</span>
+        {{companyType[+company.type]}}
+      </p>
+    </section>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>
 

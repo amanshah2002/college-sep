@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.authenticationService.getUser.pipe(take(1),map(data => {
+    return this.authenticationService.isLoggedIn.pipe(take(1),map(data => {
       const auth = !!data
 
       if(auth){

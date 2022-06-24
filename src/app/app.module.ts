@@ -12,6 +12,8 @@ import { RegisterCompanyComponent } from './register-company/register-company.co
 import { HttpClientModule } from '@angular/common/http';
 import { CompanyComponent } from './company/company.component';
 import { LayoutComponent } from './shared/layout/layout.component';
+import { QRCodeModule } from 'angular2-qrcode';
+import { WaitingListComponent } from './waiting-list/waiting-list.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { LayoutComponent } from './shared/layout/layout.component';
     RegisterCompanyComponent,
     CompanyComponent,
     LayoutComponent,
+    WaitingListComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { LayoutComponent } from './shared/layout/layout.component';
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    QRCodeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

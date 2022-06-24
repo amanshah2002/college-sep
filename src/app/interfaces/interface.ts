@@ -18,7 +18,7 @@ export interface company {
   dateOfReg: any;
 }
 
-interface companyCategory {
+export interface companyCategory {
   label:string,
   value:number
 }

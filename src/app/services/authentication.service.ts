@@ -1,3 +1,4 @@
+import { CompanyService } from './company.service';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { company, loginData } from './../interfaces/interface';
@@ -14,11 +15,11 @@ export class AuthenticationService {
   constructor(
     private callApiService: CallAPIService,
     private snackbarService: SnacbarService,
-    private router:Router
+    private router: Router,
+    private companyService: CompanyService
   ) {}
   baseUrl = environment.baseUrl;
   loginDetails: loginData[] = [];
-  companyDetails: company[] = [];
   loadObservable = new BehaviorSubject<boolean>(false);
   isLoading = this.loadObservable.asObservable();
   user = new BehaviorSubject<loginData>({});
@@ -36,7 +37,7 @@ export class AuthenticationService {
         data.map((user: loginData) => {
           user.email?.toLowerCase() == loginData.email?.toLowerCase() &&
           user.type?.toLowerCase() == loginData.type?.toLowerCase()
-            ? (flag = user)
+            ? (flag = user) 
             : null;
         });
 
@@ -46,7 +47,7 @@ export class AuthenticationService {
             this.loadObservable.next(false);
             this.loggedIn.next(true);
             this.user.next(flag);
-            sessionStorage.setItem('user',JSON.stringify(flag));
+            sessionStorage.setItem('user', JSON.stringify(flag));
             this.router.navigate(['startups']);
             return;
           } else {
@@ -57,14 +58,14 @@ export class AuthenticationService {
           }
         } else {
           this.snackbarService.open(
-            'User does not exist, please sign up first'
+            'User does not exist, please sign up first or edit your role'
           );
           this.loadObservable.next(false);
           this.loggedIn.next(false);
         }
       });
     } else {
-      this.getCompanies().subscribe((data) => {
+      this.companyService.getCompanies().subscribe((data) => {
         console.log(data);
         data.map((company: company) => {
           company.email.toLowerCase() == loginData.email?.toLowerCase()
@@ -78,8 +79,8 @@ export class AuthenticationService {
             this.loadObservable.next(false);
             this.user.next(flag);
             this.loggedIn.next(true);
-            sessionStorage.setItem('user',JSON.stringify(flag));
-            this.router.navigate(['startups'])
+            sessionStorage.setItem('user', JSON.stringify(flag));
+            this.router.navigate(['startups']);
             return;
           } else {
             this.snackbarService.open('Email or password is incorrect');
@@ -119,7 +120,7 @@ export class AuthenticationService {
             this.snackbarService.open('Successfully signed up');
             this.loadObservable.next(false);
             this.user.next(loginData);
-            sessionStorage.setItem('user',JSON.stringify(loginData));
+            sessionStorage.setItem('user', JSON.stringify(loginData));
             this.router.navigate(['startups']);
           });
       }
@@ -140,36 +141,22 @@ export class AuthenticationService {
     );
   };
 
-  registerCompany = (companyData: company) => {
-    return this.callApiService.callPostAPI(
-      'register-company.json',
-      companyData
-    );
-  };
-
-  getCompanies = () => {
-    this.companyDetails = [];
-    return this.callApiService.callGetAPI('register-company.json').pipe(
-      map((data) => {
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            this.companyDetails.push({ ...data[key], id: key });
-          }
-        }
-        return this.companyDetails;
-      })
-    );
-  };
-
   autoLogin = () => {
     const user = JSON.parse(sessionStorage.getItem('user') || 'null');
-    if(user){
+    if (user) {
       this.user.next(user);
-      this.loggedIn.next(true)
-    }else{
+      this.loggedIn.next(true);
+    } else {
       this.user.next({});
-      this.loggedIn.next(false)
+      this.loggedIn.next(false);
       this.router.navigate(['login']);
     }
-  }
+  };
+
+  logout = () => {
+    sessionStorage.removeItem('user');
+    this.user.next({});
+    this.loggedIn.next(false);
+    this.router.navigate(['/login']).then(() => location.reload());
+  };
 }

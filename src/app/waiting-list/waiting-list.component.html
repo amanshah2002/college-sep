@@ -1,0 +1,68 @@
+<div class="companies">
+
+  <section class="companies-header">
+    <h2>Waiting List</h2>
+    <p>Approve or reject companies based on their authenticity</p>
+  </section>
+
+<mat-accordion *ngIf="this.companyWaitingArray?.length" fxLayout="column" fxLayoutGap="40px" hideToggle [multi]="true">
+  <mat-expansion-panel *ngFor="let company of companyWaitingArray; let i = index"  class="companies-card" expanded [disabled]="true">
+    <mat-expansion-panel-header [collapsedHeight]="'fit-content'" [expandedHeight]="'fit-content'">
+      <div fxFlex="100" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
+        <section class="companies-card-header" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
+          <p>
+            <span>Name:</span>
+            {{company?.name}}
+          </p>
+
+          <p>
+            <span>Founder:</span>
+            {{company?.founder}}
+          </p>
+
+          <p>
+            <span>Email:</span>
+            {{company?.email}}
+          </p>
+
+          <p>
+            <span>Description:</span>
+            {{company?.description}}
+          </p>
+        </section>
+
+        <!-- <qr-code [value]="company.qrCode"></qr-code> -->
+        <section fxLayoutGap="10px">
+          <button mat-button class="approve-btn" (click)="onApprove(company,i)">Approve</button>
+          <button mat-button class="reject-btn" (click)="onReject(i)">Reject</button>
+        </section>
+      </div>
+    </mat-expansion-panel-header>
+
+    <section class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
+      <p>
+        <span>Date of registration:</span>
+        {{company?.dateOfReg}}
+      </p>
+
+      <p>
+        <span>Product:</span>
+        {{company?.product}}
+      </p>
+
+      <p>
+        <span>Website:</span>
+        {{company?.website}}
+      </p>
+
+      <p>
+        <span>Company type:</span>
+        {{companyType[+company.type]}}
+      </p>
+    </section>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<h2 *ngIf="!this.companyWaitingArray?.length" class="companies-empty">No companies in the waiting list</h2>
+</div>
+

@@ -38,3 +38,9 @@
     @content
   }
 }
+
+@mixin less-than-600{
+  @media (max-width: 600px) {
+    @content
+  }
+}

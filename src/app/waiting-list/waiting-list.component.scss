@@ -1,0 +1,89 @@
+@import "../../styles/main.scss";
+
+.companies {
+  padding: 30px;
+
+  &-header {
+    margin-bottom: 40px;
+    position: relative;
+    margin-left: 20px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 2px;
+      left: -20px;
+      background-color: $black;
+    }
+
+    h2,
+    p {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-family: "Mulish-Bold";
+    }
+  }
+
+  &-card {
+    @include card;
+    background-color: $company-card-bg-70;
+    height: fit-content;
+    // padding: 10px;
+
+    &-header {
+      p {
+        font-size: 16px;
+        margin-bottom: 0;
+        span {
+          font-size: 18px;
+          font-family: "Mulish-bold";
+        }
+      }
+    }
+
+    .approve-btn {
+      @include primary-yes-btn;
+    }
+
+    .reject-btn {
+      @include primary-no-btn;
+    }
+
+    &-content {
+      margin-top: 25px;
+      width: 100%;
+      border-top: 1px solid $black;
+      padding-top: 25px;
+
+      p {
+        font-size: 16px;
+        margin-bottom: 0;
+        span {
+          font-size: 18px;
+          font-family: "Mulish-bold";
+        }
+      }
+    }
+  }
+
+  &-empty {
+    width: fit-content;
+    margin: auto;
+  }
+}
+
+::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled="true"]) {
+  background: transparent !important;
+}
+
+::ng-deep .mat-expansion-panel-header.mat-expanded:focus,
+.mat-expansion-panel-header.mat-expanded:hover {
+  background: transparent !important;
+}
+
+::ng-deep .mat-expansion-panel-header[aria-disabled="true"] {
+  color: rgba(0, 0, 0, 1);
+}

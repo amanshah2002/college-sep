@@ -3,9 +3,17 @@
   &-toolbar{
     background-color: $black;
     color: $white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
   }
 
   &-header{
     font-size: 20px;
+  }
+
+  &-content{
+    margin-top: 85px;
   }
 }

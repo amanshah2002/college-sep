@@ -2,6 +2,9 @@ import { CompanyService } from './../services/company.service';
 import { Component, OnInit } from '@angular/core';
 import { company, companyCategory } from '../interfaces/interface';
 import { startupCategory } from '../enums/enum.enum';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../shared/dialog/dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'sep-company',
@@ -9,7 +12,11 @@ import { startupCategory } from '../enums/enum.enum';
   styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent implements OnInit {
-  constructor(private companyService: CompanyService) {}
+  constructor(
+    private companyService: CompanyService,
+    private dialog: MatDialog,
+    private snackbarService: MatSnackBar
+  ) {}
 
   companyArray: company[] = [];
   companyType = startupCategory;
@@ -18,7 +25,6 @@ export class CompanyComponent implements OnInit {
   ngOnInit(): void {
     this.fetchCompanies();
     console.log(this.companyType);
-
   }
 
   fetchCompanies = () => {
@@ -29,5 +35,28 @@ export class CompanyComponent implements OnInit {
         this.companyArray
       );
     });
+  };
+
+  onDelete = (index: number) => {
+    this.dialog
+      .open(DialogComponent, {
+        data: {
+          heading: 'Are you sure',
+          content: 'Are you sure you want to delete this company?',
+          button: 2,
+        },
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe((data) => {
+        if (data) {
+          this.companyArray.splice(index, 1);
+          this.companyService.postCompany(this.companyArray);
+          this.snackbarService.open('Company deleted successfully!');
+          return;
+        } else {
+          return;
+        }
+      });
   };
 }

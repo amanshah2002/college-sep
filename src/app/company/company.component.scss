@@ -43,6 +43,14 @@
       }
     }
 
+    .edit-icon{
+      color: $edit-icon;
+    }
+
+    .delete-icon{
+      color: $delete-icon;
+    }
+
     &-content{
       margin-top: 25px;
       width: 100%;

@@ -14,6 +14,7 @@ import { CompanyComponent } from './company/company.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { QRCodeModule } from 'angular2-qrcode';
 import { WaitingListComponent } from './waiting-list/waiting-list.component';
+import { DialogComponent } from './shared/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { WaitingListComponent } from './waiting-list/waiting-list.component';
     CompanyComponent,
     LayoutComponent,
     WaitingListComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<div class="layout" >
+<div class="layout">
   <mat-toolbar *ngIf="this.isLoggedIn" class="layout-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
     <!-- <mat-form-field>
       <mat-label>Filter Companies</mat-label>
@@ -18,7 +18,7 @@
 
   </mat-toolbar>
 
-  <ng-container>
+  <div [class.layout-content]="isLoggedIn">
     <ng-content></ng-content>
-  </ng-container>
+  </div>
 </div>

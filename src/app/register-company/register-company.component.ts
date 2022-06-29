@@ -95,7 +95,6 @@ export class RegisterCompanyComponent implements OnInit {
       this.companyId = params['id'];
       if (this.companyId == 'new') {
         this.isEdit = false;
-        console.log("RegisterCompanyComponent ~ this.activeRoute.params.subscribe ~ this.isEdit", this.isEdit);
       } else {
         this.isEdit = true;
         this.getCompany();
@@ -107,8 +106,7 @@ export class RegisterCompanyComponent implements OnInit {
     this.companyService.getCompanies().subscribe(data =>{
       this.companyArray = data;
       this.company = this.companyArray[+this.companyId];
-      console.log("RegisterCompanyComponent ~ this.companyService.getCompanies ~ this.company", this.company);
-      this.patchValue();
+      this.company?this.patchValue() : this.snackbarService.open('Company does not exist!');
     })
   };
 
@@ -123,7 +121,7 @@ export class RegisterCompanyComponent implements OnInit {
     }else{
       this.companyArray[+this.companyId] = this.registerCompanyForm.getRawValue();
       this.companyService.postCompany(this.companyArray);
-      this.snackbarService.open('Company updated')
+      this.snackbarService.open('Company updated');
       this.router.navigate(['startups']);
     }
     this.onClear();

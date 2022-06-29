@@ -6,7 +6,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyComponent } from './company/company.component';
 import { LoginGuard } from './guards/login.guard';
-import { EditCompanyComponent } from './edit-company/edit-company.component';
 
 const routes: Routes = [
   {path:'',pathMatch:'full',redirectTo:'login'},

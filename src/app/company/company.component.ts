@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from './../services/company.service';
 import { Component, OnInit } from '@angular/core';
 import { company, companyCategory } from '../interfaces/interface';
@@ -15,7 +16,9 @@ export class CompanyComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private dialog: MatDialog,
-    private snackbarService: MatSnackBar
+    private snackbarService: MatSnackBar,
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {}
 
   companyArray: company[] = [];
@@ -59,4 +62,8 @@ export class CompanyComponent implements OnInit {
         }
       });
   };
+
+  onEdit = (index:number) => {
+    this.router.navigate(['register-company',index])
+  }
 }

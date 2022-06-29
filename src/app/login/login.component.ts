@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.category = category;
     if (!this.isLogin) {
       if (this.category == 'Company') {
-        this.router.navigate(['register-company']);
+        this.router.navigate(['register-company/new']);
       }
     }
   };
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     this.isLogin = !this.isLogin;
     if (!this.isLogin) {
       if (this.category == 'Company') {
-        this.router.navigate(['register-company']);
+        this.router.navigate(['register-company/new']);
       }
     }
   };

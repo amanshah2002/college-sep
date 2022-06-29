@@ -1,3 +1,5 @@
+import { SnacbarService } from './../services/snacbar.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CompanyService } from './../services/company.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -45,13 +47,26 @@ export const MY_FORMATS = {
   // ]
 })
 export class RegisterCompanyComponent implements OnInit {
-  constructor(private companyService: CompanyService) {}
+  constructor(
+    private companyService: CompanyService,
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private snackbarService: SnacbarService
+  ) {}
+
+  companyId: number | 'new' = 0;
+  isEdit: boolean = false;
+  companyArray:company[] = [];
+  company:any;
 
   registerCompanyForm = new FormGroup({
     name: new FormControl(null, Validators.required),
     founder: new FormControl(null, Validators.required),
     type: new FormControl(null, Validators.required),
-    email: new FormControl(null, [Validators.required, Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,63}$')]),
+    email: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,63}$'),
+    ]),
     password: new FormControl(null, Validators.required),
     website: new FormControl(null, Validators.required),
     qrCode: new FormControl(null, Validators.required),
@@ -71,20 +86,47 @@ export class RegisterCompanyComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.getParams();
     this.currentDate = moment();
-    console.log(
-      'RegisterCompanyComponent ~ ngOnInit ~ this.currentDate',
-      this.currentDate
-    );
+  }
+
+  getParams = () => {
+    this.activeRoute.params.subscribe((params: Params) => {
+      this.companyId = params['id'];
+      if (this.companyId == 'new') {
+        this.isEdit = false;
+        console.log("RegisterCompanyComponent ~ this.activeRoute.params.subscribe ~ this.isEdit", this.isEdit);
+      } else {
+        this.isEdit = true;
+        this.getCompany();
+      }
+    });
+  };
+
+  getCompany = () => {
+    this.companyService.getCompanies().subscribe(data =>{
+      this.companyArray = data;
+      this.company = this.companyArray[+this.companyId];
+      console.log("RegisterCompanyComponent ~ this.companyService.getCompanies ~ this.company", this.company);
+      this.patchValue();
+    })
+  };
+
+  patchValue = () => {
+    this.registerCompanyForm.patchValue(this.company);
   }
 
   onSave = () => {
-    console.log(
-      'RegisterCompanyComponent ~ this.registerCompanyForm.getRawValue()',
-      this.registerCompanyForm.getRawValue()
-    );
     const companyData: company = this.registerCompanyForm.getRawValue();
-    this.companyService.registerCompany(companyData)
+    if(!this.isEdit){
+      this.companyService.registerCompany(companyData);
+    }else{
+      this.companyArray[+this.companyId] = this.registerCompanyForm.getRawValue();
+      this.companyService.postCompany(this.companyArray);
+      this.snackbarService.open('Company updated')
+      this.router.navigate(['startups']);
+    }
+    this.onClear();
   };
 
   onClear = () => {

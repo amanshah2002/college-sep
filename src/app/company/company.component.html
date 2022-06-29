@@ -82,7 +82,8 @@
 
         <div fxLayout="row" fxLayoutGap="20px">
           <section fxLayout="column" fxLayoutAlign="space-around center">
-            <mat-icon class="edit-icon" matTooltip="Edit" [matTooltipPosition]="'left'">edit</mat-icon>
+            <mat-icon [matMenuTriggerFor]="menu">menu</mat-icon>
+            <mat-icon class="edit-icon" matTooltip="Edit" [matTooltipPosition]="'left'" (click)="onEdit(i)">edit</mat-icon>
             <mat-icon class="delete-icon" matTooltip="Delete" [matTooltipPosition]="'left'" (click)="onDelete(i)">delete</mat-icon>
           </section>
           <qr-code [value]="company.qrCode"></qr-code>
@@ -114,4 +115,12 @@
   </mat-expansion-panel>
 </mat-accordion>
 </div>
+
+<mat-menu #menu="matMenu">
+  <div fxLayout="column" fxLayoutGap="1rem" fxLayoutAlign="center center">
+    <p class="action-icon">Invest</p>
+    <p class="action-icon">Apply for job</p>
+    <p class="action-icon">Work</p>
+  </div>
+</mat-menu>
 

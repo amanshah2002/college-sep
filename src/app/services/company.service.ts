@@ -72,12 +72,13 @@ export class CompanyService {
     );
   };
 
+
   sendToWaitingList = (companyData: company[]) => {
     console.log(companyData);
     this.callApiService
       .callPutAPI('waiting-list.json', {}, companyData)
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
       });
     return;
   };

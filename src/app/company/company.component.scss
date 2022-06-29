@@ -76,3 +76,22 @@
 ::ng-deep .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
   background: transparent !important;
 }
+
+::ng-deep .mat-menu-panel{
+  width: 15vw;
+
+  div{
+    margin: auto;
+    p{
+      text-align: center;
+      width: 100%;
+      transition: 0.3s ease-in-out;
+      margin: 0;
+      color: $text-grey;
+      &:hover{
+        transition: 0.3s ease-in-out;
+        color: $black;
+      }
+    }
+  }
+}

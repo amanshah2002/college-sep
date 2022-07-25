@@ -1,0 +1,19 @@
+@import "../../styles/main.scss";
+
+.info-card {
+  // height: calc(100vh - 120px);
+  height: 100vh;
+  margin-top: -84px;
+  mat-card {
+    @include card;
+    width: 30vw;
+  }
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 20px !important;
+}
+
+::ng-deep .mat-form-field-underline {
+  width: 0 !important;
+}

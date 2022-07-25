@@ -6,12 +6,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyComponent } from './company/company.component';
 import { LoginGuard } from './guards/login.guard';
+import { EditAccountComponent } from './edit-account/edit-account.component';
 
 const routes: Routes = [
   {path:'',pathMatch:'full',redirectTo:'login'},
   {path:'login',component:LoginComponent,canActivate:[LoginGuard]},
   {path:'register-company/:id',component:RegisterCompanyComponent},
   {path: 'startups',component:CompanyComponent,canActivate:[AuthGuard]},
+  {path: 'edit-account',component:EditAccountComponent,canActivate:[AuthGuard]},
 ];
 
 @NgModule({

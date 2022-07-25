@@ -10,7 +10,13 @@
   }
 
   &-header{
-    font-size: 20px;
+    button{
+      mat-icon{
+        font-size: 29px;
+        margin-right: 1rem;
+        margin-bottom: 3px;
+      }
+    }
   }
 
   &-content{

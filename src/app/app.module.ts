@@ -15,6 +15,8 @@ import { LayoutComponent } from './shared/layout/layout.component';
 import { QRCodeModule } from 'angular2-qrcode';
 import { WaitingListComponent } from './waiting-list/waiting-list.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
+import { EditAccountComponent } from './edit-account/edit-account.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { DialogComponent } from './shared/dialog/dialog.component';
     LayoutComponent,
     WaitingListComponent,
     DialogComponent,
+    EditAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,12 @@ import { DialogComponent } from './shared/dialog/dialog.component';
     HttpClientModule,
     QRCodeModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

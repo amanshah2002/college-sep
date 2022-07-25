@@ -12,8 +12,13 @@
       <input matInput>
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field> -->
-    <h2 class="layout-header"></h2>
-    <h2 class="layout-header">Welcome {{this.user?.type}}</h2>
+    <h2 class="layout-header action-icon" fxLayoutAlign="center center">
+      <button mat-icon-button routerLink="edit-account">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      Account
+    </h2>
+    <h2 class="layout-header">Welcome {{this.user?.name}}</h2>
     <button mat-button class="layout-header" (click)="onLogout()">Logout</button>
 
   </mat-toolbar>

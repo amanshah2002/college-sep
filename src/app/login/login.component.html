@@ -3,12 +3,37 @@
     <p class="login-card-banner action-icon" [mat-menu-trigger-for]="loginMenu">
       {{ category }}
     </p>
+
     <section class="login-card-form" fxFlex="100" fxLayout="column">
       <section fxLayout="row" fxLayoutAlign="space-between center">
         <h2>{{isLogin?'Login' : 'Sign up'}}</h2>
       </section>
+
       <p>{{isLogin?'Login' : 'Sign up'}} to get started.</p>
+
       <form fxLayout="column" [formGroup]="loginForm">
+        <mat-form-field *ngIf="!this.isLogin" appearance="fill">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput formControlName="name" />
+          <mat-icon matSuffix class="material-icons-outlined">email</mat-icon>
+
+          <mat-error *ngIf="
+              loginForm.controls['name'].hasError('required') &&
+              loginForm.controls['name'].touched
+            ">Name field is required!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!this.isLogin" appearance="fill">
+          <mat-label>Last Name</mat-label>
+          <input type="text" matInput formControlName="lastName" />
+          <mat-icon matSuffix class="material-icons-outlined">email</mat-icon>
+
+          <mat-error *ngIf="
+              loginForm.controls['lastName'].hasError('required') &&
+              loginForm.controls['lastName'].touched
+            ">Last Name field is required!</mat-error>
+        </mat-form-field>
+
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
           <input type="text" matInput formControlName="email" />

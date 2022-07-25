@@ -1,5 +1,7 @@
 export interface loginData {
   id?: string;
+  name?:string;
+  lastName?: string;
   email?: string;
   password?: string;
   type?: string;

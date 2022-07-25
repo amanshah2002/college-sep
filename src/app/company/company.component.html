@@ -83,7 +83,7 @@
         <div fxLayout="row" fxLayoutGap="20px">
           <section fxLayout="column" fxLayoutAlign="space-around center">
             <mat-icon [matMenuTriggerFor]="menu">menu</mat-icon>
-            <mat-icon class="edit-icon" matTooltip="Edit" [matTooltipPosition]="'left'" (click)="onEdit(i)">edit</mat-icon>
+            <!-- <mat-icon class="edit-icon" matTooltip="Edit" [matTooltipPosition]="'left'" (click)="onEdit(i)">edit</mat-icon> -->
             <mat-icon class="delete-icon" matTooltip="Delete" [matTooltipPosition]="'left'" (click)="onDelete(i)">delete</mat-icon>
           </section>
           <qr-code [value]="company.qrCode"></qr-code>

@@ -37,7 +37,7 @@ export class AuthenticationService {
         data.map((user: loginData) => {
           user.email?.toLowerCase() == loginData.email?.toLowerCase() &&
           user.type?.toLowerCase() == loginData.type?.toLowerCase()
-            ? (flag = user) 
+            ? (flag = user)
             : null;
         });
 
@@ -99,11 +99,13 @@ export class AuthenticationService {
   };
 
   signUp = (loginData: loginData) => {
+    let loginArray:any[] = [];
     this.loadObservable.next(true);
     let flag = 0;
     this.getLoginData().subscribe((data) => {
+      loginArray = data;
       console.log(data);
-      data.map((user: loginData) => {
+      data?.map((user: loginData) => {
         user.email?.toLowerCase() == loginData.email?.toLowerCase()
           ? (flag = 1)
           : null;
@@ -113,14 +115,17 @@ export class AuthenticationService {
         this.snackbarService.open('A user with this email already exists!');
         this.loadObservable.next(false);
       } else {
+        loginArray.push(loginData);
+        console.log("AuthenticationService ~ this.getLoginData ~ newLoginArray", loginArray);
         this.callApiService
-          .callPostAPI('authenticate.json', loginData)
+          .callPutAPI('authenticate.json', {}, loginArray)
           .subscribe((data) => {
             console.log(data);
             this.snackbarService.open('Successfully signed up');
             this.loadObservable.next(false);
             this.user.next(loginData);
             sessionStorage.setItem('user', JSON.stringify(loginData));
+            this.loggedIn.next(true);
             this.router.navigate(['startups']);
           });
       }
@@ -131,12 +136,8 @@ export class AuthenticationService {
     this.loginDetails = [];
     return this.callApiService.callGetAPI('authenticate.json').pipe(
       map((data) => {
-        for (const key in data) {
-          if (data.hasOwnProperty(key)) {
-            this.loginDetails.push({ ...data[key], id: key });
-          }
-        }
-        return this.loginDetails;
+          this.loginDetails = data;
+          return this.loginDetails;
       })
     );
   };

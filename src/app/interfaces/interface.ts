@@ -5,6 +5,8 @@ export interface loginData {
   email?: string;
   password?: string;
   type?: string;
+  preferredStartupType?: companyCategory;
+  business?: string;
 }
 
 export interface company {

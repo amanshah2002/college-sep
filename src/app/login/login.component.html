@@ -11,51 +11,88 @@
 
       <p>{{isLogin?'Login' : 'Sign up'}} to get started.</p>
 
-      <form fxLayout="column" [formGroup]="loginForm">
-        <mat-form-field *ngIf="!this.isLogin" appearance="fill">
-          <mat-label>Name</mat-label>
-          <input type="text" matInput formControlName="name" />
-          <mat-icon matSuffix class="material-icons-outlined">email</mat-icon>
+      <form [formGroup]="loginForm">
 
-          <mat-error *ngIf="
-              loginForm.controls['name'].hasError('required') &&
-              loginForm.controls['name'].touched
-            ">Name field is required!</mat-error>
-        </mat-form-field>
+        <div fxLayout="{{!isLogin && category == 'Investor'? 'row' : 'column'}}"
+          fxLayoutAlign="{{!isLogin && category == 'Investor'? 'space-between center' : null}}">
 
-        <mat-form-field *ngIf="!this.isLogin" appearance="fill">
-          <mat-label>Last Name</mat-label>
-          <input type="text" matInput formControlName="lastName" />
-          <mat-icon matSuffix class="material-icons-outlined">email</mat-icon>
+          <section fxFlex="{{!isLogin && category == 'Investor'? '45' : '100'}}" fxLayout="column">
 
-          <mat-error *ngIf="
-              loginForm.controls['lastName'].hasError('required') &&
-              loginForm.controls['lastName'].touched
-            ">Last Name field is required!</mat-error>
-        </mat-form-field>
+            <mat-form-field *ngIf="!this.isLogin" appearance="fill">
+              <mat-label>Name</mat-label>
+              <input type="text" matInput formControlName="name" />
+              <!-- <mat-icon matSuffix class="material-icons-outlined">email</mat-icon> -->
 
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input type="text" matInput formControlName="email" />
-          <mat-icon matSuffix class="material-icons-outlined">email</mat-icon>
+              <mat-error *ngIf="
+                loginForm.controls['name'].hasError('required') &&
+                loginForm.controls['name'].touched
+              ">Name field is required!</mat-error>
+            </mat-form-field>
 
-          <mat-error *ngIf="
-              loginForm.controls['email'].hasError('required') &&
-              loginForm.controls['email'].touched
-            ">Email field is required!</mat-error>
-        </mat-form-field>
+            <mat-form-field *ngIf="!isLogin && category == 'Investor'" appearance="fill" matTooltip="Preferred company type">
+              <mat-label>Preferred company type</mat-label>
+              <mat-select formControlName="preferredStartupType">
+                <mat-option *ngFor="let company of preferredStartupType" [value]="company">{{company.label}}
+                </mat-option>
+              </mat-select>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Password</mat-label>
-          <input type="{{visibility?'text' : 'password'}}" matInput formControlName="password" />
-          <mat-icon matSuffix class="material-icons-outlined action-icon" (click)="onToggleVisibility()">
-            {{visibility?'visibility_on' : 'visibility_off'}}</mat-icon>
+              <mat-error *ngIf="
+              loginForm.controls['preferredStartupType'].hasError('required') &&
+              loginForm.controls['preferredStartupType'].touched
+            ">Preferred startup type field is required!</mat-error>
+            </mat-form-field>
 
-          <mat-error *ngIf="
-              loginForm.controls['password'].hasError('required') &&
-              loginForm.controls['password'].touched
-            ">Password field is required!</mat-error>
-        </mat-form-field>
+            <mat-form-field appearance="fill" fxFlex="100">
+              <mat-label>Email</mat-label>
+              <input type="text" matInput formControlName="email" />
+              <mat-icon matSuffix class="material-icons-outlined">email</mat-icon>
+
+              <mat-error *ngIf="
+                loginForm.controls['email'].hasError('required') &&
+                loginForm.controls['email'].touched
+              ">Email field is required!</mat-error>
+            </mat-form-field>
+          </section>
+
+          <section fxFlex="{{!isLogin && category == 'Investor'? '45' : '100'}}" fxLayout="column">
+
+            <mat-form-field *ngIf="!this.isLogin" appearance="fill">
+              <mat-label>Last Name</mat-label>
+              <input type="text" matInput formControlName="lastName" />
+              <!-- <mat-icon matSuffix class="material-icons-outlined">email</mat-icon> -->
+
+              <mat-error *ngIf="
+                loginForm.controls['lastName'].hasError('required') &&
+                loginForm.controls['lastName'].touched
+              ">Last Name field is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="!isLogin && category == 'Investor'" appearance="fill">
+              <mat-label>Business</mat-label>
+              <input type="text" matInput formControlName="investorBusiness" />
+              <!-- <mat-icon matSuffix class="material-icons-outlined">email</mat-icon> -->
+
+              <mat-error *ngIf="
+                loginForm.controls['investorBusiness'].hasError('required') &&
+                loginForm.controls['investorBusiness'].touched
+              ">Business field is required!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input type="{{visibility?'text' : 'password'}}" matInput formControlName="password" />
+              <mat-icon matSuffix class="material-icons-outlined action-icon" (click)="onToggleVisibility()">
+                {{visibility?'visibility_on' : 'visibility_off'}}</mat-icon>
+
+              <mat-error *ngIf="
+                loginForm.controls['password'].hasError('required') &&
+                loginForm.controls['password'].touched
+              ">Password field is required!</mat-error>
+            </mat-form-field>
+
+          </section>
+
+        </div>
 
         <button class="login-card-form-btn" mat-button (click)="onLogin()" [disabled]="this.loginForm.invalid">
           {{isLogin?'Login' : 'Sign up'}}
@@ -77,9 +114,9 @@
 <mat-menu #loginMenu="matMenu">
   <section class="menu" fxLayout="column" fxLayoutGap="7px">
     <a class="action-icon" (click)="this.changeSignInType('Company')">{{isLogin?'Login as' : 'Register'}} Company</a>
-    <a class="action-icon" (click)="this.changeSignInType('Investor')">Login as investor</a>
-    <a class="action-icon" (click)="this.changeSignInType('Employee')">Login as employee</a>
-    <a class="action-icon" (click)="this.changeSignInType('Client')">Login as client</a>
+    <a class="action-icon" (click)="this.changeSignInType('Investor')">{{isLogin?'Login' : 'Sign up'}} as investor</a>
+    <a class="action-icon" (click)="this.changeSignInType('Employee')">{{isLogin?'Login' : 'Sign up'}} as employee</a>
+    <a class="action-icon" (click)="this.changeSignInType('Client')">{{isLogin?'Login' : 'Sign up'}} as client</a>
   </section>
 </mat-menu>
 

@@ -34,7 +34,7 @@
 
     &-form{
 
-      width: 300px;
+      min-width: 300px;
       h2{
         @include header;
         margin-bottom: 25px;
@@ -47,6 +47,7 @@
 
       &-btn{
         @include primary-yes-btn;
+        width: 100%;
       }
 
       &-signin-text{
@@ -87,4 +88,5 @@
 
 mat-form-field{
   margin-bottom: 10px;
+  // width: 100%;
 }

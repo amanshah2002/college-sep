@@ -3,7 +3,7 @@ import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { startupCategory } from '../enums/enum.enum';
 
 @Component({
   selector: 'sep-login',
@@ -25,6 +25,15 @@ export class LoginComponent implements OnInit {
   });
   visibility: boolean = false;
   loader: boolean = false;
+
+  preferredStartupType = [
+    { label: 'Tech', value: startupCategory.tech },
+    { label: 'AI', value: startupCategory.AI },
+    { label: 'Finance', value: startupCategory.finance },
+    { label: 'NGO', value: startupCategory.NGO },
+    { label: 'agricultural', value: startupCategory.agriculture },
+    { label: 'E-commerce', value: startupCategory.eCommerce },
+  ];
 
   ngOnInit(): void {
     this.authenticationService.isLoading.subscribe((data) => {
@@ -59,6 +68,8 @@ export class LoginComponent implements OnInit {
       this.loginForm = new FormGroup({
         name: new FormControl(null, Validators.required),
         lastName: new FormControl(null, Validators.required),
+        investorBusiness: new FormControl(null, Validators.required),
+        preferredStartupType: new FormControl(null, Validators.required),
         email: new FormControl(null, Validators.required),
         password: new FormControl(null, Validators.required),
       });

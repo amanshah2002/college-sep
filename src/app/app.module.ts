@@ -17,6 +17,7 @@ import { WaitingListComponent } from './waiting-list/waiting-list.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AwaitConfirmationComponent } from './await-confirmation/await-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     WaitingListComponent,
     DialogComponent,
     EditAccountComponent,
+    AwaitConfirmationComponent,
   ],
   imports: [
     BrowserModule,

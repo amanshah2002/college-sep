@@ -1,8 +1,12 @@
+import { Router } from '@angular/router';
 import { SnacbarService } from './snacbar.service';
 import { CallAPIService } from './../core/call-api-service.service';
 import { Injectable } from '@angular/core';
 import { company } from '../interfaces/interface';
 import { map, of, throwError, catchError } from 'rxjs';
+import { apis } from '../enums/enum.enum';
+import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +14,8 @@ import { map, of, throwError, catchError } from 'rxjs';
 export class CompanyService {
   constructor(
     private callApiService: CallAPIService,
-    private snackbarService: SnacbarService
+    private snackbarService: SnacbarService,
+    private router: Router
   ) {}
 
   companyDetails: company[] = [];
@@ -23,10 +28,6 @@ export class CompanyService {
       this.getWaitingList().subscribe((waitingCompany) => {
         if (company || waitingCompany) {
           companyArray = [company, waitingCompany];
-          console.log(
-            'CompanyService ~ this.getWaitingList ~ companyArray',
-            companyArray
-          );
           companyArray.map((data) => {
             data?.map((element: company) => {
               element?.email.toLowerCase() == companyData?.email.toLowerCase()
@@ -46,7 +47,7 @@ export class CompanyService {
             this.snackbarService.open(
               'Company has been successfully sent to waiting list'
             );
-            this.sendToWaitingList(waitingCompany);
+            this.sendToWaitingList(waitingCompany,companyData);
             return;
           }
         }
@@ -56,7 +57,7 @@ export class CompanyService {
 
   postCompany = (companyArray: company[]) => {
     this.callApiService
-      .callPutAPI('register-company.json', {}, companyArray)
+      .callPutAPI(apis.registerCompany, {}, companyArray)
       .subscribe((data) => {
         console.log(data);
       });
@@ -64,7 +65,7 @@ export class CompanyService {
 
   getCompanies = () => {
     this.companyDetails = [];
-    return this.callApiService.callGetAPI('register-company.json').pipe(
+    return this.callApiService.callGetAPI(apis.registerCompany).pipe(
       map((data) => {
         this.companyDetails = data;
         return this.companyDetails;
@@ -73,23 +74,41 @@ export class CompanyService {
   };
 
 
-  sendToWaitingList = (companyData: company[]) => {
+  sendToWaitingList = (companyData: company[],company?: company | any) => {
     console.log(companyData);
     this.callApiService
-      .callPutAPI('waiting-list.json', {}, companyData)
+      .callPutAPI(apis.waitingList, {}, companyData)
       .subscribe((data) => {
-        // console.log(data);
+        company?
+        this.sendEmail(company) :
+        null;
+        this.router.navigate(['await-confirmation']);
       });
     return;
   };
 
   getWaitingList = () => {
     this.waitingList = [];
-    return this.callApiService.callGetAPI('waiting-list.json').pipe(
+    return this.callApiService.callGetAPI(apis.waitingList).pipe(
       map((data) => {
         this.waitingList = data;
         return this.waitingList;
       })
     );
   };
+
+  sendEmail = (company:company) => {
+    emailjs.send(
+      'service_6yspp6l',
+      'template_pwi242l',
+      company as any,
+      '1zcOXHZVDdsQUjkkk'
+    ).then(
+      (result: EmailJSResponseStatus) => {
+      },
+      (error) => {
+        this.snackbarService.open(error.text);
+      }
+    );
+  }
 }

@@ -82,7 +82,7 @@ export class RegisterCompanyComponent implements OnInit {
     { label: 'Finance', value: startupCategory.finance },
     { label: 'NGO', value: startupCategory.NGO },
     { label: 'agricultural', value: startupCategory.agriculture },
-    { label: 'E-commerce', value: startupCategory['E-commerce'] },
+    { label: 'E-commerce', value: startupCategory.eCommerce },
   ];
 
   ngOnInit(): void {

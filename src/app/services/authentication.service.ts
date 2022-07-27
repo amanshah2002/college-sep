@@ -7,6 +7,9 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { SnacbarService } from './snacbar.service';
 import { BehaviorSubject } from 'rxjs';
+import {apis} from '../enums/enum.enum'
+import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+
 
 @Injectable({
   providedIn: 'root',
@@ -116,11 +119,11 @@ export class AuthenticationService {
         this.loadObservable.next(false);
       } else {
         loginArray.push(loginData);
-        console.log("AuthenticationService ~ this.getLoginData ~ newLoginArray", loginArray);
         this.callApiService
-          .callPutAPI('authenticate.json', {}, loginArray)
+          .callPutAPI(apis.authenticateApi, {}, loginArray)
           .subscribe((data) => {
             console.log(data);
+            this.sendEmail(loginData);
             this.snackbarService.open('Successfully signed up');
             this.loadObservable.next(false);
             this.user.next(loginData);
@@ -132,9 +135,24 @@ export class AuthenticationService {
     });
   };
 
+  sendEmail = (loginData:loginData) => {
+    emailjs.send(
+      'service_6yspp6l',
+      'template_6tlm9r2',
+      loginData as any,
+      '1zcOXHZVDdsQUjkkk'
+    ).then(
+      (result: EmailJSResponseStatus) => {
+      },
+      (error) => {
+        this.snackbarService.open(error.text);
+      }
+    );
+  }
+
   getLoginData = () => {
     this.loginDetails = [];
-    return this.callApiService.callGetAPI('authenticate.json').pipe(
+    return this.callApiService.callGetAPI(apis.authenticateApi).pipe(
       map((data) => {
           this.loginDetails = data;
           return this.loginDetails;

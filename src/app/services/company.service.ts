@@ -1,12 +1,12 @@
+import { company } from './../interfaces/interface';
+import { emailjsIds } from './../enums/enum.enum';
 import { Router } from '@angular/router';
 import { SnacbarService } from './snacbar.service';
 import { CallAPIService } from './../core/call-api-service.service';
 import { Injectable } from '@angular/core';
-import { company } from '../interfaces/interface';
 import { map, of, throwError, catchError } from 'rxjs';
 import { apis } from '../enums/enum.enum';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
-
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +47,7 @@ export class CompanyService {
             this.snackbarService.open(
               'Company has been successfully sent to waiting list'
             );
-            this.sendToWaitingList(waitingCompany,companyData);
+            this.sendToWaitingList(waitingCompany, companyData);
             return;
           }
         }
@@ -59,7 +59,16 @@ export class CompanyService {
     this.callApiService
       .callPutAPI(apis.registerCompany, {}, companyArray)
       .subscribe((data) => {
-        console.log(data);
+        let lastItem = data[data.length - 1];
+        lastItem[
+          'message'
+        ] = `Your company ${lastItem.name} has been approved by our admin staff`;
+        this.sendEmail(
+          lastItem,
+          emailjsIds.companyAddedServiceId,
+          emailjsIds.rejectApproveTemplateId,
+          emailjsIds.companyAddedPublicKey
+        );
       });
   };
 
@@ -73,15 +82,42 @@ export class CompanyService {
     );
   };
 
-
-  sendToWaitingList = (companyData: company[],company?: company | any) => {
+  sendToWaitingList = (
+    companyData: company[],
+    company?: company | any,
+    status?: string
+  ) => {
     console.log(companyData);
+    console.log(company);
+
     this.callApiService
       .callPutAPI(apis.waitingList, {}, companyData)
       .subscribe((data) => {
-        company?
-        this.sendEmail(company) :
-        null;
+        if (company && status != 'rejected') {
+          this.sendEmail(
+            company,
+            emailjsIds.waitingListServiceId,
+            emailjsIds.waitingListTemplateIds,
+            emailjsIds.waitingListPublicKey
+          );
+
+          this.sendEmail(
+            company,
+            emailjsIds.companyAddedServiceId,
+            emailjsIds.companyAddedTemplateId,
+            emailjsIds.companyAddedPublicKey
+          );
+
+        } else if(company && status == 'rejected'){
+          console.log('reject');
+          console.log(company);
+          this.sendEmail(
+            company,
+            emailjsIds.companyAddedServiceId,
+            emailjsIds.rejectApproveTemplateId,
+            emailjsIds.companyAddedPublicKey
+          );
+        }
         this.router.navigate(['await-confirmation']);
       });
     return;
@@ -97,18 +133,17 @@ export class CompanyService {
     );
   };
 
-  sendEmail = (company:company) => {
-    emailjs.send(
-      'service_6yspp6l',
-      'template_pwi242l',
-      company as any,
-      '1zcOXHZVDdsQUjkkk'
-    ).then(
-      (result: EmailJSResponseStatus) => {
-      },
+  sendEmail = (
+    company: company,
+    serviceId: string,
+    templateId: string,
+    publicKey: string
+  ) => {
+    emailjs.send(serviceId, templateId, company as any, publicKey).then(
+      (result: EmailJSResponseStatus) => {},
       (error) => {
         this.snackbarService.open(error.text);
       }
     );
-  }
+  };
 }

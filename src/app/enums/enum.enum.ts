@@ -14,3 +14,14 @@ export enum apis {
   registerCompany = 'register-company.json',
   waitingList = 'waiting-list.json'
 }
+
+export enum emailjsIds{
+  waitingListServiceId = 'service_6yspp6l',
+  waitingListTemplateIds = 'template_pwi242l',
+  waitingListPublicKey = '1zcOXHZVDdsQUjkkk',
+  companyAddedServiceId = 'service_d0o0cjx',
+  companyAddedTemplateId = 'template_tpq5t6m',
+  companyAddedPublicKey = 'enyBqtDwCIoElFhZS',
+  rejectApproveTemplateId = 'template_qoz3r65',
+
+}

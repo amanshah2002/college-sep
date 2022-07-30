@@ -15,6 +15,7 @@ const routes: Routes = [
   {path:'register-company/:id',component:RegisterCompanyComponent},
   {path: 'startups',component:CompanyComponent,canActivate:[AuthGuard]},
   {path: 'edit-account',component:EditAccountComponent,canActivate:[AuthGuard]},
+  {path: 'waiting-list',component:WaitingListComponent,canActivate:[AuthGuard]},
   {path:'await-confirmation',component:AwaitConfirmationComponent}
 ];
 

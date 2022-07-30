@@ -20,6 +20,7 @@ export interface company {
   product: string;
   type: companyCategory;
   dateOfReg: any;
+  message?:string;
 }
 
 export interface companyCategory {

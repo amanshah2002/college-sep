@@ -7,17 +7,17 @@ switch to company -->
 <div class="info-card" fxLayoutAlign="center center">
   <mat-card>
     <form action="" fxLayout="column">
-      <mat-form-field appearance="fill">
+      <mat-form-field [appearance]="appearance">
         <mat-label>Name</mat-label>
         <input matInput [value]="user.name">
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field [appearance]="appearance">
         <mat-label>Email</mat-label>
         <input matInput [value]="user.email">
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field [appearance]="appearance">
         <mat-label>Last name</mat-label>
         <input matInput [value]="user.lastName">
       </mat-form-field>

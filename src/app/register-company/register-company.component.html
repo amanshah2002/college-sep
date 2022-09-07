@@ -1,12 +1,12 @@
 <div class="reg-company" fxLayoutAlign="center center">
   <mat-card class="reg-company-card">
-    <h2 class="reg-company-card-header">Register Company</h2>
-    <p class="reg-company-card-subheader">You can register with us by filling this form.</p>
+    <h2 class="reg-company-card-header">{{isEdit? 'Edit Company' : 'Register Company'}}</h2>
+    <p class="reg-company-card-subheader">{{isEdit? 'Edit your company details.' : 'You can register with us by filling this form.'}}</p>
 
     <form fxLayout="column" [formGroup]="registerCompanyForm">
 
       <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Name of Company</mat-label>
           <input type="text" matInput formControlName="name">
           <mat-error *ngIf="
@@ -15,7 +15,7 @@
     ">Name field is required!</mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Founder</mat-label>
           <input type="text" matInput formControlName="founder">
           <mat-error *ngIf="
@@ -26,7 +26,7 @@
       </section>
 
       <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Email</mat-label>
           <input type="text" matInput formControlName="email">
           <mat-error *ngIf="
@@ -40,7 +40,7 @@
     ">Please enter valid email format!</mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Password</mat-label>
           <input type="text" matInput formControlName="password">
           <mat-error *ngIf="
@@ -51,7 +51,7 @@
       </section>
 
       <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Website</mat-label>
           <input type="text" matInput formControlName="website">
           <mat-error *ngIf="
@@ -60,7 +60,7 @@
     ">Website field is required!</mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Qr Code Link</mat-label>
           <input type="text" matInput formControlName="qrCode">
           <mat-error *ngIf="
@@ -71,7 +71,7 @@
       </section>
 
       <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Description</mat-label>
           <input type="text" matInput formControlName="description">
           <mat-error *ngIf="
@@ -80,7 +80,7 @@
     ">Description field is required!</mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Product</mat-label>
           <input type="text" matInput formControlName="product">
           <mat-error *ngIf="
@@ -91,7 +91,7 @@
       </section>
 
       <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Type</mat-label>
           <!-- <input type="text" matInput> -->
 
@@ -105,7 +105,7 @@
     ">Type field is required!</mat-error>
         </mat-form-field>
 
-        <mat-form-field fxFlex="45" appearance="fill">
+        <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Date of Registration</mat-label>
           <input type="text" matInput [matDatepicker]="picker" formControlName="dateOfReg">
           <mat-error *ngIf="

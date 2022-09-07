@@ -19,7 +19,8 @@ export class LayoutComponent implements OnInit {
     { label: 'agricultural', value: startupCategory.agriculture }
   ];
 
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
+
   user: loginData = {};
 
   ngOnInit(): void {

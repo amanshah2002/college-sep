@@ -7,9 +7,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { SnacbarService } from './snacbar.service';
 import { BehaviorSubject } from 'rxjs';
-import {apis} from '../enums/enum.enum'
+import { apis } from '../enums/enum.enum';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
-
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +29,7 @@ export class AuthenticationService {
   loggedIn = new BehaviorSubject<boolean>(false);
   isLoggedIn = this.loggedIn.asObservable();
 
-  login = (loginData: loginData) => {
+  login = (loginData: loginData, rememberMe: boolean) => {
     this.loadObservable.next(true);
     let flag: any = null;
 
@@ -46,25 +45,13 @@ export class AuthenticationService {
 
         if (flag) {
           if (flag.password == loginData.password) {
-            this.snackbarService.open('Logged in successfully');
-            this.loadObservable.next(false);
-            this.loggedIn.next(true);
-            this.user.next(flag);
-            sessionStorage.setItem('user', JSON.stringify(flag));
-            this.router.navigate(['startups']);
-            return;
+            this.successfulLogin(flag,rememberMe);
           } else {
-            this.snackbarService.open('Email or password is incorrect');
-            this.loadObservable.next(false);
-            this.loggedIn.next(false);
+            this.unSuccessfulLogin('Email or password is incorrect');
             return;
           }
         } else {
-          this.snackbarService.open(
-            'User does not exist, please sign up first or edit your role'
-          );
-          this.loadObservable.next(false);
-          this.loggedIn.next(false);
+         this.unSuccessfulLogin('User does not exist, please sign up first or edit your role');
         }
       });
     } else {
@@ -78,17 +65,9 @@ export class AuthenticationService {
 
         if (flag) {
           if (flag.password == loginData.password) {
-            this.snackbarService.open('Logged in successfully');
-            this.loadObservable.next(false);
-            this.user.next(flag);
-            this.loggedIn.next(true);
-            sessionStorage.setItem('user', JSON.stringify(flag));
-            this.router.navigate(['startups']);
-            return;
+           this.successfulLogin(flag,rememberMe);
           } else {
-            this.snackbarService.open('Email or password is incorrect');
-            this.loadObservable.next(false);
-            this.loggedIn.next(false);
+         this.unSuccessfulLogin('Email or password is incorrect');
             return;
           }
         } else {
@@ -101,8 +80,8 @@ export class AuthenticationService {
     }
   };
 
-  signUp = (loginData: loginData) => {
-    let loginArray:any[] = [];
+  signUp = (loginData: loginData, rememberMe: boolean) => {
+    let loginArray: any[] = [];
     this.loadObservable.next(true);
     let flag = 0;
     this.getLoginData().subscribe((data) => {
@@ -127,7 +106,9 @@ export class AuthenticationService {
             this.snackbarService.open('Successfully signed up');
             this.loadObservable.next(false);
             this.user.next(loginData);
-            sessionStorage.setItem('user', JSON.stringify(loginData));
+            rememberMe
+              ? localStorage.setItem('user', JSON.stringify(flag))
+              : sessionStorage.setItem('user', JSON.stringify(flag));
             this.loggedIn.next(true);
             this.router.navigate(['startups']);
           });
@@ -135,33 +116,36 @@ export class AuthenticationService {
     });
   };
 
-  sendEmail = (loginData:loginData) => {
-    emailjs.send(
-      'service_6yspp6l',
-      'template_6tlm9r2',
-      loginData as any,
-      '1zcOXHZVDdsQUjkkk'
-    ).then(
-      (result: EmailJSResponseStatus) => {
-      },
-      (error) => {
-        this.snackbarService.open(error.text);
-      }
-    );
-  }
+  sendEmail = (loginData: loginData) => {
+    emailjs
+      .send(
+        'service_6yspp6l',
+        'template_6tlm9r2',
+        loginData as any,
+        '1zcOXHZVDdsQUjkkk'
+      )
+      .then(
+        (result: EmailJSResponseStatus) => {},
+        (error) => {
+          this.snackbarService.open(error.text);
+        }
+      );
+  };
 
   getLoginData = () => {
     this.loginDetails = [];
     return this.callApiService.callGetAPI(apis.authenticateApi).pipe(
       map((data) => {
-          this.loginDetails = data;
-          return this.loginDetails;
+        this.loginDetails = data;
+        return this.loginDetails;
       })
     );
   };
 
   autoLogin = () => {
-    const user = JSON.parse(sessionStorage.getItem('user') || 'null');
+    const user =
+      JSON.parse(sessionStorage.getItem('user') || 'null') ||
+      JSON.parse(localStorage.getItem('user') || 'null');
     if (user) {
       this.user.next(user);
       this.loggedIn.next(true);
@@ -174,8 +158,29 @@ export class AuthenticationService {
 
   logout = () => {
     sessionStorage.removeItem('user');
+    localStorage.removeItem('user');
     this.user.next({});
     this.loggedIn.next(false);
     this.router.navigate(['/login']).then(() => location.reload());
   };
+
+  successfulLogin = (flag: any,rememberMe:boolean) => {
+    this.snackbarService.open('Logged in successfully');
+    this.loadObservable.next(false);
+    this.loggedIn.next(true);
+    this.user.next(flag);
+    rememberMe
+      ? localStorage.setItem('user', JSON.stringify(flag))
+      : sessionStorage.setItem('user', JSON.stringify(flag));
+    this.router.navigate(['startups']);
+    return;
+  };
+
+
+  unSuccessfulLogin = (message:string) => {
+    this.snackbarService.open(message);
+    this.loadObservable.next(false);
+    this.loggedIn.next(false);
+    return;
+  }
 }

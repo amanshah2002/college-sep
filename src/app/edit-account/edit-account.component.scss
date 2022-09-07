@@ -11,9 +11,19 @@
 }
 
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
-  border-radius: 20px !important;
+  // border-radius: 20px !important;
 }
 
 ::ng-deep .mat-form-field-underline {
   width: 0 !important;
+}
+
+.sidenav{
+  position: fixed;
+  height: 93.4%;
+  // z-index: 9999;
+  width: 10%;
+  top: 65px;
+  background-color: $black;
+  border-radius: 5px;
 }

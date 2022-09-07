@@ -1,29 +1,66 @@
 <div class="layout">
-  <mat-toolbar *ngIf="this.isLoggedIn" class="layout-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
-    <!-- <mat-form-field>
-      <mat-label>Filter Companies</mat-label>
-      <mat-option *ngFor="let type of startupType" [value]="type.value">{{type.label}}</mat-option>
-      <mat-select>
-      </mat-select>
-    </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Search Companies</mat-label>
-      <input matInput>
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field> -->
-    <h2 class="layout-header action-icon" fxLayoutAlign="center center">
-      <button mat-icon-button routerLink="edit-account">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-      Account
-    </h2>
-    <h2 class="layout-header">Welcome {{this.user?.name}}</h2>
-    <button mat-button class="layout-header" (click)="onLogout()">Logout</button>
 
-  </mat-toolbar>
+  <mat-drawer-container class="layout-sidenav-container" autosize [hasBackdrop]="false">
+    <mat-drawer class="layout-sidenav" #drawer mode="side" [opened]="isLoggedIn? true : false">
+      <section fxLayoutAlign="end">
+        <mat-icon class="action-icon close-sidenav" (click)="drawer.close()">close</mat-icon>
+      </section>
 
-  <div [class.layout-content]="isLoggedIn">
-    <ng-content></ng-content>
-  </div>
+      <section fxLayout="column">
+        <p routerLink="startups" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+          <button mat-icon-button>
+            <mat-icon>home</mat-icon>
+          </button>
+          Home
+        </p>
+
+        <p routerLink="edit-account" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+          <button mat-icon-button>
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          My account
+        </p>
+
+        <p routerLink="edit-account" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+          <button mat-icon-button>
+            <mat-icon>account_circle</mat-icon>
+          </button>
+          lorem
+        </p>
+
+        <p routerLink="edit-account" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+          <button mat-icon-button>
+            <mat-icon>account_circle</mat-icon>
+          </button>
+         lorem
+        </p>
+      </section>
+    </mat-drawer>
+
+    <mat-toolbar *ngIf="this.isLoggedIn" class="layout-toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+      <!-- <mat-form-field>
+          <mat-label>Filter Companies</mat-label>
+          <mat-option *ngFor="let type of startupType" [value]="type.value">{{type.label}}</mat-option>
+          <mat-select>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Search Companies</mat-label>
+          <input matInput>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field> -->
+
+        <button mat-button (click)="drawer.open()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      <h2 class="layout-header">Welcome {{this.user?.name}}</h2>
+      <button mat-button class="layout-header" (click)="onLogout()">Logout</button>
+
+    </mat-toolbar>
+    <div [class.layout-content]="isLoggedIn">
+      <ng-content></ng-content>
+    </div>
+  </mat-drawer-container>
 </div>

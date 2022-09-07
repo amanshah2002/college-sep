@@ -1,25 +1,42 @@
 @import '../../../styles/main.scss';
 .layout{
+
+  &-sidenav-container{
+    height: 100vh;
+    // border-radius: 10px;
+    // margin-left: 3px;
+  }
+
+  &-sidenav{
+    width: 14vw;
+    background-color: #4b4b4b;
+    color: $white;
+    padding: 5px;
+
+    &-header{
+      font-size: 15px;
+      button{
+        mat-icon{
+          font-size: 20px;
+          margin-right: 1rem;
+          margin-bottom: 3px;
+        }
+      }
+    }
+  }
+
+
   &-toolbar{
     background-color: $black;
     color: $white;
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     z-index: 99;
-  }
-
-  &-header{
-    button{
-      mat-icon{
-        font-size: 29px;
-        margin-right: 1rem;
-        margin-bottom: 3px;
-      }
-    }
+    // width: 90vw;
   }
 
   &-content{
-    margin-top: 85px;
+    margin-top: 68px;
   }
 }

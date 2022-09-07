@@ -18,6 +18,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { company } from '../interfaces/interface';
 import { startupCategory } from '../enums/enum.enum';
 import { catchError } from 'rxjs';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 const moment = _moment;
 export const MY_FORMATS = {
@@ -58,6 +59,7 @@ export class RegisterCompanyComponent implements OnInit {
   isEdit: boolean = false;
   companyArray:company[] = [];
   company:any;
+  appearance:MatFormFieldAppearance = 'outline'
 
   registerCompanyForm = new FormGroup({
     name: new FormControl(null, Validators.required),

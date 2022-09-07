@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { loginData } from '../interfaces/interface';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -12,7 +13,7 @@ export class EditAccountComponent implements OnInit {
   constructor(private authService: AuthenticationService) { }
 
   user:loginData = {};
-
+  appearance:MatFormFieldAppearance = 'outline'
   ngOnInit(): void {
     this.getUser();
   }

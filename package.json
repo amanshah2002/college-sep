@@ -24,6 +24,7 @@
     "@angular/router": "~13.2.0",
     "@emailjs/browser": "^3.6.2",
     "angular2-qrcode": "^2.0.3",
+    "country-state-city": "^3.1.2",
     "emailjs-com": "^3.2.0",
     "moment": "^2.29.3",
     "rxjs": "~7.5.0",
@@ -31,7 +32,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~13.2.4",
+    "@angular-devkit/build-angular": "^13.3.9",
     "@angular/cli": "~13.2.4",
     "@angular/compiler-cli": "~13.2.0",
     "@types/jasmine": "~3.10.0",

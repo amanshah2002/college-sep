@@ -1,5 +1,5 @@
 <div class="login" fxLayoutAlign="center center">
-  <mat-card class="login-card">
+  <mat-card [class.login-card]="isLogin" [class.login-card-width]="!isLogin">
     <p class="login-card-banner action-icon" [mat-menu-trigger-for]="loginMenu">
       {{ category }}
     </p>
@@ -14,14 +14,12 @@
       <form [formGroup]="loginForm">
 
         <div fxLayout="{{!isLogin && category == 'Investor'? 'row' : 'column'}}"
-          fxLayout.lt-md="column"
           fxLayoutAlign="{{!isLogin && category == 'Investor'? 'space-between center' : null}}">
 
           <section fxFlex="{{!isLogin && category == 'Investor'? '45' : '100'}}" fxLayout="column">
             <mat-form-field *ngIf="!this.isLogin" [appearance]="appearance">
               <mat-label>Name</mat-label>
               <input type="text" matInput formControlName="name" />
-              <!-- <mat-icon matSuffix class="material-icons-outlined">email</mat-icon> -->
 
               <mat-error *ngIf="
                 loginForm.controls['name'].hasError('required') &&
@@ -29,7 +27,8 @@
               ">Name field is required!</mat-error>
             </mat-form-field>
 
-            <mat-form-field *ngIf="!isLogin && category == 'Investor'" [appearance]="appearance" matTooltip="Preferred company type">
+            <mat-form-field *ngIf="!isLogin && category == 'Investor'" [appearance]="appearance"
+              matTooltip="Preferred company type">
               <mat-label>Preferred company type</mat-label>
               <mat-select formControlName="preferredStartupType">
                 <mat-option *ngFor="let company of preferredStartupType" [value]="company">{{company.label}}
@@ -41,6 +40,44 @@
               loginForm.controls['preferredStartupType'].touched
             ">Preferred startup type field is required!</mat-error>
             </mat-form-field>
+
+            <mat-form-field *ngIf="!isLogin" [appearance]="appearance" fxFlex="100">
+              <mat-label>Country</mat-label>
+              <mat-select formControlName="country" (selectionChange)="onCountrySelect()">
+                <mat-option *ngFor="let country of countries" [value]="country?.isoCode">
+                  {{country?.name}}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="
+                loginForm.controls['country'].hasError('required') &&
+                loginForm.controls['country'].touched
+              ">Country field is required!</mat-error>
+            </mat-form-field>
+
+            <!-- <mat-form-field *ngIf="!isLogin" [appearance]="appearance" fxFlex="100">
+              <mat-label>City</mat-label>
+              <mat-select formControlName="city">
+                <mat-option *ngFor="let city of cities" [value]="city?.stateCode">
+                  {{city?.name}}
+                </mat-option>
+              </mat-select>
+
+              <mat-error *ngIf="
+                loginForm.controls['city'].hasError('required') &&
+                loginForm.controls['city'].touched
+              ">City field is required!</mat-error>
+            </mat-form-field> -->
+
+            <!-- <mat-form-field *ngIf="!isLogin" [appearance]="appearance" fxFlex="100">
+              <mat-label>Address</mat-label>
+              <textarea type="text" matInput formControlName="address" rows="1"></textarea>
+
+              <mat-error *ngIf="
+                loginForm.controls['address'].hasError('required') &&
+                loginForm.controls['address'].touched
+              ">Address field is required!</mat-error>
+            </mat-form-field> -->
 
             <mat-form-field [appearance]="appearance" fxFlex="100">
               <mat-label>Email</mat-label>
@@ -59,7 +96,6 @@
             <mat-form-field *ngIf="!this.isLogin" [appearance]="appearance">
               <mat-label>Last Name</mat-label>
               <input type="text" matInput formControlName="lastName" />
-              <!-- <mat-icon matSuffix class="material-icons-outlined">email</mat-icon> -->
 
               <mat-error *ngIf="
                 loginForm.controls['lastName'].hasError('required') &&
@@ -70,13 +106,47 @@
             <mat-form-field *ngIf="!isLogin && category == 'Investor'" [appearance]="appearance">
               <mat-label>Business</mat-label>
               <input type="text" matInput formControlName="investorBusiness" />
-              <!-- <mat-icon matSuffix class="material-icons-outlined">email</mat-icon> -->
 
               <mat-error *ngIf="
                 loginForm.controls['investorBusiness'].hasError('required') &&
                 loginForm.controls['investorBusiness'].touched
               ">Business field is required!</mat-error>
             </mat-form-field>
+
+            <mat-form-field *ngIf="!isLogin" [appearance]="appearance">
+              <mat-label>State</mat-label>
+              <mat-select formControlName="state" (selectionChange)="onStateSelect()">
+                <mat-option *ngFor="let state of states" [value]="state?.isoCode">
+                  {{state?.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="
+                loginForm.controls['state'].hasError('required') &&
+                loginForm.controls['state'].touched
+              ">State field is required!</mat-error>
+            </mat-form-field>
+
+            <!-- <mat-form-field *ngIf="!isLogin" [appearance]="appearance">
+              <mat-label>Zip Code</mat-label>
+              <input matInput formControlName="zipCode" />
+
+              <mat-error *ngIf="
+                loginForm.controls['zipCode'].hasError('required') &&
+                loginForm.controls['zipCode'].touched
+              ">Zip code field is required!</mat-error>
+            </mat-form-field> -->
+
+            <!-- <mat-form-field *ngIf="!isLogin" [appearance]="appearance"> -->
+              <!-- <mat-label>Contact Number</mat-label>
+              <span *ngIf="isFocus" matPrefix class="phonecode">{{'+' + phoneCode}}</span>
+              <input matInput formControlName="contactNumber" (focus)="toggleContactNumberFocus()"
+                (blur)="toggleContactNumberFocus()" />
+
+              <mat-error *ngIf="
+                loginForm.controls['contactNumber'].hasError('required') &&
+                loginForm.controls['contactNumber'].touched
+              ">Zip code field is required!</mat-error>
+            </mat-form-field> -->
 
             <mat-form-field [appearance]="appearance">
               <mat-label>Password</mat-label>
@@ -119,5 +189,3 @@
     <a class="action-icon" (click)="this.changeSignInType('Client')">{{isLogin?'Login' : 'Sign up'}} as client</a>
   </section>
 </mat-menu>
-
-<!-- TODO: add guard to login page -->

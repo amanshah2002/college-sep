@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { startupCategory } from '../enums/enum.enum';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { Country, State, City, ICountry, IState, ICity }  from 'country-state-city';
+
 
 @Component({
   selector: 'sep-login',
@@ -29,6 +31,11 @@ export class LoginComponent implements OnInit {
   loader: boolean = false;
 
   rememberMe:boolean = false;
+  countries:ICountry[] = [];
+  states:IState[] = [];
+  cities:ICity[] =[];
+  phoneCode:string | undefined = '';
+  isFocus = false;
 
   preferredStartupType = [
     { label: 'Tech', value: startupCategory.tech },
@@ -40,6 +47,7 @@ export class LoginComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.getCountries();
     this.authenticationService.isLoading.subscribe((data) => {
       this.loader = data;
     });
@@ -76,6 +84,12 @@ export class LoginComponent implements OnInit {
         preferredStartupType: new FormControl(null, Validators.required),
         email: new FormControl(null, Validators.required),
         password: new FormControl(null, Validators.required),
+        country: new FormControl(null, Validators.required),
+        state: new FormControl(null, Validators.required),
+        city: new FormControl(null, Validators.required),
+        zipCode: new FormControl(null, Validators.required),
+        address: new FormControl(null, Validators.required),
+        contactNumber: new FormControl(null, Validators.required),
       });
 
       if (this.category == 'Company') {
@@ -92,6 +106,24 @@ export class LoginComponent implements OnInit {
   onCheck = (event:MatCheckboxChange) => {
     console.log(event);
     this.rememberMe = event.checked;
-    console.log("LoginComponent ~ this.rememberMe", this.rememberMe);
+  }
+
+  getCountries = () => {
+    this.countries = Country.getAllCountries();
+  }
+
+  onCountrySelect = () => {
+    let selectedCountry = this.loginForm.value?.country;
+    this.states = State.getStatesOfCountry(selectedCountry);
+    this.phoneCode = Country.getCountryByCode(selectedCountry)?.phonecode;
+    console.log("LoginComponent ~ this.phoneCode ", this.phoneCode );
+  }
+
+  onStateSelect = () => {
+    this.cities = City.getCitiesOfState(this.loginForm.value?.country,this.loginForm.value?.state);
+  }
+
+  toggleContactNumberFocus = () => {
+    this.isFocus = !this.isFocus;
   }
 }

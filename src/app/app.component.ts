@@ -1,3 +1,4 @@
+import { CallAPIService } from './core/call-api-service.service';
 import { AuthenticationService } from './services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 
 export class AppComponent implements OnInit{
 
-  constructor(private authenticationService:AuthenticationService){}
+  constructor(
+    private authenticationService:AuthenticationService){}
   ngOnInit(): void {
     this.authenticationService.autoLogin();
   }

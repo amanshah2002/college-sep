@@ -7,6 +7,12 @@ export interface loginData {
   type?: string;
   preferredStartupType?: companyCategory;
   business?: string;
+  state?:string;
+  country?:string;
+  city?:string;
+  zipCode?:string;
+  address?:string;
+  contactNumber?:string;
 }
 
 export interface company {
@@ -27,3 +33,22 @@ export interface companyCategory {
   label:string,
   value:number
 }
+
+// export interface countries {
+//   isoCode: string;
+//   name: string;
+//   phonecode: string;
+//   flag: string;
+//   currency: string;
+//   latitude: string;
+//   longitude: string;
+//   timezones: Timezone[];
+// }
+
+// export interface Timezone {
+//   zoneName: string;
+//   gmtOffset: number;
+//   gmtOffsetName: string;
+//   abbreviation: string;
+//   tzName: string;
+// }

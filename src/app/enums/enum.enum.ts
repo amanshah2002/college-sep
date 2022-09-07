@@ -12,7 +12,8 @@ export enum apis {
   // signUp = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC4_HC3tgYLIi2eJjU00GXJYLrhpjCIcUo'
   authenticateApi = 'authenticate.json',
   registerCompany = 'register-company.json',
-  waitingList = 'waiting-list.json'
+  waitingList = 'waiting-list.json',
+  getCountry = 'https://api.countrystatecity.in/v1/countries',
 }
 
 export enum emailjsIds{

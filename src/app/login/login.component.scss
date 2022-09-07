@@ -61,6 +61,10 @@
         }
       }
 
+      .phonecode{
+        display: flex;
+      }
+
     }
   }
 
@@ -92,4 +96,70 @@ mat-form-field{
   margin-bottom: 10px;
   // max-width: 70%;
   // margin: 0 auto 10px;
+}
+
+.login-card-width{
+  position: relative;
+    @include card;
+    width: 40vw;
+    min-width: 470px;
+    // max-width: 400px;
+    padding: 25px 20px;
+    max-height: 720px;
+
+    &-toggle{
+      width: fit-content;
+      margin: 0 auto;
+      position: absolute;
+      top: -17px;
+      left: 36%;
+    }
+
+    &-banner{
+      background-color: $black;
+      color: $white;
+      padding: 7px;
+      border-radius: 25px;
+      font-size: 18px;
+      left: 41.5%;
+      margin: 0 auto;
+      display: block;
+      position: absolute;
+      top: -17px;
+      box-shadow: 5px 15px 30px $primary-shadow;
+    }
+
+    &-form{
+
+      min-width: 300px;
+      h2{
+        @include header;
+        margin-bottom: 25px;
+      }
+
+      p{
+        color: $text-grey;
+        margin-bottom: 25px;
+      }
+
+      &-btn{
+        @include primary-yes-btn;
+        width: 100%;
+        margin-top: 24px;
+      }
+
+      &-signin-text{
+        margin-top: 20px;
+        color: $text-grey;
+
+        a{
+          color: $black;
+        }
+      }
+
+      .phonecode{
+        display: flex;
+      }
+
+    }
 }

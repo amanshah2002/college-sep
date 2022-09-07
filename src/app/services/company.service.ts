@@ -52,7 +52,7 @@ export class CompanyService {
           }
         }
       });
-    }); //TODO: repeat email not allowed on register company to be implemented.
+    });
   };
 
   postCompany = (companyArray: company[]) => {

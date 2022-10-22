@@ -1,3 +1,4 @@
+import { EditCompanyAccountComponent } from './edit-account/edit-company-account/edit-company-account.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -30,6 +31,7 @@ import { AwaitConfirmationComponent } from './await-confirmation/await-confirmat
     DialogComponent,
     EditAccountComponent,
     AwaitConfirmationComponent,
+    EditCompanyAccountComponent
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,8 @@ export interface loginData {
   lastName?: string;
   email?: string;
   password?: string;
-  type?: string;
+  categoryType?: string;
+  // type?:string;
   preferredStartupType?: companyCategory;
   business?: string;
   state?:string;
@@ -27,6 +28,7 @@ export interface company {
   type: companyCategory;
   dateOfReg: any;
   message?:string;
+  categoryType:string
 }
 
 export interface companyCategory {

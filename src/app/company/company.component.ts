@@ -1,11 +1,12 @@
+import { loginData } from './../interfaces/interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from './../services/company.service';
 import { Component, OnInit } from '@angular/core';
-import { company, companyCategory } from '../interfaces/interface';
+import { company } from '../interfaces/interface';
 import { startupCategory } from '../enums/enum.enum';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../shared/dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'sep-company',
@@ -18,7 +19,7 @@ export class CompanyComponent implements OnInit {
     private dialog: MatDialog,
     private snackbarService: MatSnackBar,
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
   ) {}
 
   companyArray: company[] = [];
@@ -27,7 +28,6 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchCompanies();
-    console.log(this.companyType);
   }
 
   fetchCompanies = () => {
@@ -40,30 +40,26 @@ export class CompanyComponent implements OnInit {
     });
   };
 
-  onDelete = (index: number) => {
-    this.dialog
-      .open(DialogComponent, {
-        data: {
-          heading: 'Are you sure',
-          content: 'Are you sure you want to delete this company?',
-          button: 2,
-        },
-        autoFocus: false,
-      })
-      .afterClosed()
-      .subscribe((data) => {
-        if (data) {
-          this.companyArray.splice(index, 1);
-          this.companyService.postCompany(this.companyArray);
-          this.snackbarService.open('Company deleted successfully!');
-          return;
-        } else {
-          return;
-        }
-      });
-  };
-
-  onEdit = (index:number) => {
-    this.router.navigate(['register-company',index])
-  }
+  // onDelete = (index: number) => {
+  //   this.dialog
+  //     .open(DialogComponent, {
+  //       data: {
+  //         heading: 'Are you sure',
+  //         content: 'Are you sure you want to delete this company?',
+  //         button: 2,
+  //       },
+  //       autoFocus: false,
+  //     })
+  //     .afterClosed()
+  //     .subscribe((data) => {
+  //       if (data) {
+  //         this.companyArray.splice(index, 1);
+  //         this.companyService.postCompany(this.companyArray);
+  //         this.snackbarService.open('Company deleted successfully!');
+  //         return;
+  //       } else {
+  //         return;
+  //       }
+  //     });
+  // };
 }

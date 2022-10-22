@@ -24,5 +24,17 @@ export enum emailjsIds{
   companyAddedTemplateId = 'template_tpq5t6m',
   companyAddedPublicKey = 'enyBqtDwCIoElFhZS',
   rejectApproveTemplateId = 'template_qoz3r65',
+}
 
+export enum accountType {
+  investor = 'Investor',
+  company = 'Company',
+  employee = 'Employee',
+  client = 'Client',
+}
+
+export enum companyAction {
+  approved = 'Approved',
+  deleted = 'Delete',
+  update = 'Update',
 }

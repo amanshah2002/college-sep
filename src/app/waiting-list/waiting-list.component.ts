@@ -1,6 +1,6 @@
 import { CompanyService } from './../services/company.service';
 import { Component, OnInit } from '@angular/core';
-import { emailjsIds, startupCategory } from '../enums/enum.enum';
+import { companyAction, emailjsIds, startupCategory } from '../enums/enum.enum';
 import { company } from '../interfaces/interface';
 
 @Component({
@@ -41,7 +41,7 @@ export class WaitingListComponent implements OnInit {
   onApprove = (company: company, index: number) => {
     this.companyArray.push(company);
     console.log('WaitingListComponent ~  this.companyArray', this.companyArray);
-    this.companyService.postCompany(this.companyArray);
+    this.companyService.postCompany(this.companyArray,companyAction.approved);
     this.onReject(index);
   };
 

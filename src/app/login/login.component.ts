@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { startupCategory } from '../enums/enum.enum';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { Country, State, City, ICountry, IState, ICity }  from 'country-state-city';
+import { Country, State, ICountry, IState }  from 'country-state-city';
 
 
 @Component({
@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   rememberMe:boolean = false;
   countries:ICountry[] = [];
   states:IState[] = [];
-  cities:ICity[] =[];
   phoneCode:string | undefined = '';
   isFocus = false;
 
@@ -67,7 +66,7 @@ export class LoginComponent implements OnInit {
   };
 
   onLogin = () => {
-    const loginDetails = { ...this.loginForm.value, type: this.category };
+    const loginDetails = { ...this.loginForm.value, categoryType: this.category };
 
     this.isLogin
       ? this.authenticationService.login(loginDetails,this.rememberMe)
@@ -86,7 +85,7 @@ export class LoginComponent implements OnInit {
         password: new FormControl(null, Validators.required),
         country: new FormControl(null, Validators.required),
         state: new FormControl(null, Validators.required),
-        city: new FormControl(null, Validators.required),
+        // city: new FormControl(null, Validators.required),
         zipCode: new FormControl(null, Validators.required),
         address: new FormControl(null, Validators.required),
         contactNumber: new FormControl(null, Validators.required),
@@ -119,9 +118,9 @@ export class LoginComponent implements OnInit {
     console.log("LoginComponent ~ this.phoneCode ", this.phoneCode );
   }
 
-  onStateSelect = () => {
-    this.cities = City.getCitiesOfState(this.loginForm.value?.country,this.loginForm.value?.state);
-  }
+  // onStateSelect = () => {
+  //   this.cities = City.getCitiesOfState(this.loginForm.value?.country,this.loginForm.value?.state);
+  // }
 
   toggleContactNumberFocus = () => {
     this.isFocus = !this.isFocus;

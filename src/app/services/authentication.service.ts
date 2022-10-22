@@ -33,12 +33,12 @@ export class AuthenticationService {
     this.loadObservable.next(true);
     let flag: any = null;
 
-    if (loginData.type != 'Company') {
+    if (loginData.categoryType != 'Company') {
       this.getLoginData().subscribe((data) => {
         console.log(data);
         data.map((user: loginData) => {
-          user.email?.toLowerCase() == loginData.email?.toLowerCase() &&
-          user.type?.toLowerCase() == loginData.type?.toLowerCase()
+          user?.email?.toLowerCase() == loginData.email?.toLowerCase() &&
+          user?.categoryType?.toLowerCase() == loginData.categoryType?.toLowerCase()
             ? (flag = user)
             : null;
         });

@@ -1,5 +1,5 @@
 import { company } from './../interfaces/interface';
-import { emailjsIds } from './../enums/enum.enum';
+import { emailjsIds, companyAction } from './../enums/enum.enum';
 import { Router } from '@angular/router';
 import { SnacbarService } from './snacbar.service';
 import { CallAPIService } from './../core/call-api-service.service';
@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { map, of, throwError, catchError } from 'rxjs';
 import { apis } from '../enums/enum.enum';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class CompanyService {
   constructor(
     private callApiService: CallAPIService,
     private snackbarService: SnacbarService,
-    private router: Router
+    private router: Router,
   ) {}
 
   companyDetails: company[] = [];
@@ -55,20 +56,37 @@ export class CompanyService {
     });
   };
 
-  postCompany = (companyArray: company[]) => {
+  postCompany = (companyArray: company[],action:string) => {
     this.callApiService
       .callPutAPI(apis.registerCompany, {}, companyArray)
       .subscribe((data) => {
-        let lastItem = data[data.length - 1];
-        lastItem[
-          'message'
-        ] = `Your company ${lastItem.name} has been approved by our admin staff`;
-        this.sendEmail(
-          lastItem,
-          emailjsIds.companyAddedServiceId,
-          emailjsIds.rejectApproveTemplateId,
-          emailjsIds.companyAddedPublicKey
-        );
+        switch (action) {
+          case companyAction.approved:
+            let lastItem = data[data.length - 1];
+            lastItem[
+              'message'
+            ] = `Your company ${lastItem.name} has been approved by our admin staff`;
+            this.sendEmail(
+              lastItem,
+              emailjsIds.companyAddedServiceId,
+              emailjsIds.rejectApproveTemplateId,
+              emailjsIds.companyAddedPublicKey
+            );
+            break;
+
+            case companyAction.deleted:
+              this.snackbarService.open('Account Deleted!');
+              localStorage.removeItem('user');
+              sessionStorage.removeItem('user');
+              location.reload();
+              break;
+
+            case companyAction.update:
+              this.snackbarService.open('Company updated');
+              break;
+          default:
+            break;
+        }
       });
   };
 

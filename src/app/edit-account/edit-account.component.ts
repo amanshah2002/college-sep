@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { accountType } from '../enums/enum.enum';
 import { loginData } from '../interfaces/interface';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -11,18 +11,23 @@ import { AuthenticationService } from '../services/authentication.service';
 export class EditAccountComponent implements OnInit {
 
   constructor(private authService: AuthenticationService) { }
-
   user:loginData = {};
-  appearance:MatFormFieldAppearance = 'outline'
+  userType:string | undefined = '';
+  accountType = accountType;
+
   ngOnInit(): void {
     this.getUser();
   }
+
 
   getUser = () => {
     this.authService.getUser.subscribe(user => {
       console.log(user);
       this.user = user;
+      this.userType = user.categoryType;
     })
   }
+
+
 
 }

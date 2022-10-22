@@ -1,11 +1,12 @@
-<div class="reg-company" fxLayoutAlign="center center">
-  <mat-card class="reg-company-card">
-    <h2 class="reg-company-card-header">Register Company</h2>
-    <p class="reg-company-card-subheader">You can register with us by filling this form</p>
+<div class="reg-company" fxLayout="column">
+  <section class="reg-company-header">
+    <h2 class="reg-company-header-primary">Edit Company</h2>
+    <p class="reg-company-header-secondary">You can edit your company details here</p>
+  </section>
 
+  <div class="reg-company-card">
     <form fxLayout="column" [formGroup]="registerCompanyForm">
-
-      <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
+      <section fxFlex="100" fxLayout="row" fxLayout.lt-md="column"  fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Name of Company</mat-label>
           <input type="text" matInput formControlName="name">
@@ -25,7 +26,7 @@
         </mat-form-field>
       </section>
 
-      <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
+      <section fxFlex="100" fxLayout="row" fxLayout.lt-md="column"  fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Email</mat-label>
           <input type="text" matInput formControlName="email">
@@ -50,7 +51,7 @@
         </mat-form-field>
       </section>
 
-      <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
+      <section fxFlex="100" fxLayout="row" fxLayout.lt-md="column"  fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Website</mat-label>
           <input type="text" matInput formControlName="website">
@@ -73,7 +74,7 @@
       <section fxFlex="100" fxLayout="row"  fxLayoutAlign="space-between center">
         <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Description</mat-label>
-          <input type="text" matInput formControlName="description">
+          <textarea [rows]="1" type="text" matInput formControlName="description"></textarea>
           <mat-error *ngIf="
       registerCompanyForm.controls['description'].hasError('required') &&
       registerCompanyForm.controls['description'].touched
@@ -120,8 +121,10 @@
       <section fxFlex="100" fxLayoutAlign="space-between center">
         <button mat-button class="reg-company-clear-btn" (click)="onClear()">Clear</button>
         <button mat-button class="reg-company-save-btn" (click)="onSave()"
-          [disabled]="this.registerCompanyForm.invalid">Save</button>
+          [disabled]="this.registerCompanyForm.invalid || isSaveDisabled">Save</button>
       </section>
+
+      <button mat-button class="reg-company-delete-btn" (click)="openDeleteAccountDialog()">Delete Account</button>
     </form>
-  </mat-card>
+  </div>
 </div>

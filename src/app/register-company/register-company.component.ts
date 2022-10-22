@@ -16,7 +16,7 @@ import {
 } from '@angular/material/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { company } from '../interfaces/interface';
-import { startupCategory } from '../enums/enum.enum';
+import { accountType, startupCategory } from '../enums/enum.enum';
 import { catchError } from 'rxjs';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
@@ -88,44 +88,43 @@ export class RegisterCompanyComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.getParams();
+    // this.getParams();
     this.currentDate = moment();
   }
 
-  getParams = () => {
-    this.activeRoute.params.subscribe((params: Params) => {
-      this.companyId = params['id'];
-      if (this.companyId == 'new') {
-        this.isEdit = false;
-      } else {
-        this.isEdit = true;
-        this.getCompany();
-      }
-    });
-  };
+  // getParams = () => {
+  //   this.activeRoute.params.subscribe((params: Params) => {
+  //     this.companyId = params['id'];
+  //     if (this.companyId == 'new') {
+  //       this.isEdit = false;
+  //     } else {
+  //       this.isEdit = true;
+  //       this.getCompany();
+  //     }
+  //   });
+  // };
 
-  getCompany = () => {
-    this.companyService.getCompanies().subscribe(data =>{
-      this.companyArray = data;
-      this.company = this.companyArray[+this.companyId];
-      this.company?this.patchValue() : this.snackbarService.open('Company does not exist!');
-    })
-  };
+  // getCompany = () => {
+  //   this.companyService.getCompanies().subscribe(data =>{
+  //     this.companyArray = data;
+  //     this.company = this.companyArray[+this.companyId];
+  //     this.company?this.patchValue() : this.snackbarService.open('Company does not exist!');
+  //   })
+  // };
 
-  patchValue = () => {
-    this.registerCompanyForm.patchValue(this.company);
-  }
+  // patchValue = () => {
+  //   this.registerCompanyForm.patchValue(this.company);
+  // }
 
   onSave = () => {
-    const companyData: company = this.registerCompanyForm.getRawValue();
-    if(!this.isEdit){
+    const companyData: company = {...this.registerCompanyForm.getRawValue(), categoryType: accountType.company};
+
       this.companyService.registerCompany(companyData);
-    }else{
-      this.companyArray[+this.companyId] = this.registerCompanyForm.getRawValue();
-      this.companyService.postCompany(this.companyArray);
-      this.snackbarService.open('Company updated');
-      this.router.navigate(['startups']);
-    }
+
+      // this.companyArray[+this.companyId] = this.registerCompanyForm.getRawValue();
+      // this.companyService.postCompany(this.companyArray);
+      // this.snackbarService.open('Company updated');
+      // this.router.navigate(['startups']);
     this.onClear();
   };
 

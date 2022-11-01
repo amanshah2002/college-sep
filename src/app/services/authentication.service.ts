@@ -161,7 +161,7 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     this.user.next({});
     this.loggedIn.next(false);
-    this.router.navigate(['/login']).then(() => location.reload());
+    this.router.navigate(['/login']);
   };
 
   successfulLogin = (flag: any,rememberMe:boolean) => {

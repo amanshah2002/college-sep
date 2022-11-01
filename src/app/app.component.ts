@@ -10,10 +10,15 @@ import { Component, OnInit } from '@angular/core';
 
 export class AppComponent implements OnInit{
 
+  userLoggedIn = false;
+
   constructor(
     private authenticationService:AuthenticationService){}
   ngOnInit(): void {
     this.authenticationService.autoLogin();
+    this.authenticationService.isLoggedIn.subscribe(data => {
+      this.userLoggedIn = data;
+    })
   }
   title = 'college-sep';
 }

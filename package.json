@@ -27,6 +27,8 @@
     "country-state-city": "^3.1.2",
     "emailjs-com": "^3.2.0",
     "moment": "^2.29.3",
+    "ng-input-file": "^1.0.1",
+    "ngx-material-file-input": "^4.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

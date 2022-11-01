@@ -6,32 +6,32 @@
       </section>
 
       <section fxLayout="column">
-        <p routerLink="startups" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p class="side-nav-items" routerLink="startups" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>home</mat-icon>
           </button>
           Home
         </p>
 
-        <p routerLink="edit-account" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p class="side-nav-items" routerLink="edit-account" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>account_circle</mat-icon>
           </button>
-          My account
+          My Account
         </p>
 
-        <p routerLink="edit-account" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p class="side-nav-items" routerLink="create-job-post" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon>work</mat-icon>
           </button>
-          lorem
+          Create Job Post
         </p>
 
-        <p routerLink="edit-account" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p class="side-nav-items" routerLink="activity" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon>timeline</mat-icon>
           </button>
-         lorem
+          View Activity
         </p>
       </section>
     </mat-drawer>
@@ -50,9 +50,9 @@
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field> -->
 
-        <button mat-button (click)="drawer.open()">
-          <mat-icon>menu</mat-icon>
-        </button>
+      <button mat-button (click)="drawer.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
       <h2 class="layout-header">Welcome {{this.user?.name}}</h2>
       <button mat-button class="layout-header" (click)="onLogout()">Logout</button>
 

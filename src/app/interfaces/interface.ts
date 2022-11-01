@@ -36,21 +36,11 @@ export interface companyCategory {
   value:number
 }
 
-// export interface countries {
-//   isoCode: string;
-//   name: string;
-//   phonecode: string;
-//   flag: string;
-//   currency: string;
-//   latitude: string;
-//   longitude: string;
-//   timezones: Timezone[];
-// }
-
-// export interface Timezone {
-//   zoneName: string;
-//   gmtOffset: number;
-//   gmtOffsetName: string;
-//   abbreviation: string;
-//   tzName: string;
-// }
+export interface jobPost {
+  position: string;
+  salary: string;
+  experience: string;
+  eduRequirements: string;
+  language: string;
+  jobPost: string;
+}

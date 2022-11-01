@@ -13,6 +13,7 @@ export enum apis {
   authenticateApi = 'authenticate.json',
   registerCompany = 'register-company.json',
   waitingList = 'waiting-list.json',
+  postJob = 'job-posts.json',
   getCountry = 'https://api.countrystatecity.in/v1/countries',
 }
 

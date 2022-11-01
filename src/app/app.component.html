@@ -1,4 +1,8 @@
 
-<sep-layout>
+<sep-layout *ngIf="userLoggedIn">
   <router-outlet></router-outlet>
 </sep-layout>
+
+<ng-container *ngIf="!userLoggedIn">
+  <router-outlet></router-outlet>
+</ng-container>

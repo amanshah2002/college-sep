@@ -1,4 +1,5 @@
-import { company } from './../interfaces/interface';
+import { tap } from 'rxjs/operators';
+import { company, jobPost } from './../interfaces/interface';
 import { emailjsIds, companyAction } from './../enums/enum.enum';
 import { Router } from '@angular/router';
 import { SnacbarService } from './snacbar.service';
@@ -16,11 +17,12 @@ export class CompanyService {
   constructor(
     private callApiService: CallAPIService,
     private snackbarService: SnacbarService,
-    private router: Router,
+    private router: Router
   ) {}
 
   companyDetails: company[] = [];
   waitingList: company[] = [];
+  currentJobs: jobPost[] & Partial<company>[] = [];
 
   registerCompany = (companyData: company) => {
     let companyArray: any[] = [];
@@ -56,7 +58,7 @@ export class CompanyService {
     });
   };
 
-  postCompany = (companyArray: company[],action:string) => {
+  postCompany = (companyArray: company[], action: string) => {
     this.callApiService
       .callPutAPI(apis.registerCompany, {}, companyArray)
       .subscribe((data) => {
@@ -74,16 +76,16 @@ export class CompanyService {
             );
             break;
 
-            case companyAction.deleted:
-              this.snackbarService.open('Account Deleted!');
-              localStorage.removeItem('user');
-              sessionStorage.removeItem('user');
-              location.reload();
-              break;
+          case companyAction.deleted:
+            this.snackbarService.open('Account Deleted!');
+            localStorage.removeItem('user');
+            sessionStorage.removeItem('user');
+            location.reload();
+            break;
 
-            case companyAction.update:
-              this.snackbarService.open('Company updated');
-              break;
+          case companyAction.update:
+            this.snackbarService.open('Company updated');
+            break;
           default:
             break;
         }
@@ -125,8 +127,7 @@ export class CompanyService {
             emailjsIds.companyAddedTemplateId,
             emailjsIds.companyAddedPublicKey
           );
-
-        } else if(company && status == 'rejected'){
+        } else if (company && status == 'rejected') {
           console.log('reject');
           console.log(company);
           this.sendEmail(
@@ -162,6 +163,22 @@ export class CompanyService {
       (error) => {
         this.snackbarService.open(error.text);
       }
+    );
+  };
+
+  postJob = (JobPosts: jobPost[] & Partial<company>[]) => {
+    console.log(JobPosts);
+    return this.callApiService.callPutAPI(apis.postJob, {}, JobPosts);
+  };
+
+  getJobs = () => {
+    return this.callApiService.callGetAPI(apis.postJob).pipe(
+      tap((data) => {
+        if (data) {
+          this.currentJobs = data;
+        }
+        return this.currentJobs;
+      })
     );
   };
 }

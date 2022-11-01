@@ -1,0 +1,80 @@
+<div class="job-posts" fxLayout="column">
+  <section class="job-posts-header">
+    <h2>Job Post</h2>
+    <p>You can create and upload job posts here</p>
+  </section>
+    <mat-vertical-stepper  fxFlex="50" #stepper>
+      <mat-step [stepControl]="jobPostForm1">
+        <ng-template matStepLabel>Step 1</ng-template>
+        <form fxFlex="40" [formGroup]="jobPostForm1" fxLayout="column">
+          <mat-form-field [appearance]="appearance">
+            <mat-label>Position</mat-label>
+            <input type="text" matInput formControlName="position">
+          </mat-form-field>
+
+          <mat-form-field [appearance]="appearance">
+            <mat-label>Salary</mat-label>
+            <input type="text" matInput formControlName="salary">
+          </mat-form-field>
+
+          <section fxLayoutAlign="end">
+            <button mat-button matStepperNext>Next</button>
+          </section>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="jobPostForm2">
+        <ng-template matStepLabel>Step 1</ng-template>
+        <form fxFlex="40" [formGroup]="jobPostForm2" fxLayout="column">
+          <mat-form-field [appearance]="appearance">
+            <mat-label>Experience</mat-label>
+            <input type="text" matInput formControlName="experience">
+          </mat-form-field>
+
+          <mat-form-field [appearance]="appearance">
+            <mat-label>Minimum Education Required</mat-label>
+            <input type="text" matInput formControlName="eduRequirements">
+          </mat-form-field>
+
+          <section fxLayoutAlign="end">
+            <button mat-button matStepperNext>Next</button>
+          </section>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="jobPostForm3">
+        <ng-template matStepLabel>Step 1</ng-template>
+        <form fxFlex="40" [formGroup]="jobPostForm3" fxLayout="column">
+          <mat-form-field [appearance]="appearance">
+            <mat-label>Language Required</mat-label>
+            <mat-select formControlName="language">
+              <mat-option value="English">English</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- <mat-form-field [appearance]="appearance">
+            <mat-label>Upload Detailed Job Post</mat-label>
+            <ngx-mat-file-input></ngx-mat-file-input>
+          </mat-form-field> -->
+
+          <input type="file" formControlName="jobPost">
+
+          <section fxLayoutAlign="end">
+            <button mat-button (click)="onSubmit()">Post</button>
+          </section>
+        </form>
+
+      </mat-step>
+    </mat-vertical-stepper>
+</div>
+
+<!-- TODO: add error messages -->
+
+<!-- let a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = 'pharma_entries.csv';
+      a.dispatchEvent(new MouseEvent('click'));
+
+      setTimeout(() => {
+        URL.revokeObjectURL.bind(URL, downloadUrl);
+      }, 100); -->

@@ -1,3 +1,6 @@
+import { ActivityComponent } from './activity/activity.component';
+import { ViewJobPostsComponent } from './job-post/view-job-posts/view-job-posts.component';
+import { JobPostComponent } from './job-post/job-post.component';
 import { WaitingListComponent } from './waiting-list/waiting-list.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
@@ -16,7 +19,9 @@ const routes: Routes = [
   {path: 'startups',component:CompanyComponent,canActivate:[AuthGuard]},
   {path: 'edit-account',component:EditAccountComponent,canActivate:[AuthGuard]},
   {path: 'waiting-list',component:WaitingListComponent,canActivate:[AuthGuard]},
-  {path:'await-confirmation',component:AwaitConfirmationComponent}
+  {path:'await-confirmation',component:AwaitConfirmationComponent},
+  {path: 'create-job-post', component: JobPostComponent, canActivate:[AuthGuard]},
+  {path: 'activity', component: ActivityComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({

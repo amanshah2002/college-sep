@@ -19,6 +19,9 @@ import { DialogComponent } from './shared/dialog/dialog.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AwaitConfirmationComponent } from './await-confirmation/await-confirmation.component';
+import { JobPostComponent } from './job-post/job-post.component';
+import { ActivityComponent } from './activity/activity.component';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { AwaitConfirmationComponent } from './await-confirmation/await-confirmat
     DialogComponent,
     EditAccountComponent,
     AwaitConfirmationComponent,
-    EditCompanyAccountComponent
+    EditCompanyAccountComponent,
+    JobPostComponent,
+    ActivityComponent
   ],
   imports: [
     BrowserModule,

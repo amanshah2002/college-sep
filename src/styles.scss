@@ -48,5 +48,5 @@ $sep-theme: mat.define-light-theme($sep-theme-primary, $sep-theme-accent, $sep-t
 @include mat.all-component-themes($sep-theme);
 
 
-html, body { height: 100%; }
+html, body { height: 100%; background: #ffffff;}
 body { margin: 0; font-family: "Mulish regular"; }

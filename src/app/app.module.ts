@@ -1,3 +1,4 @@
+import { ActivityCardComponent } from './shared/activity-card/activity-card.component';
 import { EditCompanyAccountComponent } from './edit-account/edit-company-account/edit-company-account.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,6 +22,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AwaitConfirmationComponent } from './await-confirmation/await-confirmation.component';
 import { JobPostComponent } from './job-post/job-post.component';
 import { ActivityComponent } from './activity/activity.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { DisplayJobPostsComponent } from './employee/display-job-posts/display-job-posts.component';
 
 
 @NgModule({
@@ -36,7 +39,10 @@ import { ActivityComponent } from './activity/activity.component';
     AwaitConfirmationComponent,
     EditCompanyAccountComponent,
     JobPostComponent,
-    ActivityComponent
+    ActivityComponent,
+    ActivityCardComponent,
+    EmployeeComponent,
+    DisplayJobPostsComponent,
   ],
   imports: [
     BrowserModule,

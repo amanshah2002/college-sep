@@ -61,22 +61,22 @@
         <section class="companies-card-header" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
           <p>
             <span>Name:</span>
-            {{company.name}}
+            {{company?.name}}
           </p>
 
           <p>
             <span>Founder:</span>
-            {{company.founder}}
+            {{company?.founder}}
           </p>
 
           <p>
             <span>Email:</span>
-            {{company.email}}
+            {{company?.email}}
           </p>
 
           <p>
             <span>Description:</span>
-            {{company.description}}
+            {{company?.description}}
           </p>
         </section>
 
@@ -86,7 +86,7 @@
             <!-- <mat-icon class="edit-icon" matTooltip="Edit" [matTooltipPosition]="'left'" (click)="onEdit(i)">edit</mat-icon> -->
             <!-- <mat-icon class="delete-icon" matTooltip="Delete" [matTooltipPosition]="'left'" (click)="onDelete(i)">delete</mat-icon> -->
           </section>
-          <qr-code [value]="company.qrCode"></qr-code>
+          <qr-code [value]="company.qrCode? company.qrCode : ''"></qr-code>
         </div>
       </div>
     </mat-expansion-panel-header>
@@ -94,17 +94,17 @@
     <section class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
       <p>
         <span>Date of registration:</span>
-        {{company.dateOfReg | date: 'dd-MMMM-yyyy'}}
+        {{company?.dateOfReg | date: 'dd-MMMM-yyyy'}}
       </p>
 
       <p>
         <span>Product:</span>
-        {{company.product}}
+        {{company?.product}}
       </p>
 
       <p>
         <span>Website:</span>
-        {{company.website}}
+        {{company?.website}}
       </p>
 
       <p>

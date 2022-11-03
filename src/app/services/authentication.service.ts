@@ -85,12 +85,13 @@ export class AuthenticationService {
     this.loadObservable.next(true);
     let flag = 0;
     this.getLoginData().subscribe((data) => {
-      loginArray = data;
-      console.log(data);
+      data? loginArray = data : null;
       data?.map((user: loginData) => {
-        user.email?.toLowerCase() == loginData.email?.toLowerCase()
-          ? (flag = 1)
-          : null;
+        if(user){
+          user.email?.toLowerCase() == loginData.email?.toLowerCase()
+            ? (flag = 1)
+            : null;
+        }
       });
 
       if (flag == 1) {

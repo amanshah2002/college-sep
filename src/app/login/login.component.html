@@ -11,7 +11,7 @@
 
       <p>{{isLogin?'Login' : 'Sign up'}} to get started.</p>
 
-      <form [formGroup]="loginForm">
+      <form *ngIf="loginForm.controls" [formGroup]="loginForm">
 
         <div fxLayout="{{!isLogin && category == 'Investor'? 'row' : 'column'}}"
           fxLayoutAlign="{{!isLogin && category == 'Investor'? 'space-between center' : null}}">
@@ -22,8 +22,8 @@
               <input type="text" matInput formControlName="name" />
 
               <mat-error *ngIf="
-                loginForm.controls['name'].hasError('required') &&
-                loginForm.controls['name'].touched
+                loginForm.controls['name']?.hasError('required') &&
+                loginForm.controls['name']?.touched
               ">Name field is required!</mat-error>
             </mat-form-field>
 
@@ -36,8 +36,8 @@
               </mat-select>
 
               <mat-error *ngIf="
-              loginForm.controls['preferredStartupType'].hasError('required') &&
-              loginForm.controls['preferredStartupType'].touched
+              loginForm.controls['preferredStartupType']?.hasError('required') &&
+              loginForm.controls['preferredStartupType']?.touched
             ">Preferred startup type field is required!</mat-error>
             </mat-form-field>
 
@@ -50,8 +50,8 @@
               </mat-select>
 
               <mat-error *ngIf="
-                loginForm.controls['country'].hasError('required') &&
-                loginForm.controls['country'].touched
+                loginForm.controls['country']?.hasError('required') &&
+                loginForm.controls['country']?.touched
               ">Country field is required!</mat-error>
             </mat-form-field>
 
@@ -85,8 +85,8 @@
               <mat-icon matSuffix class="material-icons-outlined">email</mat-icon>
 
               <mat-error *ngIf="
-                loginForm.controls['email'].hasError('required') &&
-                loginForm.controls['email'].touched
+                loginForm.controls['email']?.hasError('required') &&
+                loginForm.controls['email']?.touched
               ">Email field is required!</mat-error>
             </mat-form-field>
           </section>
@@ -98,8 +98,8 @@
               <input type="text" matInput formControlName="lastName" />
 
               <mat-error *ngIf="
-                loginForm.controls['lastName'].hasError('required') &&
-                loginForm.controls['lastName'].touched
+                loginForm.controls['lastName']?.hasError('required') &&
+                loginForm.controls['lastName']?.touched
               ">Last Name field is required!</mat-error>
             </mat-form-field>
 
@@ -108,8 +108,8 @@
               <input type="text" matInput formControlName="investorBusiness" />
 
               <mat-error *ngIf="
-                loginForm.controls['investorBusiness'].hasError('required') &&
-                loginForm.controls['investorBusiness'].touched
+                loginForm.controls['investorBusiness']?.hasError('required') &&
+                loginForm.controls['investorBusiness']?.touched
               ">Business field is required!</mat-error>
             </mat-form-field>
 
@@ -121,8 +121,8 @@
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="
-                loginForm.controls['state'].hasError('required') &&
-                loginForm.controls['state'].touched
+                loginForm.controls['state']?.hasError('required') &&
+                loginForm.controls['state']?.touched
               ">State field is required!</mat-error>
             </mat-form-field>
 
@@ -155,8 +155,8 @@
                 {{visibility?'visibility_on' : 'visibility_off'}}</mat-icon>
 
               <mat-error *ngIf="
-                loginForm.controls['password'].hasError('required') &&
-                loginForm.controls['password'].touched
+                loginForm.controls['password']?.hasError('required') &&
+                loginForm.controls['password']?.touched
               ">Password field is required!</mat-error>
             </mat-form-field>
           </section>

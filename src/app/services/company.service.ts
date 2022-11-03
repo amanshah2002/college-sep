@@ -95,8 +95,10 @@ export class CompanyService {
   getCompanies = () => {
     this.companyDetails = [];
     return this.callApiService.callGetAPI(apis.registerCompany).pipe(
-      map((data) => {
-        this.companyDetails = data;
+      map((data: company[]) => {
+        data.forEach((companies: company) => {
+          companies ? this.companyDetails.push(companies) : null;
+        });
         return this.companyDetails;
       })
     );
@@ -145,8 +147,10 @@ export class CompanyService {
   getWaitingList = () => {
     this.waitingList = [];
     return this.callApiService.callGetAPI(apis.waitingList).pipe(
-      map((data) => {
-        this.waitingList = data;
+      map((data: company[]) => {
+        data.forEach((waitingList: company) => {
+          waitingList ? this.waitingList.push(waitingList) : null;
+        });
         return this.waitingList;
       })
     );
@@ -173,9 +177,11 @@ export class CompanyService {
 
   getJobs = () => {
     return this.callApiService.callGetAPI(apis.postJob).pipe(
-      tap((data) => {
+      tap((data: jobPost[]) => {
         if (data) {
-          this.currentJobs = data;
+          data.forEach((job: jobPost) => {
+            job ? this.currentJobs.push(job) : null;
+          });
         }
         return this.currentJobs;
       })

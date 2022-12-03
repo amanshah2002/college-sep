@@ -1,6 +1,6 @@
 <div class="layout">
-  <mat-drawer-container class="layout-sidenav-container" autosize [hasBackdrop]="false">
-    <mat-drawer class="layout-sidenav" #drawer mode="side" [opened]="isLoggedIn? true : false">
+  <mat-drawer-container class="layout-sidenav-container" autosize [hasBackdrop]="true">
+    <mat-drawer class="layout-sidenav" #drawer mode="over">
       <section fxLayoutAlign="end">
         <mat-icon class="action-icon close-sidenav" (click)="drawer.close()">close</mat-icon>
       </section>
@@ -20,7 +20,7 @@
           My Account
         </p>
 
-        <p class="side-nav-items" routerLink="create-job-post" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p *ngIf="user.categoryType === 'Company'" class="side-nav-items" routerLink="create-job-post" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>work</mat-icon>
           </button>
@@ -32,6 +32,13 @@
             <mat-icon>timeline</mat-icon>
           </button>
           View Activity
+        </p>
+
+        <p *ngIf="user.categoryType === 'Employee'" class="side-nav-items" routerLink="job-posts" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+          <button mat-icon-button>
+            <mat-icon>timeline</mat-icon>
+          </button>
+          View Job Posts
         </p>
       </section>
     </mat-drawer>

@@ -188,3 +188,5 @@ export class CompanyService {
     );
   };
 }
+
+//todo: convert to downloadable link.

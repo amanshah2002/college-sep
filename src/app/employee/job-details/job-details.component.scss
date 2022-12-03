@@ -1,0 +1,35 @@
+@import '../../../styles/main.scss';
+
+.job-details{
+  padding: 20px;
+
+  .header{
+    section{
+      h1{
+        @include header;
+        // text-align: center;
+      }
+
+      .company-name{
+        font-size: 25px;
+      }
+    }
+
+    .apply-job-btn{
+      @include primary-yes-btn;
+    }
+  }
+
+  .job-desc{
+    h2{
+      margin-top: 20px;
+      text-align: center;
+      @include header;
+    }
+
+    .desc{
+      text-align: justify;
+      white-space: pre-wrap;
+    }
+  }
+}

@@ -24,6 +24,9 @@ import { JobPostComponent } from './job-post/job-post.component';
 import { ActivityComponent } from './activity/activity.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { DisplayJobPostsComponent } from './employee/display-job-posts/display-job-posts.component';
+import { DescHeaderComponent } from './shared/desc-header/desc-header.component';
+import { FirstLetterPipe } from './shared/pipe/first-letter.pipe';
+import { JobDetailsComponent } from './employee/job-details/job-details.component';
 
 
 @NgModule({
@@ -43,6 +46,9 @@ import { DisplayJobPostsComponent } from './employee/display-job-posts/display-j
     ActivityCardComponent,
     EmployeeComponent,
     DisplayJobPostsComponent,
+    DescHeaderComponent,
+    FirstLetterPipe,
+    JobDetailsComponent,
   ],
   imports: [
     BrowserModule,

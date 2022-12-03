@@ -1,0 +1,85 @@
+@import "../../../styles/main.scss";
+
+.jobs {
+  position: fixed;
+  padding: 30px 50px;
+  width: 100vw;
+
+  &-container{
+    max-width: 100%;
+
+  &-cards {
+    max-height: 75vh;
+    overflow: auto;
+    padding-bottom: 10px;
+    margin-bottom: auto;
+    // width: 30%;
+
+    .active-job{
+      @include card;
+      background-color: $background-grey;
+      padding: 5px !important;
+      max-height: 100px !important;
+      position: relative;
+
+      &::before{
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        background-color: $black;
+        left: 0;
+        top: 0;
+      }
+
+      .jobs-container-cards-card-pic {
+        width: 50%;
+        height: 30px;
+        background-color: $image-grey;
+        border-radius: 50px;
+
+        b {
+          margin: 0;
+        }
+      }
+
+      .jobs-container-cards-card-details{
+        p {
+          margin: 0;
+        }
+      }
+    }
+    &-card {
+      @include card;
+      background-color: $background-grey;
+      padding: 5px !important;
+      max-height: 100px !important;
+
+      &-pic {
+        width: 50%;
+        height: 30px;
+        background-color: $image-grey;
+        border-radius: 50px;
+
+        b {
+          margin: 0;
+        }
+      }
+
+      &-details {
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  &-detail {
+    background-color: $background-grey;
+    @include card;
+    overflow: auto;
+    // width: 50%;
+    max-height: 75vh;
+  }
+}
+}

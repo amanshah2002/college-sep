@@ -37,10 +37,14 @@ export interface companyCategory {
 }
 
 export interface jobPost {
+  companyName: string;
+  email: string;
+  type: number;
   position: string;
   salary: string;
   experience: string;
   eduRequirements: string;
   language: string;
   jobPost: string;
+  jobDesc: string;
 }

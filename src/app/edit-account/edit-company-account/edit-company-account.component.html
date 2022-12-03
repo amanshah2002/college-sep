@@ -1,9 +1,5 @@
 <div class="reg-company" fxLayout="column">
-  <section class="reg-company-header">
-    <h2 class="reg-company-header-primary">Edit Company</h2>
-    <p class="reg-company-header-secondary">You can edit your company details here</p>
-  </section>
-
+  <sep-desc-header [header]="'Edit Company'" [subHeader]="'You can edit your company details here'"></sep-desc-header>
   <div class="reg-company-card">
     <form fxLayout="column" [formGroup]="registerCompanyForm">
       <section fxFlex="100" fxLayout="row" fxLayout.lt-md="column"  fxLayoutAlign="space-between center">

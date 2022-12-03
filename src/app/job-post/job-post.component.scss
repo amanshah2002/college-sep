@@ -5,29 +5,7 @@
   background-color: $white;
   height: calc(100vh - 100px);
 
-  &-header {
-    margin-bottom: 40px;
-    position: relative;
-    margin-left: 20px;
-
-    &::before {
-      content: "";
-      position: absolute;
-      height: 100%;
-      width: 2px;
-      left: -20px;
-      background-color: $black;
-    }
-
-    h2,
-    p {
-      margin-bottom: 0;
-    }
-
-    h2 {
-      font-family: "Mulish-Bold";
-    }
-  }
+  
 
   mat-vertical-stepper {
     height: 20vh;

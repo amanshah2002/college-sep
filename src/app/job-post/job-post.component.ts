@@ -25,12 +25,13 @@ export class JobPostComponent implements OnInit {
 
   jobPostForm1 = new FormGroup({
     position: new FormControl(null, Validators.required),
-    salary: new FormControl(null, Validators.required),
+    salary: new FormControl(null, [Validators.required,Validators.pattern(/^[0-9]+(k|L|cr)$/ig)]),
   });
 
   jobPostForm2 = new FormGroup({
     experience: new FormControl(null, Validators.required),
     eduRequirements: new FormControl(null, Validators.required),
+    jobDesc: new FormControl(null, Validators.required),
   });
 
   jobPostForm3 = new FormGroup({
@@ -57,7 +58,7 @@ export class JobPostComponent implements OnInit {
       email: this.currentUser.email,
       type: this.currentUser.type,
     };
-    const jobPost: jobPost & Partial<company> = {
+    const jobPost: jobPost= {
       ...companyData,
       ...this.jobPostForm1.value,
       ...this.jobPostForm2.value,
@@ -67,7 +68,7 @@ export class JobPostComponent implements OnInit {
     return jobPost;
   };
 
-  parseJobArray = (jobPost: jobPost & Partial<company>) => {
+  parseJobArray = (jobPost: jobPost) => {
     this.companyService.getJobs().subscribe((data) => {
       data ? this.jobPostArray.push(...data) : (this.jobPostArray = []);
       this.jobPostArray.push(jobPost);

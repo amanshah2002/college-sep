@@ -1,1 +1,34 @@
-job posts
+<div fxLayout="column" class="jobs">
+  <sep-desc-header [header]="'View Job Posts'" [subHeader]="'View all job posts here'"></sep-desc-header>
+
+  <div class="jobs-container" fxLayout="row" fxLayoutAlign="space-between center">
+    <section fxFlex="30" fxLayout="column" fxLayoutGap="40px" class="jobs-container-cards">
+
+      <mat-card *ngFor="let job of jobPosts" fxFlex="100" fxLayoutGap="10px"
+        [ngClass]="{'active-job': selectedJob === job, 'jobs-container-cards-card' : selectedJob !== job }"
+        (click)="onSelectJobPost(job)">
+        <div fxFlex="10" fxLayoutAlign="center center" class="jobs-container-cards-card-pic">
+          <b>
+            {{job.companyName? (job.companyName | firstLetter) : '-' }}
+          </b>
+        </div>
+
+        <div fxFlex="70" fxLayout="center center" fxLayout="column" class="jobs-container-cards-card-details">
+          <b> {{job?.position}}</b>
+          <p> {{job?.companyName}}</p>
+          <p> {{job?.email}}</p>
+          <section fxLayoutAlign="space-between center">
+            <p> Experience: {{job?.experience}}</p>
+            <p> Salary: <b>{{job?.salary}}</b></p>
+          </section>
+        </div>
+      </mat-card>
+    </section>
+
+    <section fxFlex="60" class="jobs-container-detail">
+      <sep-job-details [job]="selectedJob" [companyType]="companyType"></sep-job-details>
+    </section>
+  </div>
+
+</div>
+<!-- <button mat-button (click)="createDownloadLink()">download</button> -->

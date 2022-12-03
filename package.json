@@ -26,6 +26,7 @@
     "angular2-qrcode": "^2.0.3",
     "country-state-city": "^3.1.2",
     "emailjs-com": "^3.2.0",
+    "generate-download-link": "^1.0.1",
     "moment": "^2.29.3",
     "ng-input-file": "^1.0.1",
     "ngx-material-file-input": "^4.0.0",

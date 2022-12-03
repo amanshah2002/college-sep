@@ -1,8 +1,9 @@
 <div class="job-posts" fxLayout="column">
-  <section class="job-posts-header">
+  <!-- <section class="job-posts-header">
     <h2>Job Post</h2>
     <p>You can create and upload job posts here</p>
-  </section>
+  </section> -->
+  <sep-desc-header [header]="'Job Post'" [subHeader]="'You can create and upload job posts here'"></sep-desc-header>
     <mat-vertical-stepper  fxFlex="50" #stepper>
       <mat-step [stepControl]="jobPostForm1">
         <ng-template matStepLabel>Step 1</ng-template>
@@ -10,11 +11,19 @@
           <mat-form-field [appearance]="appearance">
             <mat-label>Position</mat-label>
             <input type="text" matInput formControlName="position">
+            <mat-error *ngIf=" jobPostForm1.controls['position'].hasError('required') &&
+            jobPostForm1.controls['position'].touched">The position field is required</mat-error>
           </mat-form-field>
 
           <mat-form-field [appearance]="appearance">
-            <mat-label>Salary</mat-label>
+            <mat-label>Salary (K | L | CR)</mat-label>
             <input type="text" matInput formControlName="salary">
+
+            <mat-error *ngIf=" jobPostForm1.controls['salary'].hasError('required') &&
+            jobPostForm1.controls['salary'].touched">The salary field is required</mat-error>
+
+            <mat-error *ngIf=" jobPostForm1.controls['salary'].hasError('pattern') &&
+            jobPostForm1.controls['salary'].touched">Please enter a valid salary</mat-error>
           </mat-form-field>
 
           <section fxLayoutAlign="end">
@@ -27,13 +36,27 @@
         <ng-template matStepLabel>Step 1</ng-template>
         <form fxFlex="40" [formGroup]="jobPostForm2" fxLayout="column">
           <mat-form-field [appearance]="appearance">
-            <mat-label>Experience</mat-label>
+            <mat-label>Experience (years)</mat-label>
             <input type="text" matInput formControlName="experience">
+
+            <mat-error *ngIf=" jobPostForm2.controls['experience'].hasError('required') &&
+            jobPostForm2.controls['experience'].touched">The experience field is required</mat-error>
           </mat-form-field>
 
           <mat-form-field [appearance]="appearance">
             <mat-label>Minimum Education Required</mat-label>
             <input type="text" matInput formControlName="eduRequirements">
+
+            <mat-error *ngIf=" jobPostForm2.controls['eduRequirements'].hasError('required') &&
+            jobPostForm2.controls['eduRequirements'].touched">The minimum education field is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field [appearance]="appearance">
+            <mat-label>Job Description</mat-label>
+            <textarea type="text" matInput formControlName="jobDesc"></textarea>
+
+            <mat-error *ngIf=" jobPostForm2.controls['jobDesc'].hasError('required') &&
+            jobPostForm2.controls['jobDesc'].touched">The job description is required</mat-error>
           </mat-form-field>
 
           <section fxLayoutAlign="end">
@@ -50,14 +73,15 @@
             <mat-select formControlName="language">
               <mat-option value="English">English</mat-option>
             </mat-select>
+
+            <mat-error *ngIf=" jobPostForm3.controls['language'].hasError('required') &&
+            jobPostForm3.controls['language'].touched">The language field is required</mat-error>
           </mat-form-field>
 
-          <!-- <mat-form-field [appearance]="appearance">
-            <mat-label>Upload Detailed Job Post</mat-label>
-            <ngx-mat-file-input></ngx-mat-file-input>
-          </mat-form-field> -->
-
           <input type="file" formControlName="jobPost">
+          <mat-error *ngIf=" jobPostForm3.controls['jobPost'].hasError('required') &&
+          jobPostForm3.controls['jobPost'].touched">The job post file field is required</mat-error>
+
 
           <section fxLayoutAlign="end">
             <button mat-button (click)="onSubmit()">Post</button>
@@ -68,13 +92,3 @@
     </mat-vertical-stepper>
 </div>
 
-<!-- TODO: add error messages -->
-
-<!-- let a = document.createElement('a');
-      a.href = downloadUrl;
-      a.download = 'pharma_entries.csv';
-      a.dispatchEvent(new MouseEvent('click'));
-
-      setTimeout(() => {
-        URL.revokeObjectURL.bind(URL, downloadUrl);
-      }, 100); -->

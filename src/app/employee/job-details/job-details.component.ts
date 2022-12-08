@@ -1,5 +1,4 @@
-import { startupCategory } from 'src/app/enums/enum.enum';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { jobPost } from 'src/app/interfaces/interface';
 
 @Component({
@@ -11,9 +10,14 @@ export class JobDetailsComponent implements OnInit {
   @Input()
   job!: jobPost;
  @Input() companyType = '';
+ @Output() jobClicked = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onApplyJob = () => {
+    this.jobClicked.emit();
   }
 
 }

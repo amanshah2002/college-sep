@@ -15,6 +15,7 @@ export enum apis {
   waitingList = 'waiting-list.json',
   postJob = 'job-posts.json',
   getCountry = 'https://api.countrystatecity.in/v1/countries',
+  applyJob = 'job-apply.json',
 }
 
 export enum emailjsIds{

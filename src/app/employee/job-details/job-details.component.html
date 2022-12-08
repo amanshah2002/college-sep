@@ -6,9 +6,10 @@
       <p class="company-name">{{job?.companyName}}</p>
       <p>{{job?.email}}</p>
     </section>
-    <section>
+
+    <section fxLayout="column">
       <p>Company Type: {{companyType}}</p>
-      <button mat-button class="apply-job-btn">Apply For Job</button>
+      <button mat-button class="apply-job-btn" (click)="onApplyJob()">Apply For Job</button>
     </section>
   </div>
 
@@ -31,7 +32,7 @@
       </b>
     </p>
 
-    <p>Language Skiils Required: <b>
+    <p>Language Skills Required: <b>
         {{job?.language}}
       </b>
     </p>

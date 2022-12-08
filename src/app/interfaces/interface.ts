@@ -48,3 +48,9 @@ export interface jobPost {
   jobPost: string;
   jobDesc: string;
 }
+
+export interface appliedJobDetails{
+  companyId: string;
+  jobPostId: number;
+  userEmail: string;
+}

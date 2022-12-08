@@ -148,7 +148,7 @@ export class CompanyService {
     this.waitingList = [];
     return this.callApiService.callGetAPI(apis.waitingList).pipe(
       map((data: company[]) => {
-        data.forEach((waitingList: company) => {
+        data?.forEach((waitingList: company) => {
           waitingList ? this.waitingList.push(waitingList) : null;
         });
         return this.waitingList;

@@ -1,7 +1,14 @@
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CompanyService } from './../../services/company.service';
 import { Component, OnInit } from '@angular/core';
-import { company, jobPost } from 'src/app/interfaces/interface';
+import {
+  appliedJobDetails,
+  jobPost,
+  loginData,
+} from 'src/app/interfaces/interface';
 import { startupCategory } from 'src/app/enums/enum.enum';
+import { JobService } from 'src/app/services/job.service';
+import { SnacbarService } from 'src/app/services/snacbar.service';
 
 @Component({
   selector: 'sep-display-job-posts',
@@ -9,14 +16,21 @@ import { startupCategory } from 'src/app/enums/enum.enum';
   styleUrls: ['./display-job-posts.component.scss'],
 })
 export class DisplayJobPostsComponent implements OnInit {
-  constructor(private companyService: CompanyService) {}
+  constructor(
+    private companyService: CompanyService,
+    private jobService: JobService,
+    private snackbarService: SnacbarService,
+    private authService: AuthenticationService
+  ) {}
 
   jobPosts: jobPost[] = [];
   selectedJob!: jobPost;
   companyType = '';
+  user:loginData = {};
 
   ngOnInit(): void {
     this.getJobPosts();
+    this.getCurrentUser();
   }
 
   getJobPosts = () => {
@@ -24,24 +38,14 @@ export class DisplayJobPostsComponent implements OnInit {
       console.log(data);
       this.jobPosts = data;
       this.onSelectJobPost(this.jobPosts[0]);
-      // this.createDownloadLink();
     });
   };
 
-  // createDownloadLink = () => {
-  //   //  let a = document.createElement('a');
-  //   //   a.href = this.jobPosts[0].jobPost;
-  //   //   a.download = this.jobPosts[0].jobPost;
-  //   //   a.dispatchEvent(new MouseEvent('click'));
-
-  //   //   setTimeout(() => {
-  //   //     URL.revokeObjectURL.bind(URL, this.jobPosts[0].jobPost);
-  //   //   }, 100);
-  //   const filePath = this.jobPosts[0].jobPost;
-  //   const blob = new Blob([filePath],{type:'text/csv'});
-  //   const url= window.URL.createObjectURL(blob);
-  //   window.open(url);
-  // }
+  getCurrentUser = () => {
+    this.authService.getUser.subscribe(user => {
+      this.user = user;
+    })
+  }
 
   onSelectJobPost = (job: jobPost) => {
     Object.values(startupCategory).forEach((key: any) => {
@@ -50,9 +54,21 @@ export class DisplayJobPostsComponent implements OnInit {
         console.log(+startupCategory[key], job.type);
       }
     });
-    console.log(this.companyType);
-
     this.selectedJob = job;
+  };
+
+  onApplyJob = () => {
+    console.log('test');
+
+    const appliedJobIds: appliedJobDetails = {
+      jobPostId: this.jobPosts.indexOf(this.selectedJob),
+      companyId: this.selectedJob.email,
+      userEmail: this.user.email as string
+    };
+
+    this.jobService.postAppliedJob(appliedJobIds).subscribe(() => {
+      this.snackbarService.open(`Job applied in ${this.selectedJob.companyName}`)
+    });
   };
 }
 

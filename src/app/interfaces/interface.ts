@@ -14,6 +14,7 @@ export interface loginData {
   zipCode?:string;
   address?:string;
   contactNumber?:string;
+  resume?:string;
 }
 
 export interface company {
@@ -53,4 +54,7 @@ export interface appliedJobDetails{
   companyId: string;
   jobPostId: number;
   userEmail: string;
+  id?: string;
+  resume: string;
+  userName: string;
 }

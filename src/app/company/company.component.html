@@ -1,122 +1,67 @@
 <div class="companies">
   <sep-desc-header [header]="'Companies'" [subHeader]="'View all registered companies here'"></sep-desc-header>
-  <!-- <mat-card *ngFor="let company of companyArray" class="companies-card" fxLayout="row" fxLayoutGap="50px">
-    <img fxFlex="15" src="../../assets/images/login.jpg" alt="">
 
-    <div fxLayout="row" fxLayoutGap="40px" fxLayoutAlign="space-around center">
-      <section fxFlex="30"  class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
-        <p>
-          <span>Name:</span>
-          {{company.name}}
-        </p>
+  <mat-accordion fxLayout="column" fxLayoutGap="40px" hideToggle [multi]="true" *ngIf="companyArray.length">
+    <mat-expansion-panel *ngFor="let company of companyArray; let i = index" class="companies-card">
+      <mat-expansion-panel-header [collapsedHeight]="'fit-content'" [expandedHeight]="'fit-content'">
+        <div fxFlex="100" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
+          <section class="companies-card-header" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
+            <p>
+              <span>Name:</span>
+              {{company?.name}}
+            </p>
 
-        <p>
-          <span>Founder:</span>
-          {{company.founder}}
-        </p>
+            <p>
+              <span>Founder:</span>
+              {{company?.founder}}
+            </p>
 
-        <p>
-          <span>email:</span>
-          {{company.email}}
-        </p>
+            <p>
+              <span>Email:</span>
+              {{company?.email}}
+            </p>
 
-        <p>
-          <span>Description:</span>
-          {{company.description}}
-        </p>
-      </section>
-
-      <section fxFlex="30" class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
-        <p>
-          <span>Name:</span>
-          {{company.name}}
-        </p>
-
-        <p>
-          <span>Founder:</span>
-          {{company.founder}}
-        </p>
-
-        <p>
-          <span>email:</span>
-          {{company.email}}
-        </p>
-
-        <p>
-          <span>Description:</span>
-          {{company.description}}
-        </p>
-      </section>
-    </div>
-
-  </mat-card> -->
-<mat-accordion fxLayout="column" fxLayoutGap="40px" hideToggle [multi]="true">
-  <mat-expansion-panel *ngFor="let company of companyArray; let i = index"  class="companies-card">
-    <mat-expansion-panel-header [collapsedHeight]="'fit-content'" [expandedHeight]="'fit-content'">
-      <div fxFlex="100" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
-        <section class="companies-card-header" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
-          <p>
-            <span>Name:</span>
-            {{company?.name}}
-          </p>
-
-          <p>
-            <span>Founder:</span>
-            {{company?.founder}}
-          </p>
-
-          <p>
-            <span>Email:</span>
-            {{company?.email}}
-          </p>
-
-          <p>
-            <span>Description:</span>
-            {{company?.description}}
-          </p>
-        </section>
-
-        <div fxLayout="row" fxLayoutGap="20px">
-          <section fxLayout="column">
-            <mat-icon [matMenuTriggerFor]="menu">menu</mat-icon>
-            <!-- <mat-icon class="edit-icon" matTooltip="Edit" [matTooltipPosition]="'left'" (click)="onEdit(i)">edit</mat-icon> -->
-            <!-- <mat-icon class="delete-icon" matTooltip="Delete" [matTooltipPosition]="'left'" (click)="onDelete(i)">delete</mat-icon> -->
+            <p>
+              <span>Description:</span>
+              {{company?.description}}
+            </p>
           </section>
-          <qr-code [value]="company.qrCode? company.qrCode : ''"></qr-code>
+
+          <div fxLayout="row" fxLayoutGap="20px">
+            <section fxLayout="column">
+              <!-- <mat-icon class="edit-icon" matTooltip="Edit" [matTooltipPosition]="'left'" (click)="onEdit(i)">edit</mat-icon> -->
+              <!-- <mat-icon class="delete-icon" matTooltip="Delete" [matTooltipPosition]="'left'" (click)="onDelete(i)">delete</mat-icon> -->
+            </section>
+            <qr-code [value]="company.qrCode? company.qrCode : ''"></qr-code>
+          </div>
         </div>
-      </div>
-    </mat-expansion-panel-header>
+      </mat-expansion-panel-header>
 
-    <section class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
-      <p>
-        <span>Date of registration:</span>
-        {{company?.dateOfReg | date: 'dd-MMMM-yyyy'}}
-      </p>
+      <section class="companies-card-content" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
+        <p>
+          <span>Date of registration:</span>
+          {{company?.dateOfReg | date: 'dd-MMMM-yyyy'}}
+        </p>
 
-      <p>
-        <span>Product:</span>
-        {{company?.product}}
-      </p>
+        <p>
+          <span>Product:</span>
+          {{company?.product}}
+        </p>
 
-      <p>
-        <span>Website:</span>
-        {{company?.website}}
-      </p>
+        <p>
+          <span>Website:</span>
+          {{company?.website}}
+        </p>
 
-      <p>
-        <span>Company type:</span>
-        {{companyType[+company.type]}}
-      </p>
-    </section>
-  </mat-expansion-panel>
-</mat-accordion>
-</div>
+        <p>
+          <span>Company type:</span>
+          {{companyType[+company.type]}}
+        </p>
+      </section>
+    </mat-expansion-panel>
+  </mat-accordion>
 
-<mat-menu #menu="matMenu">
-  <div fxLayout="column" fxLayoutGap="1rem" fxLayoutAlign="center center">
-    <p class="action-icon">Invest</p>
-    <p class="action-icon">Apply for job</p>
-    <p class="action-icon">Work</p>
+  <div *ngIf="!companyArray.length" class="empty-container">
+    <h2>No companies have registered with us yet!</h2>
   </div>
-</mat-menu>
-
+</div>

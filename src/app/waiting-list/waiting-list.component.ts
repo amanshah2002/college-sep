@@ -42,7 +42,8 @@ export class WaitingListComponent implements OnInit {
     this.companyArray.push(company);
     console.log('WaitingListComponent ~  this.companyArray', this.companyArray);
     this.companyService.postCompany(this.companyArray,companyAction.approved);
-    this.onReject(index);
+    this.companyWaitingArray.splice(index, 1);
+    this.companyService.sendToWaitingList(this.companyWaitingArray,company,'rejected');
   };
 
   onReject = (index: number) => {

@@ -36,9 +36,9 @@ export class AuthenticationService {
     if (loginData.categoryType != 'Company') {
       this.getLoginData().subscribe((data) => {
         console.log(data);
-        data.map((user: loginData) => {
+        data?.map((user: loginData) => {
           user?.email?.toLowerCase() == loginData.email?.toLowerCase() &&
-          user?.categoryType?.toLowerCase() == loginData.categoryType?.toLowerCase()
+          (user?.categoryType?.toLowerCase() == loginData.categoryType?.toLowerCase() || user?.categoryType === 'admin')
             ? (flag = user)
             : null;
         });
@@ -103,6 +103,7 @@ export class AuthenticationService {
           .callPutAPI(apis.authenticateApi, {}, loginArray)
           .subscribe((data) => {
             console.log(data);
+            loginData['resume'] = '';
             this.sendEmail(loginData);
             this.snackbarService.open('Successfully signed up');
             this.loadObservable.next(false);
@@ -137,7 +138,11 @@ export class AuthenticationService {
     this.loginDetails = [];
     return this.callApiService.callGetAPI(apis.authenticateApi).pipe(
       map((data) => {
-        this.loginDetails = data;
+        data.forEach((resp: any) => {
+          resp?
+          this.loginDetails.push(resp) :
+          null
+        })
         return this.loginDetails;
       })
     );

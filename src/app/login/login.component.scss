@@ -105,7 +105,7 @@ mat-form-field{
     min-width: 470px;
     // max-width: 400px;
     padding: 25px 20px;
-    max-height: 720px;
+    max-height: fit-content;
 
     &-toggle{
       width: fit-content;

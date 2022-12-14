@@ -107,9 +107,9 @@ export class EditCompanyAccountComponent implements OnInit {
 
   deleteAccount = () => {
     console.log(this.companyId);
+    const deletedCompany = this.companyArray[this.companyId]
     this.companyArray.splice(this.companyId,1);
-    console.log("EditCompanyAccountComponent ~ deleteAccount ~ companyArray", this.companyArray);
-    this.companyService.postCompany(this.companyArray,companyAction.deleted);
+    this.companyService.postCompany(this.companyArray,companyAction.deleted,deletedCompany);
   }
 
   getCompany = () => {

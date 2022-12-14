@@ -1,0 +1,13 @@
+@import '../../styles/main.scss';
+
+.activity-container{
+    padding: 50px;
+
+    mat-card{
+        @include card;
+        background-color: $background-grey;
+        .download-btn{
+            @include primary-yes-btn;
+        }
+    }
+}

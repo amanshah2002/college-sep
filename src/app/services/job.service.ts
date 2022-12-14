@@ -15,7 +15,7 @@ export class JobService {
     return this.getAllAppliedJobs().pipe(
       map((resp: appliedJobDetails[]) => {
         resp.forEach((ele) => {
-          if (ele.jobPostId === appliedJobDetails.jobPostId) {
+          if ((ele.jobPostId === appliedJobDetails.jobPostId) && (appliedJobDetails.userEmail === ele.userEmail)) {
             throw new Error('Already applied for job in this company');
           }
         });
@@ -50,7 +50,13 @@ export class JobService {
 
   getAppliedJobById = (companyEmail: string) => {
     return this.getAllAppliedJobs().pipe(
-      map((response: appliedJobDetails[]) => {
+      map((resp: any) => {
+        let response: any[] = [];
+        if (resp) {
+          Object.keys(resp).forEach((key) => {
+            response.push({ ...resp[key], id: key });
+          });
+        }
         return response.filter((resp) => resp?.companyId === companyEmail);
       }),
 
@@ -59,4 +65,8 @@ export class JobService {
       })
     );
   };
+
+  deleteAppliedJob = (jobId: string) => {
+    return this.callApiService.callDeleteAPI( `job-apply/${jobId}.json`);
+  }
 }

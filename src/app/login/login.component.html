@@ -7,6 +7,7 @@
     <section class="login-card-form" fxLayout="column">
       <section fxLayout="row" fxLayoutAlign="space-between center">
         <h2>{{isLogin?'Login' : 'Sign up'}}</h2>
+        <!-- <mat-icon [mat-menu-trigger-for]="loginMenu" class="action-icon">more_vertz</mat-icon> -->
       </section>
 
       <p>{{isLogin?'Login' : 'Sign up'}} to get started.</p>
@@ -159,6 +160,13 @@
                 loginForm.controls['password']?.touched
               ">Password field is required!</mat-error>
             </mat-form-field>
+
+              <input *ngIf="!isLogin && category === 'Employee'" type="file" formControlName="resume" accept=".pdf" (change)="onFileSelect($event)"/>
+
+              <mat-error *ngIf="
+                loginForm.controls['resume']?.hasError('required') &&
+                loginForm.controls['resume']?.touched
+              ">Resume field is required!</mat-error>
           </section>
 
         </div>

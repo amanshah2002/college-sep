@@ -1,3 +1,5 @@
+import { emailjsIds } from './../enums/enum.enum';
+import { EmailService } from './../services/email.service';
 import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -13,19 +15,15 @@ import { SnacbarService } from '../services/snacbar.service';
   styleUrls: ['./job-post.component.scss'],
 })
 export class JobPostComponent implements OnInit {
-  constructor(
-    private companyService: CompanyService,
-    private authenticationService: AuthenticationService,
-    private router: Router,
-    private snackbarService: SnacbarService
-  ) {}
-
   appearance: MatFormFieldAppearance = 'outline';
   jobPostArray: jobPost[] & company[] = [];
 
   jobPostForm1 = new FormGroup({
     position: new FormControl(null, Validators.required),
-    salary: new FormControl(null, [Validators.required,Validators.pattern(/^[0-9]+(k|L|cr)$/ig)]),
+    salary: new FormControl(null, [
+      Validators.required,
+      Validators.pattern(/^[0-9]+(k|L|cr)$/gi),
+    ]),
   });
 
   jobPostForm2 = new FormGroup({
@@ -36,10 +34,16 @@ export class JobPostComponent implements OnInit {
 
   jobPostForm3 = new FormGroup({
     language: new FormControl(null, Validators.required),
-    jobPost: new FormControl(null, Validators.required),
   });
 
-  currentUser: any = {};
+  currentUser: loginData = {};
+
+  constructor(
+    private companyService: CompanyService,
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private snackbarService: SnacbarService,
+  ) {}
 
   ngOnInit(): void {
     this.authenticationService.getUser.subscribe((data: loginData) => {
@@ -56,9 +60,9 @@ export class JobPostComponent implements OnInit {
     const companyData = {
       companyName: this.currentUser.name,
       email: this.currentUser.email,
-      type: this.currentUser.type,
+      type: this.currentUser.categoryType,
     };
-    const jobPost: jobPost= {
+    const jobPost: jobPost = {
       ...companyData,
       ...this.jobPostForm1.value,
       ...this.jobPostForm2.value,

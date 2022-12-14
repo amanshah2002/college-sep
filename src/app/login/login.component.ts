@@ -7,6 +7,7 @@ import { startupCategory } from '../enums/enum.enum';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Country, State, ICountry, IState } from 'country-state-city';
+import { map, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'sep-login',
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
   states: IState[] = [];
   phoneCode: string | undefined = '';
   isFocus = false;
+  resume = '';
 
   preferredStartupType = [
     { label: 'Tech', value: startupCategory.tech },
@@ -67,10 +69,17 @@ export class LoginComponent implements OnInit {
   };
 
   onLogin = () => {
-    const loginDetails = {
+    let loginDetails = {
       ...this.loginForm.value,
       categoryType: this.category,
     };
+    if(this.loginForm.value['resume']){
+       loginDetails = {
+        ...this.loginForm.value,
+        resume: this.resume,
+        categoryType: this.category,
+      };
+    }
 
     this.isLogin
       ? this.authenticationService.login(loginDetails, this.rememberMe)
@@ -97,6 +106,7 @@ export class LoginComponent implements OnInit {
         ),
         email: new FormControl(null, Validators.required),
         password: new FormControl(null, Validators.required),
+        resume: new FormControl(null, this.category === accountType.employee ? Validators.required : null),
         country: new FormControl(null, Validators.required),
         state: new FormControl(null, Validators.required),
         // city: new FormControl(null, Validators.required),
@@ -149,4 +159,20 @@ export class LoginComponent implements OnInit {
   toggleContactNumberFocus = () => {
     this.isFocus = !this.isFocus;
   };
+
+  onFileSelect = ($event: any) => {
+    let base64 = '';
+    console.log();
+    const file = $event.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    let component = this;
+    reader.onload = function() {
+      let inputData:string = reader.result as string;
+      let replaceValue = (inputData.split(',')[0]);
+      base64 = inputData.replace(replaceValue + ",","");
+      component.resume = base64;
+      console.log("LoginComponent ~ resume", component.resume);
+    }
+  }
 }

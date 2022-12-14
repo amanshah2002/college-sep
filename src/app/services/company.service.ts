@@ -1,5 +1,6 @@
+import { JobService } from 'src/app/services/job.service';
 import { tap } from 'rxjs/operators';
-import { company, jobPost } from './../interfaces/interface';
+import { appliedJobDetails, company, jobPost } from './../interfaces/interface';
 import { emailjsIds, companyAction } from './../enums/enum.enum';
 import { Router } from '@angular/router';
 import { SnacbarService } from './snacbar.service';
@@ -8,7 +9,6 @@ import { Injectable } from '@angular/core';
 import { map, of, throwError, catchError } from 'rxjs';
 import { apis } from '../enums/enum.enum';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
-import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,8 @@ export class CompanyService {
   constructor(
     private callApiService: CallAPIService,
     private snackbarService: SnacbarService,
-    private router: Router
+    private router: Router,
+    private jobService: JobService,
   ) {}
 
   companyDetails: company[] = [];
@@ -58,9 +59,14 @@ export class CompanyService {
     });
   };
 
-  postCompany = (companyArray: company[], action: string) => {
+  postCompany = (
+    companyArray: company[],
+    action: string,
+    deletedCompany?: company
+  ) => {
+
     this.callApiService
-      .callPutAPI(apis.registerCompany, {}, companyArray)
+    .callPutAPI(apis.registerCompany, {}, companyArray)
       .subscribe((data) => {
         switch (action) {
           case companyAction.approved:
@@ -73,14 +79,16 @@ export class CompanyService {
               emailjsIds.companyAddedServiceId,
               emailjsIds.rejectApproveTemplateId,
               emailjsIds.companyAddedPublicKey
-            );
-            break;
+              );
+              break;
 
-          case companyAction.deleted:
-            this.snackbarService.open('Account Deleted!');
-            localStorage.removeItem('user');
-            sessionStorage.removeItem('user');
-            location.reload();
+              case companyAction.deleted:
+                this.snackbarService.open('Account Deleted!');
+                localStorage.removeItem('user');
+                sessionStorage.removeItem('user');
+                // this.deleteAllJobPosts(deletedCompany as company);
+                location.reload();
+
             break;
 
           case companyAction.update:
@@ -92,11 +100,39 @@ export class CompanyService {
       });
   };
 
+  deleteAllJobPosts = (deletedCompany: company) => {
+    console.log(deletedCompany);
+    this.getJobs().subscribe((data: jobPost[]) => {
+      data.forEach((job, index: number) => {
+        if (job.email.trim() == deletedCompany.email.trim()) {
+          console.log(job.email);
+          data.splice(index, 1);
+        }
+      });
+      console.log('remaining jobs', data);
+      this.postJob(data).subscribe(() => {
+        this.deleteAllAppliedJobs(deletedCompany);
+      });
+    });
+  };
+
+  deleteAllAppliedJobs = (deletedCompany: company) => {
+    this.jobService.getAllAppliedJobs().subscribe((data: any) => {
+      console.log('All Jobs',data);
+      data.forEach((jobApplied: appliedJobDetails,index: number) => {
+        if(jobApplied.companyId.trim() === deletedCompany.email.trim()){
+          this.jobService.deleteAppliedJob(jobApplied.id as string).subscribe();
+        }
+      })
+      location.reload();
+    })
+  }
+
   getCompanies = () => {
     this.companyDetails = [];
     return this.callApiService.callGetAPI(apis.registerCompany).pipe(
       map((data: company[]) => {
-        data.forEach((companies: company) => {
+        data?.forEach((companies: company) => {
           companies ? this.companyDetails.push(companies) : null;
         });
         return this.companyDetails;
@@ -139,7 +175,7 @@ export class CompanyService {
             emailjsIds.companyAddedPublicKey
           );
         }
-        this.router.navigate(['await-confirmation']);
+        this.router.navigate(['/login']);
       });
     return;
   };
@@ -170,7 +206,7 @@ export class CompanyService {
     );
   };
 
-  postJob = (JobPosts: jobPost[] & Partial<company>[]) => {
+  postJob = (JobPosts: jobPost[]) => {
     console.log(JobPosts);
     return this.callApiService.callPutAPI(apis.postJob, {}, JobPosts);
   };
@@ -189,4 +225,4 @@ export class CompanyService {
   };
 }
 
-//todo: convert to downloadable link.
+

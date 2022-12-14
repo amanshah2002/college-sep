@@ -67,6 +67,12 @@
       }
     }
   }
+
+  .empty-container{
+    h2{
+      text-align: center;
+    }
+  }
 }
 
 ::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {

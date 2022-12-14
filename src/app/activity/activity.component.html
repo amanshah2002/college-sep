@@ -1,3 +1,9 @@
-<div class="activity-container">
-  
+<div class="activity-container" fxLayout="column" fxLayoutGap="40">
+    <sep-desc-header [header]="'Activity'" [subHeader]="'View your activity here'"></sep-desc-header>
+
+    <mat-card *ngFor="let job of jobs" fxLayout="row" fxLayoutAlign="space-around center">
+        <p>{{job.userName ? job.userName : '-'}}</p>
+        <p>{{job.userEmail ? job.userEmail : '-'}}</p>
+        <button class="download-btn" mat-button (click)="downloadResume(job)">Download Resume</button>
+    </mat-card>
 </div>

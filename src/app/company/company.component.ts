@@ -1,4 +1,3 @@
-import { loginData } from './../interfaces/interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from './../services/company.service';
 import { Component, OnInit } from '@angular/core';
@@ -6,7 +5,6 @@ import { company } from '../interfaces/interface';
 import { startupCategory } from '../enums/enum.enum';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'sep-company',
@@ -54,8 +52,7 @@ export class CompanyComponent implements OnInit {
   //     .subscribe((data) => {
   //       if (data) {
   //         this.companyArray.splice(index, 1);
-  //         this.companyService.postCompany(this.companyArray);
-  //         this.snackbarService.open('Company deleted successfully!');
+  //         this.companyService.postCompany(this.companyArray,companyAction.deleted);
   //         return;
   //       } else {
   //         return;

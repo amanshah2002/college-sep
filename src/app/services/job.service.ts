@@ -9,13 +9,19 @@ import { SnacbarService } from './snacbar.service';
   providedIn: 'root',
 })
 export class JobService {
-  constructor(private callApiService: CallAPIService, private snackbarService: SnacbarService, ) {}
+  constructor(
+    private callApiService: CallAPIService,
+    private snackbarService: SnacbarService
+  ) {}
 
   postAppliedJob = (appliedJobDetails: appliedJobDetails) => {
     return this.getAllAppliedJobs().pipe(
       map((resp: appliedJobDetails[]) => {
         resp.forEach((ele) => {
-          if ((ele.jobPostId === appliedJobDetails.jobPostId) && (appliedJobDetails.userEmail === ele.userEmail)) {
+          if (
+            ele.jobPostId === appliedJobDetails.jobPostId &&
+            appliedJobDetails.userEmail === ele.userEmail
+          ) {
             throw new Error('Already applied for job in this company');
           }
         });
@@ -51,13 +57,7 @@ export class JobService {
   getAppliedJobById = (companyEmail: string) => {
     return this.getAllAppliedJobs().pipe(
       map((resp: any) => {
-        let response: any[] = [];
-        if (resp) {
-          Object.keys(resp).forEach((key) => {
-            response.push({ ...resp[key], id: key });
-          });
-        }
-        return response.filter((resp) => resp?.companyId === companyEmail);
+        return resp.filter((res: any) => res?.companyId === companyEmail);
       }),
 
       catchError((error) => {
@@ -67,6 +67,6 @@ export class JobService {
   };
 
   deleteAppliedJob = (jobId: string) => {
-    return this.callApiService.callDeleteAPI( `job-apply/${jobId}.json`);
-  }
+    return this.callApiService.callDeleteAPI(`job-apply/${jobId}.json`);
+  };
 }

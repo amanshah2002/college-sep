@@ -1,23 +1,23 @@
 <div class="login" fxLayoutAlign="center center">
   <mat-card [class.login-card]="isLogin" [class.login-card-width]="!isLogin">
-    <p class="login-card-banner action-icon" [mat-menu-trigger-for]="loginMenu">
+    <p class="login-card-banner">
       {{ category }}
     </p>
 
     <section class="login-card-form" fxLayout="column">
       <section fxLayout="row" fxLayoutAlign="space-between center">
         <h2>{{isLogin?'Login' : 'Sign up'}}</h2>
-        <!-- <mat-icon [mat-menu-trigger-for]="loginMenu" class="action-icon">more_vertz</mat-icon> -->
+        <mat-icon [mat-menu-trigger-for]="loginMenu" class="action-icon">more_vertz</mat-icon>
       </section>
 
       <p>{{isLogin?'Login' : 'Sign up'}} to get started.</p>
 
       <form *ngIf="loginForm.controls" [formGroup]="loginForm">
 
-        <div fxLayout="{{!isLogin && category == 'Investor'? 'row' : 'column'}}"
-          fxLayoutAlign="{{!isLogin && category == 'Investor'? 'space-between center' : null}}">
+        <div fxLayout="{{!isLogin ? 'row' : 'column'}}"
+          fxLayoutAlign="{{!isLogin ? 'space-between center' : null}}">
 
-          <section fxFlex="{{!isLogin && category == 'Investor'? '45' : '100'}}" fxLayout="column">
+          <section fxFlex="{{!isLogin ? '45' : '100'}}" fxLayout="column">
             <mat-form-field *ngIf="!this.isLogin" [appearance]="appearance">
               <mat-label>Name</mat-label>
               <input type="text" matInput formControlName="name" />
@@ -92,7 +92,7 @@
             </mat-form-field>
           </section>
 
-          <section fxFlex="{{!isLogin && category == 'Investor'? '45' : '100'}}" fxFlex.lt-md="100" fxLayout="column">
+          <section fxFlex="{{!isLogin ? '45' : '100'}}" fxFlex.lt-md="100" fxLayout="column">
 
             <mat-form-field *ngIf="!this.isLogin" [appearance]="appearance">
               <mat-label>Last Name</mat-label>
@@ -161,15 +161,16 @@
               ">Password field is required!</mat-error>
             </mat-form-field>
 
-              <input *ngIf="!isLogin && category === 'Employee'" type="file" formControlName="resume" accept=".pdf" (change)="onFileSelect($event)"/>
-
-              <mat-error *ngIf="
-                loginForm.controls['resume']?.hasError('required') &&
-                loginForm.controls['resume']?.touched
-              ">Resume field is required!</mat-error>
           </section>
 
         </div>
+
+        <input *ngIf="!isLogin && category === 'Employee'" type="file" formControlName="resume" accept=".pdf" (change)="onFileSelect($event)"/>
+
+        <mat-error *ngIf="
+          loginForm.controls['resume']?.hasError('required') &&
+          loginForm.controls['resume']?.touched
+        ">Resume field is required!</mat-error>
         <mat-checkbox *ngIf="isLogin" color="primary" (change)="onCheck($event)">Remember me</mat-checkbox>
 
         <button class="login-card-form-btn" mat-button (click)="onLogin()" [disabled]="this.loginForm.invalid">

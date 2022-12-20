@@ -87,5 +87,3 @@ export class DisplayJobPostsComponent implements OnInit {
     });
   };
 }
-
-//TODO: add upload file code.

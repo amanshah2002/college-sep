@@ -6,6 +6,7 @@
     mat-card{
         @include card;
         background-color: $background-grey;
+        max-height: 100px;
         .download-btn{
             @include primary-yes-btn;
         }

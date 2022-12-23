@@ -27,6 +27,7 @@ import { DisplayJobPostsComponent } from './employee/display-job-posts/display-j
 import { DescHeaderComponent } from './shared/desc-header/desc-header.component';
 import { FirstLetterPipe } from './shared/pipe/first-letter.pipe';
 import { JobDetailsComponent } from './employee/job-details/job-details.component';
+import { JobDetailsDialogComponent } from './shared/job-details-dialog/job-details-dialog.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { JobDetailsComponent } from './employee/job-details/job-details.componen
     DescHeaderComponent,
     FirstLetterPipe,
     JobDetailsComponent,
+    JobDetailsDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,45 @@
+<div class="job-details" fxLayout="column" fxLayoutGap="30px">
+
+  <div class="header" fxLayoutAlign="space-between center">
+    <section fxLayout="column" fxLayoutAlign="center center">
+      <h1>{{job?.position}}</h1>
+      <p class="company-name">{{job?.companyName}}</p>
+      <p>{{job?.email}}</p>
+    </section>
+
+    <section fxLayout="column">
+      <!-- <p>Company Type: {{companyType}}</p> -->
+    </section>
+  </div>
+
+  <mat-divider></mat-divider>
+  <section fxLayoutAlign="space-between center">
+    <p>Education Requirements: <b>
+        {{job?.eduRequirements}}
+      </b>
+    </p>
+
+    <p>Salary: <b>
+        {{job?.salary}}
+      </b>
+    </p>
+  </section>
+
+  <section fxLayoutAlign="space-between center">
+    <p>Required Experience: <b>
+        {{job?.experience}}
+      </b>
+    </p>
+
+    <p>Language Skills Required: <b>
+        {{job?.language}}
+      </b>
+    </p>
+  </section>
+  <mat-divider></mat-divider>
+
+  <section class="job-desc">
+    <h2>Job Description</h2>
+    <p class="desc">{{job?.jobDesc}}</p>
+  </section>
+</div>

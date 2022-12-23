@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { appliedJobDetails, jobPost, loginData } from '../interfaces/interface';
 import { JobDetailsComponent } from '../employee/job-details/job-details.component';
+import { JobDetailsDialogComponent } from '../shared/job-details-dialog/job-details-dialog.component';
 
 @Component({
   selector: 'sep-activity',
@@ -60,7 +61,7 @@ export class ActivityComponent implements OnInit {
       this.jobs = jobs;
       this.selectedJob = this.jobs[id];
       this.showJobDetails = true;
-      console.log("ActivityComponent ~ this.companyService.getJobs ~ this.jobs", this.jobs[id]);
+      const dialogRef = this.dialog.open(JobDetailsDialogComponent,{data: {job: this.jobs[id]}})
     })
   }
 }

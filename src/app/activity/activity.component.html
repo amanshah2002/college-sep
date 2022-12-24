@@ -1,10 +1,10 @@
 <div class="activity-container" fxLayout="column" fxLayoutGap="40">
     <sep-desc-header [header]="'Activity'" [subHeader]="'View your activity here'"></sep-desc-header>
       <mat-card *ngFor="let job of appliedJobs" fxLayout="row" fxLayoutAlign="space-around center">
-          <p>{{job.userName ? job.userName : '-'}}</p>
-          <p>{{job.userEmail ? job.userEmail : '-'}}</p>
-          <button class="download-btn" mat-button (click)="downloadResume(job)">Download Resume</button>
-          <button mat-icon-button (click)="onInfo(job)">
+          <p fxFlex="20">{{job.userName ? (job.userName | wordCase) : '-'}} </p>
+          <p fxFlex="20">{{job.userEmail ? job.userEmail : '-'}}</p>
+          <button fxFlex="20" class="download-btn" mat-button (click)="downloadResume(job)">Download Resume</button>
+          <button fxFlex="20" mat-icon-button (click)="onInfo(job)">
               <mat-icon>info</mat-icon>
           </button>
       </mat-card>

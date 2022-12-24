@@ -41,7 +41,7 @@ export class ActivityComponent implements OnInit {
     this.jobService
       .getAppliedJobById(this.user.email as string)
       .subscribe((jobs: appliedJobDetails[]) => {
-        console.log(jobs);
+        console.log('test');
         this.appliedJobs = jobs;
       });
   };
@@ -57,12 +57,14 @@ export class ActivityComponent implements OnInit {
 
   onInfo = (job: appliedJobDetails) => {
     const id = job.jobPostId;
-    this.companyService.getJobs().subscribe(jobs => {
+    this.companyService.getJobs().subscribe((jobs) => {
       this.jobs = jobs;
       this.selectedJob = this.jobs[id];
       this.showJobDetails = true;
-      const dialogRef = this.dialog.open(JobDetailsDialogComponent,{data: {job: this.jobs[id]}})
-    })
-  }
+      const dialogRef = this.dialog.open(JobDetailsDialogComponent, {
+        data: { job: this.jobs[id] },
+      });
+    });
+  };
 }
 //TODO: add job post details in activity card

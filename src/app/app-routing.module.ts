@@ -1,3 +1,4 @@
+import { AdminGuard } from './guards/admin.guard';
 import { CompanyGuard } from './guards/company.guard';
 import { EmployeeGuard } from './guards/employee.guard';
 import { DisplayJobPostsComponent } from './employee/display-job-posts/display-job-posts.component';
@@ -20,7 +21,7 @@ const routes: Routes = [
   {path:'register-company/:id',component:RegisterCompanyComponent},
   {path: 'startups',component:CompanyComponent,canActivate:[AuthGuard]},
   {path: 'edit-account',component:EditAccountComponent,canActivate:[AuthGuard]},
-  {path: 'waiting-list',component:WaitingListComponent,canActivate:[AuthGuard]},
+  {path: 'waiting-list',component:WaitingListComponent,canActivate:[AuthGuard,AdminGuard]},
   {path:'await-confirmation',component:AwaitConfirmationComponent},
   {path: 'create-job-post', component: JobPostComponent, canActivate:[AuthGuard,CompanyGuard]},
   {path: 'activity', component: ActivityComponent, canActivate:[AuthGuard]},

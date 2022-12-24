@@ -6,7 +6,7 @@
   .header{
     section{
       h1{
-        @include header;
+        @include header;;
         // text-align: center;
       }
 

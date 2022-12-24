@@ -2,8 +2,8 @@
 .layout{
 
   .active-ele{
-    background-color: white;
-    color: $black;
+    background-color: $black;
+    color: $white;
     padding: 0 5px;
     border-radius: 20px;
   }
@@ -15,8 +15,8 @@
 
   &-sidenav{
     width: 20vw;
-    background-color: #4b4b4b;
-    color: $white;
+    background-color:$white;
+    color: $black;
     padding: 5px;
 
     &-header{
@@ -24,8 +24,8 @@
       border-radius: 20px;
       transition: ease-in-out 0.4s;
         &:hover{
-          background-color: white;
-          color: $black;
+          background-color: $black;
+          color: $white;
           padding: 0 5px;
           transition: ease-in-out 0.4s;
         }

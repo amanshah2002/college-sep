@@ -40,6 +40,13 @@
           </button>
           View Job Posts
         </p>
+
+        <p *ngIf="user.categoryType === 'admin'" class="side-nav-items" routerLink="waiting-list" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+          <button mat-icon-button>
+            <mat-icon>timeline</mat-icon>
+          </button>
+          View Waiting List
+        </p>
       </section>
     </mat-drawer>
 
@@ -49,23 +56,18 @@
           <mat-option *ngFor="let type of startupType" [value]="type.value">{{type.label}}</mat-option>
           <mat-select>
           </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Search Companies</mat-label>
-          <input matInput>
-          <mat-icon matSuffix>search</mat-icon>
         </mat-form-field> -->
 
       <button mat-button (click)="drawer.open()">
         <mat-icon>menu</mat-icon>
       </button>
-      <h2 class="layout-header">Welcome {{this.user?.name}}</h2>
+      <h2 class="layout-header">Welcome {{user?.name}}</h2>
       <button mat-button class="layout-header" (click)="onLogout()">Logout</button>
 
     </mat-toolbar>
     <div [class.layout-content]="isLoggedIn">
       <ng-content></ng-content>
     </div>
+
   </mat-drawer-container>
 </div>

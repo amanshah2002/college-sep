@@ -1,4 +1,9 @@
 <div class="companies">
+  <mat-form-field appearance="fill">
+    <mat-label>Search Companies</mat-label>
+    <input matInput>
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
   <sep-desc-header [header]="'Companies'" [subHeader]="'View all registered companies here'"></sep-desc-header>
 
   <mat-accordion fxLayout="column" fxLayoutGap="40px" hideToggle [multi]="true" *ngIf="companyArray.length">

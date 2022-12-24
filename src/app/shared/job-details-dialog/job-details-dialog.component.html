@@ -1,7 +1,7 @@
 <div class="job-details" fxLayout="column" fxLayoutGap="30px">
 
   <div class="header" fxLayoutAlign="space-between center">
-    <section fxLayout="column" fxLayoutAlign="center center">
+    <section class="job-header" fxLayout="column">
       <h1>{{job?.position}}</h1>
       <p class="company-name">{{job?.companyName}}</p>
       <p>{{job?.email}}</p>
@@ -13,7 +13,7 @@
   </div>
 
   <mat-divider></mat-divider>
-  <section fxLayoutAlign="space-between center">
+  <section>
     <p>Education Requirements: <b>
         {{job?.eduRequirements}}
       </b>
@@ -25,7 +25,7 @@
     </p>
   </section>
 
-  <section fxLayoutAlign="space-between center">
+  <section fxLayout="column">
     <p>Required Experience: <b>
         {{job?.experience}}
       </b>

@@ -33,6 +33,7 @@ export enum accountType {
   company = 'Company',
   employee = 'Employee',
   client = 'Client',
+  Admin = 'admin'
 }
 
 export enum companyAction {

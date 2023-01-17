@@ -6,46 +6,60 @@
       </section>
 
       <section fxLayout="column">
-        <p class="side-nav-items" routerLink="startups" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p class="side-nav-items" routerLink="startups" routerLinkActive="active-ele"
+          class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>home</mat-icon>
           </button>
           Home
         </p>
 
-        <p class="side-nav-items" routerLink="edit-account" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p class="side-nav-items" routerLink="edit-account" routerLinkActive="active-ele"
+          class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>account_circle</mat-icon>
           </button>
           My Account
         </p>
 
-        <p *ngIf="user.categoryType === 'Company'" class="side-nav-items" routerLink="create-job-post" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p *ngIf="user.categoryType === 'Company'" class="side-nav-items" routerLink="create-job-post"
+          routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>work</mat-icon>
           </button>
           Create Job Post
         </p>
 
-        <p class="side-nav-items" routerLink="activity" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p *ngIf="user.categoryType !== 'Employee'" class="side-nav-items" routerLink="activity"
+          routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>timeline</mat-icon>
           </button>
           View Activity
         </p>
 
-        <p *ngIf="user.categoryType === 'Employee'" class="side-nav-items" routerLink="job-posts" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p *ngIf="user.categoryType === 'Employee'" class="side-nav-items" routerLink="job-posts"
+          routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>timeline</mat-icon>
           </button>
           View Job Posts
         </p>
 
-        <p *ngIf="user.categoryType === 'admin'" class="side-nav-items" routerLink="waiting-list" routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+        <p *ngIf="user.categoryType === 'admin'" class="side-nav-items" routerLink="waiting-list"
+          routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>timeline</mat-icon>
           </button>
           View Waiting List
+        </p>
+
+        <p *ngIf="user.categoryType !== 'admin'" class="side-nav-items" routerLink="feedback"
+          routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
+          <button mat-icon-button>
+            <mat-icon>chat</mat-icon>
+          </button>
+          Feedback
         </p>
       </section>
     </mat-drawer>

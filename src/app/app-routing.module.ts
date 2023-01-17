@@ -1,3 +1,4 @@
+import { FeedbackComponent } from './feedback/feedback.component';
 import { AdminGuard } from './guards/admin.guard';
 import { CompanyGuard } from './guards/company.guard';
 import { EmployeeGuard } from './guards/employee.guard';
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'create-job-post', component: JobPostComponent, canActivate:[AuthGuard,CompanyGuard]},
   {path: 'activity', component: ActivityComponent, canActivate:[AuthGuard]},
   {path: 'job-posts', component: DisplayJobPostsComponent, canActivate:[AuthGuard]},
+  {path: 'feedback', component: FeedbackComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({

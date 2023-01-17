@@ -58,3 +58,9 @@ export interface appliedJobDetails{
   resume: string;
   userName: string;
 }
+
+export interface feedback {
+  feedback: string;
+  rating: number;
+  userEmail: string;
+}

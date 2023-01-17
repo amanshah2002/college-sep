@@ -16,6 +16,7 @@ export enum apis {
   postJob = 'job-posts.json',
   getCountry = 'https://api.countrystatecity.in/v1/countries',
   applyJob = 'job-apply.json',
+  feedback = 'feedback.json',
 }
 
 export enum emailjsIds{
@@ -40,4 +41,10 @@ export enum companyAction {
   approved = 'Approved',
   deleted = 'Delete',
   update = 'Update',
+}
+
+export enum rating {
+  lowLikely = 'Not at all likely',
+  midLikely = 'Likely',
+  highLikely = 'Extremely likely',
 }

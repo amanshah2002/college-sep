@@ -1,0 +1,21 @@
+<div class="feedback-container">
+  <mat-card class="feedback-card">
+    <h1 class="rating-question">How satisfied are you with our services?</h1>
+    <h1 class="rating-header">Your rating: <br> {{rating}}</h1>
+    <mat-slider class="rating-slider" (input)="onRatingChange($event)" [min]="sliderMin" [max]="sliderMax"></mat-slider>
+    <p class="rating-text">{{ratingText}}</p>
+
+    <form [formGroup]="ratingForm" class="feedback-form">
+      <mat-form-field [appearance]="inputAppearance">
+        <textarea matInput name="" id="" cols="30" rows="10" formControlName="feedback" placeholder="Please tell us your reasons for giving this score here.."></textarea>
+      </mat-form-field>
+
+      <mat-error *ngIf="
+      ratingForm.controls['feedback'].hasError('required') &&
+      ratingForm.controls['feedback'].touched
+    ">Feedback field is required!</mat-error>
+
+      <button mat-button class="submit-btn" (click)="onSubmit()" [disabled]="ratingForm.invalid">Send feedback</button>
+    </form>
+  </mat-card>
+</div>

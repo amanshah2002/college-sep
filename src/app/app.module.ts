@@ -29,10 +29,11 @@ import { FirstLetterPipe } from './shared/pipe/first-letter.pipe';
 import { JobDetailsComponent } from './employee/job-details/job-details.component';
 import { JobDetailsDialogComponent } from './shared/job-details-dialog/job-details-dialog.component';
 import { WordCasePipe } from './shared/pipe/word-case.pipe';
+import { FeedbackComponent } from './feedback/feedback.component';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     RegisterCompanyComponent,
@@ -52,8 +53,9 @@ import { WordCasePipe } from './shared/pipe/word-case.pipe';
     FirstLetterPipe,
     WordCasePipe,
     JobDetailsComponent,
-    JobDetailsDialogComponent
-  ],
+    JobDetailsDialogComponent,
+      FeedbackComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

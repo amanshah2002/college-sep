@@ -1,11 +1,12 @@
 <div class="dialog" fxLayout="column" fxLayoutGap="0.5rem">
-  <h2>{{data.heading}}</h2>
+  <h2>{{data?.heading}}</h2>
 
-  <p>{{data.content}}</p>
-  
+  <p>{{data?.content}}</p>
+
   <section fxLayoutAlign="{{data.button != 1? 'space-between center' : 'center center'}}">
     <button *ngIf="data.button == 2" fxFlex="30" mat-button class="no-btn" [mat-dialog-close]="false">No</button>
     <button *ngIf="data.button == 2" fxFlex="30" mat-button class="yes-btn" [mat-dialog-close]="true">Yes</button>
     <button *ngIf="data.button == 1" fxFlex="100" mat-button class="yes-btn">Yes</button>
+    <button *ngIf="data.button == 3" fxFlex="100" mat-button class="yes-btn" [mat-dialog-close]="true">{{data?.btnText}}</button>
   </section>
 </div>

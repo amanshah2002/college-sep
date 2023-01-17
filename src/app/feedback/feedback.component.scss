@@ -1,0 +1,61 @@
+@import '../../styles/main.scss';
+
+.feedback-container{
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  height: 90vh;
+
+  .feedback-card{
+    @include card;
+    width: 50vw;
+    height: fit-content;
+    margin: auto;
+    .rating-question{
+      text-align: center;
+    }
+
+    .rating-header{
+      // @include header;
+      font-size: 30px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .rating-slider{
+      width: 100%;
+    }
+
+    .rating-text{
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .feedback-form{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      mat-form-field{
+        width: 100%;
+      }
+      .submit-btn {
+        @include primary-yes-btn
+      }
+    }
+  }
+
+}
+
+::ng-deep .mat-accent .mat-slider-track-fill {
+  background-color: $black !important;
+}
+
+::ng-deep .mat-slider-thumb-label {
+  background-color: $black !important;
+
+}
+
+::ng-deep .mat-slider-thumb {
+  background-color: $black !important;
+}

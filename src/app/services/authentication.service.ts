@@ -38,7 +38,7 @@ export class AuthenticationService {
         console.log(data);
         data?.map((user: loginData) => {
           user?.email?.toLowerCase() == loginData.email?.toLowerCase() &&
-          (user?.categoryType?.toLowerCase() == loginData.categoryType?.toLowerCase() || user?.categoryType === 'admin')
+          (user?.categoryType?.toLowerCase() == loginData.categoryType?.toLowerCase() || user?.categoryType?.toLowerCase() === 'admin')
             ? (flag = user)
             : null;
         });
@@ -56,7 +56,6 @@ export class AuthenticationService {
       });
     } else {
       this.companyService.getCompanies().subscribe((data) => {
-        console.log(data);
         data.map((company: company) => {
           company.email.toLowerCase() == loginData.email?.toLowerCase()
             ? (flag = company)

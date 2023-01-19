@@ -1,5 +1,5 @@
 <div class="activity-container" fxLayout="column" fxLayoutGap="40">
-    <sep-desc-header [header]="'Activity'" [subHeader]="'View your activity here'"></sep-desc-header>
+    <sep-desc-header *ngIf="appliedJobs" [header]="'Activity'" [subHeader]="'View your activity here'"></sep-desc-header>
       <mat-card *ngFor="let job of appliedJobs" fxLayout="row" fxLayoutAlign="space-around center">
           <p fxFlex="20">{{job.userName ? (job.userName | wordCase) : '-'}} </p>
           <p fxFlex="20">{{job.userEmail ? job.userEmail : '-'}}</p>
@@ -8,4 +8,8 @@
               <mat-icon>info</mat-icon>
           </button>
       </mat-card>
+
+      <div *ngIf="!appliedJobs.length" class="empty-container">
+        <h2>No one has applied for job in your company yet</h2>
+      </div>
     </div>

@@ -83,10 +83,6 @@
         <mat-form-field fxFlex="45" [appearance]="appearance">
           <mat-label>Product</mat-label>
           <input type="text" matInput formControlName="product">
-          <mat-error *ngIf="
-      registerCompanyForm.controls['product'].hasError('required') &&
-      registerCompanyForm.controls['product'].touched
-    ">Product field is required!</mat-error>
         </mat-form-field>
       </section>
 

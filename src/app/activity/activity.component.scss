@@ -11,4 +11,10 @@
             @include primary-yes-btn;
         }
     }
+
+    .empty-container{
+      h2{
+        text-align: center;
+      }
+    }
 }

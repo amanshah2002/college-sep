@@ -1,34 +1,35 @@
 <div class="companies">
   <mat-form-field appearance="fill">
     <mat-label>Search Companies</mat-label>
-    <input matInput>
-    <mat-icon matSuffix>search</mat-icon>
+    <input matInput (input)="onSearch()" [(ngModel)]="searchValue">
+    <mat-icon matSuffix *ngIf="!searchValue">search</mat-icon>
+    <mat-icon matSuffix *ngIf="searchValue" class="action-icon" (click)="onClearSearch()">close</mat-icon>
   </mat-form-field>
   <sep-desc-header [header]="'Companies'" [subHeader]="'View all registered companies here'"></sep-desc-header>
 
   <mat-accordion fxLayout="column" fxLayoutGap="40px" hideToggle [multi]="true" *ngIf="companyArray.length">
-    <mat-expansion-panel *ngFor="let company of companyArray; let i = index" class="companies-card">
+    <mat-expansion-panel *ngFor="let company of filteredCompany; let i = index" class="companies-card">
       <mat-expansion-panel-header [collapsedHeight]="'fit-content'" [expandedHeight]="'fit-content'">
         <div fxFlex="100" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center">
           <section class="companies-card-header" fxLayout="column" fxLayoutGap="12px" fxLayoutAlign="center">
             <p>
               <span>Name:</span>
-              {{company?.name}}
+              {{company?.name || '-'}}
             </p>
 
             <p>
               <span>Founder:</span>
-              {{company?.founder}}
+              {{company?.founder || '-'}}
             </p>
 
             <p>
               <span>Email:</span>
-              {{company?.email}}
+              {{company?.email || '-'}}
             </p>
 
             <p>
               <span>Description:</span>
-              {{company?.description}}
+              {{company?.description || '-'}}
             </p>
           </section>
 
@@ -50,17 +51,17 @@
 
         <p>
           <span>Product:</span>
-          {{company?.product}}
+          {{company?.product || '-'}}
         </p>
 
         <p>
           <span>Website:</span>
-          {{company?.website}}
+          {{company?.website || '-'}}
         </p>
 
         <p>
           <span>Company type:</span>
-          {{companyType[+company.type]}}
+          {{companyType[+company.type] || '-'}}
         </p>
       </section>
     </mat-expansion-panel>
@@ -68,5 +69,9 @@
 
   <div *ngIf="!companyArray.length" class="empty-container">
     <h2>No companies have registered with us yet!</h2>
+  </div>
+
+  <div *ngIf="!filteredCompany.length && companyArray.length" class="empty-container">
+    <h2>Sorry, we could not find any result for: "{{searchValue}}"</h2>
   </div>
 </div>

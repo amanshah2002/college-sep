@@ -14,10 +14,8 @@ import {
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
-import { AuthenticationService } from '../services/authentication.service';
 import { company } from '../interfaces/interface';
 import { accountType, startupCategory } from '../enums/enum.enum';
-import { catchError } from 'rxjs';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 const moment = _moment;
@@ -48,18 +46,13 @@ export const MY_FORMATS = {
   // ]
 })
 export class RegisterCompanyComponent implements OnInit {
-  constructor(
-    private companyService: CompanyService,
-    private activeRoute: ActivatedRoute,
-    private router: Router,
-    private snackbarService: SnacbarService
-  ) {}
+  constructor(private companyService: CompanyService) {}
 
   companyId: number | 'new' = 0;
   isEdit: boolean = false;
-  companyArray:company[] = [];
-  company:any;
-  appearance:MatFormFieldAppearance = 'outline'
+  companyArray: company[] = [];
+  company: any;
+  appearance: MatFormFieldAppearance = 'outline';
 
   registerCompanyForm = new FormGroup({
     name: new FormControl(null, Validators.required),
@@ -73,7 +66,7 @@ export class RegisterCompanyComponent implements OnInit {
     website: new FormControl(null, Validators.required),
     qrCode: new FormControl(null, Validators.required),
     description: new FormControl(null, Validators.required),
-    product: new FormControl(null, Validators.required),
+    product: new FormControl(null),
     dateOfReg: new FormControl(null, Validators.required),
   });
 
@@ -88,43 +81,16 @@ export class RegisterCompanyComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    // this.getParams();
     this.currentDate = moment();
   }
 
-  // getParams = () => {
-  //   this.activeRoute.params.subscribe((params: Params) => {
-  //     this.companyId = params['id'];
-  //     if (this.companyId == 'new') {
-  //       this.isEdit = false;
-  //     } else {
-  //       this.isEdit = true;
-  //       this.getCompany();
-  //     }
-  //   });
-  // };
-
-  // getCompany = () => {
-  //   this.companyService.getCompanies().subscribe(data =>{
-  //     this.companyArray = data;
-  //     this.company = this.companyArray[+this.companyId];
-  //     this.company?this.patchValue() : this.snackbarService.open('Company does not exist!');
-  //   })
-  // };
-
-  // patchValue = () => {
-  //   this.registerCompanyForm.patchValue(this.company);
-  // }
-
   onSave = () => {
-    const companyData: company = {...this.registerCompanyForm.getRawValue(), categoryType: accountType.company};
+    const companyData: company = {
+      ...this.registerCompanyForm.getRawValue(),
+      categoryType: accountType.company,
+    };
 
-      this.companyService.registerCompany(companyData);
-
-      // this.companyArray[+this.companyId] = this.registerCompanyForm.getRawValue();
-      // this.companyService.postCompany(this.companyArray);
-      // this.snackbarService.open('Company updated');
-      // this.router.navigate(['startups']);
+    this.companyService.registerCompany(companyData);
     this.onClear();
   };
 

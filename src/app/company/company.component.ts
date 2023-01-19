@@ -14,15 +14,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CompanyComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
-    private dialog: MatDialog,
-    private snackbarService: MatSnackBar,
-    private router: Router,
-    private activeRoute: ActivatedRoute,
   ) {}
 
   companyArray: company[] = [];
   companyType = startupCategory;
   companyTypeObject = [];
+  searchValue = '';
+  filteredCompany: company[] = [];
 
   ngOnInit(): void {
     this.fetchCompanies();
@@ -31,12 +29,22 @@ export class CompanyComponent implements OnInit {
   fetchCompanies = () => {
     this.companyService.getCompanies().subscribe((data) => {
       this.companyArray = [...data];
-      console.log(
-        'CompanyComponent ~ this.companyService.getCompanies ~ this.companyArray',
-        this.companyArray
-      );
+      this.filteredCompany = this.companyArray;
     });
   };
+
+  onSearch = () => {
+    this.filteredCompany = this.companyArray;
+    this.filteredCompany = this.filteredCompany.filter((company) => {
+      return company.name.toLowerCase().includes(this.searchValue);
+    });
+    console.log("CompanyComponent ~ filteredCompany", this.filteredCompany);
+  };
+
+  onClearSearch = () => {
+    this.searchValue = '';
+    this.onSearch();
+  }
 
   // onDelete = (index: number) => {
   //   this.dialog

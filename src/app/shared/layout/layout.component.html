@@ -14,7 +14,7 @@
           Home
         </p>
 
-        <p class="side-nav-items" routerLink="edit-account" routerLinkActive="active-ele"
+        <p *ngIf="user.categoryType?.toLowerCase() !== 'admin'" class="side-nav-items" routerLink="edit-account" routerLinkActive="active-ele"
           class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>account_circle</mat-icon>
@@ -30,7 +30,7 @@
           Create Job Post
         </p>
 
-        <p *ngIf="user.categoryType !== 'Employee'" class="side-nav-items" routerLink="activity"
+        <p *ngIf="user.categoryType === 'Company'" class="side-nav-items" routerLink="activity"
           routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>timeline</mat-icon>
@@ -41,20 +41,20 @@
         <p *ngIf="user.categoryType === 'Employee'" class="side-nav-items" routerLink="job-posts"
           routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
-            <mat-icon>timeline</mat-icon>
+            <mat-icon>work_history</mat-icon>
           </button>
           View Job Posts
         </p>
 
-        <p *ngIf="user.categoryType === 'admin'" class="side-nav-items" routerLink="waiting-list"
+        <p *ngIf="user.categoryType?.toLowerCase() === 'admin'" class="side-nav-items" routerLink="waiting-list"
           routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
-            <mat-icon>timeline</mat-icon>
+            <mat-icon>list_alt</mat-icon>
           </button>
           View Waiting List
         </p>
 
-        <p *ngIf="user.categoryType !== 'admin'" class="side-nav-items" routerLink="feedback"
+        <p *ngIf="user.categoryType?.toLowerCase() !== 'admin'" class="side-nav-items" routerLink="feedback"
           routerLinkActive="active-ele" class="layout-sidenav-header action-icon" fxLayoutAlign="start center">
           <button mat-icon-button>
             <mat-icon>chat</mat-icon>

@@ -4,9 +4,16 @@ export enum startupCategory {
   agriculture = 3,
   finance = 4,
   NGO = 5,
-  eCommerce = 6
+  eCommerce = 6,
+  construction = 7,
+  IT = 8,
+  marketing = 9,
+  garment = 10,
+  chemical = 11,
+  petroleum = 12,
+  jewelry = 13,
+  other = 14,
 }
-
 
 export enum apis {
   // signUp = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC4_HC3tgYLIi2eJjU00GXJYLrhpjCIcUo'
@@ -19,7 +26,7 @@ export enum apis {
   feedback = 'feedback.json',
 }
 
-export enum emailjsIds{
+export enum emailjsIds {
   waitingListServiceId = 'service_6yspp6l',
   waitingListTemplateIds = 'template_pwi242l',
   waitingListPublicKey = '1zcOXHZVDdsQUjkkk',
@@ -34,7 +41,7 @@ export enum accountType {
   company = 'Company',
   employee = 'Employee',
   client = 'Client',
-  Admin = 'admin'
+  Admin = 'admin',
 }
 
 export enum companyAction {

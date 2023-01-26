@@ -1,3 +1,4 @@
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { SnacbarService } from './../services/snacbar.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CompanyService } from './../services/company.service';
@@ -17,6 +18,7 @@ import {
 import { company } from '../interfaces/interface';
 import { accountType, startupCategory } from '../enums/enum.enum';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
+import { MatDialog } from '@angular/material/dialog';
 
 const moment = _moment;
 export const MY_FORMATS = {
@@ -46,10 +48,10 @@ export const MY_FORMATS = {
   // ]
 })
 export class RegisterCompanyComponent implements OnInit {
-  constructor(private companyService: CompanyService) {}
+  constructor(private companyService: CompanyService, private dialog: MatDialog) {}
 
   companyId: number | 'new' = 0;
-  isEdit: boolean = false;
+  isEdit = false;
   companyArray: company[] = [];
   company: any;
   appearance: MatFormFieldAppearance = 'outline';
@@ -78,6 +80,14 @@ export class RegisterCompanyComponent implements OnInit {
     { label: 'NGO', value: startupCategory.NGO },
     { label: 'agricultural', value: startupCategory.agriculture },
     { label: 'E-commerce', value: startupCategory.eCommerce },
+    { label: 'Construction', value: startupCategory.construction },
+    { label: 'IT', value: startupCategory.IT },
+    { label: 'Marketing', value: startupCategory.marketing },
+    { label: 'Garment', value: startupCategory.garment },
+    { label: 'Chemical', value: startupCategory.chemical },
+    { label: 'Petroleum', value: startupCategory.petroleum },
+    { label: 'Jewelry', value: startupCategory.jewelry },
+    { label: 'Other', value: startupCategory.other },
   ];
 
   ngOnInit(): void {

@@ -10,8 +10,8 @@ import { emailjsIds, startupCategory } from 'src/app/enums/enum.enum';
 import { JobService } from 'src/app/services/job.service';
 import { SnacbarService } from 'src/app/services/snacbar.service';
 import { EmailService } from 'src/app/services/email.service';
-import { saveAs } from 'file-saver';
-import * as FileSaver from 'file-saver';
+
+
 
 @Component({
   selector: 'sep-display-job-posts',

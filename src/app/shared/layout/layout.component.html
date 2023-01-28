@@ -11,7 +11,7 @@
           <button mat-icon-button>
             <mat-icon>home</mat-icon>
           </button>
-          Home
+          {{user.categoryType?.toLowerCase() !== 'investor'? 'Home' : 'Invest In Startups'}}
         </p>
 
         <p *ngIf="user.categoryType?.toLowerCase() !== 'admin'" class="side-nav-items" routerLink="edit-account" routerLinkActive="active-ele"

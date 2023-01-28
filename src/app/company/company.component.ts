@@ -1,11 +1,9 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
 import { CompanyService } from './../services/company.service';
 import { Component, OnInit } from '@angular/core';
-import { company } from '../interfaces/interface';
+import { company, loginData } from '../interfaces/interface';
 import { startupCategory } from '../enums/enum.enum';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
 @Component({
   selector: 'sep-company',
   templateUrl: './company.component.html',
@@ -14,16 +12,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CompanyComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
+    private authService: AuthenticationService,
+    private router: Router,
   ) {}
 
   companyArray: company[] = [];
-  companyType = startupCategory;
   companyTypeObject = [];
-  searchValue = '';
   filteredCompany: company[] = [];
+
+  companyType = startupCategory;
+  searchValue = '';
+  user: loginData = {};
+
 
   ngOnInit(): void {
     this.fetchCompanies();
+    this.getUser();
   }
 
   fetchCompanies = () => {
@@ -67,4 +71,14 @@ export class CompanyComponent implements OnInit {
   //       }
   //     });
   // };
+
+  private getUser(): void {
+    this.authService.getUser.subscribe((user: loginData) => {
+      this.user = user;
+    } )
+  }
+
+  onRedirect(index: number): void {
+    this.router.navigate(['invest/' + index]);
+  }
 }

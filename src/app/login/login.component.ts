@@ -1,3 +1,4 @@
+import { WordCasePipe } from './../shared/pipe/word-case.pipe';
 import { accountType } from './../enums/enum.enum';
 import { AuthenticationService } from './../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
@@ -117,19 +118,6 @@ export class LoginComponent implements OnInit {
         resume: new FormControl(null, this.category === accountType.employee ? Validators.required : null),
         country: new FormControl(null, Validators.required),
         state: new FormControl(null, Validators.required),
-        // city: new FormControl(null, Validators.required),
-        zipCode: new FormControl(
-          null,
-          this.category === accountType.investor ? Validators.required : null
-        ),
-        address: new FormControl(
-          null,
-          this.category === accountType.investor ? Validators.required : null
-        ),
-        contactNumber: new FormControl(
-          null,
-          this.category === accountType.investor ? Validators.required : null
-        ),
       });
 
       if (this.category == 'Company') {
@@ -182,5 +170,16 @@ export class LoginComponent implements OnInit {
       component.resume = base64;
       console.log("LoginComponent ~ resume", component.resume);
     }
+  }
+
+  checkFirstLetter(Uid: 'fname' | 'lname'): void {
+    const name = Uid === 'fname'? this.loginForm.value.name : this.loginForm.value.lastName;
+    const wordCasePipe = new WordCasePipe();
+
+    const formattedName = wordCasePipe.transform(name);
+
+    this.loginForm.controls[`${Uid === 'fname'? 'name' : 'lastName'}`].setValue(formattedName);
+
+    console.log(formattedName);
   }
 }

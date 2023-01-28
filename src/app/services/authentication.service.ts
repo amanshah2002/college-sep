@@ -87,7 +87,7 @@ export class AuthenticationService {
       data? loginArray = data : null;
       data?.map((user: loginData) => {
         if(user){
-          user.email?.toLowerCase() == loginData.email?.toLowerCase()
+          user.email?.trim()?.toLowerCase() == loginData.email?.trim()?.toLowerCase()
             ? (flag = 1)
             : null;
         }

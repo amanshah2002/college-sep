@@ -84,19 +84,23 @@
 }
 
 ::ng-deep .mat-menu-panel{
-  width: 15vw;
+  width: 10vw;
+  min-height: fit-content !important;
 
   div{
-    margin: auto;
-    p{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    span{
       text-align: center;
       width: 100%;
-      transition: 0.3s ease-in-out;
+      transition: 0.2s ease-in-out;
       margin: 0;
       color: $text-grey;
       &:hover{
-        transition: 0.3s ease-in-out;
+        transition: 0.2s ease-in-out;
         color: $black;
+        font-weight: 600;
       }
     }
   }

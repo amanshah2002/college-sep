@@ -1,3 +1,4 @@
+import { InvestInCompanyComponent } from './investor/invest-in-company/invest-in-company.component';
 import { ActivityCardComponent } from './shared/activity-card/activity-card.component';
 import { EditCompanyAccountComponent } from './edit-account/edit-company-account/edit-company-account.component';
 import { NgModule } from '@angular/core';
@@ -33,7 +34,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
     RegisterCompanyComponent,
@@ -54,7 +55,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
     WordCasePipe,
     JobDetailsComponent,
     JobDetailsDialogComponent,
-      FeedbackComponent
+    FeedbackComponent,
+    InvestInCompanyComponent,
    ],
   imports: [
     BrowserModule,

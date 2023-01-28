@@ -20,7 +20,7 @@
           <section fxFlex="{{!isLogin ? '45' : '100'}}" fxLayout="column">
             <mat-form-field *ngIf="!this.isLogin" [appearance]="appearance">
               <mat-label>Name</mat-label>
-              <input type="text" matInput formControlName="name" />
+              <input type="text" matInput formControlName="name" (blur)="checkFirstLetter('fname')" />
 
               <mat-error *ngIf="
                 loginForm.controls['name']?.hasError('required') &&
@@ -96,7 +96,7 @@
 
             <mat-form-field *ngIf="!this.isLogin" [appearance]="appearance">
               <mat-label>Last Name</mat-label>
-              <input type="text" matInput formControlName="lastName" />
+              <input type="text" matInput formControlName="lastName" (blur)="checkFirstLetter('lname')"/>
 
               <mat-error *ngIf="
                 loginForm.controls['lastName']?.hasError('required') &&

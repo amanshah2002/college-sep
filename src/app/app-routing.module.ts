@@ -15,6 +15,8 @@ import { CompanyComponent } from './company/company.component';
 import { LoginGuard } from './guards/login.guard';
 import { EditAccountComponent } from './edit-account/edit-account.component';
 import { AwaitConfirmationComponent } from './await-confirmation/await-confirmation.component';
+import { InvestInCompanyComponent } from './investor/invest-in-company/invest-in-company.component';
+import { InvestorGuard } from './guards/investor.guard';
 
 const routes: Routes = [
   {path:'',pathMatch:'full',redirectTo:'login'},
@@ -28,6 +30,7 @@ const routes: Routes = [
   {path: 'activity', component: ActivityComponent, canActivate:[AuthGuard]},
   {path: 'job-posts', component: DisplayJobPostsComponent, canActivate:[AuthGuard]},
   {path: 'feedback', component: FeedbackComponent, canActivate:[AuthGuard]},
+  {path: 'invest/:id', component: InvestInCompanyComponent, canActivate:[AuthGuard, InvestorGuard]},
 ];
 
 @NgModule({

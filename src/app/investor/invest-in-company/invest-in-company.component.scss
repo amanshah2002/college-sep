@@ -1,0 +1,33 @@
+@import '../../../styles/main.scss';
+
+.invest-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px auto 0;
+  max-width: 60%;
+
+  mat-form-field {
+    width: 70%;
+  }
+
+  section{
+    width: 70%;
+    .invest-clear-btn {
+      @include primary-no-btn;
+      width: 45%;
+    }
+    .invest-save-btn {
+      @include primary-yes-btn;
+      width: 45%;
+    }
+  }
+}
+
+::ng-deep .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+  background: transparent !important;
+}
+
+::ng-deep .mat-expansion-panel-header.mat-expanded:focus, .mat-expansion-panel-header.mat-expanded:hover {
+  background: transparent !important;
+}

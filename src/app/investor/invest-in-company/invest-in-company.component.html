@@ -1,3 +1,40 @@
-<p>
-  invest-in-company works!
-</p>
+<div class="container">
+  <sep-desc-header [header]="'Invest In Company'" [subHeader]="'Enter the details for investment'"></sep-desc-header>
+
+  <form [formGroup]="investForm" (submit)="onSubmit()" fxLayout="column" class="invest-form">
+    <mat-form-field [appearance]="appearance">
+      <mat-label>Company Name</mat-label>
+      <input matInput type="text" formControlName="companyName" readonly>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="appearance">
+      <mat-label>Company Founder</mat-label>
+      <input matInput type="text" formControlName="companyFounder" readonly>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="appearance">
+      <mat-label>Company Email</mat-label>
+      <input matInput type="text" formControlName="companyEmail" readonly>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="appearance">
+      <mat-label>Company Description</mat-label>
+      <input matInput type="text" formControlName="companyDescription" readonly>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="appearance">
+      <mat-label>Pan Number</mat-label>
+      <input matInput type="text" formControlName="panNumber">
+    </mat-form-field>
+
+    <mat-form-field [appearance]="appearance">
+      <mat-label>Amount to be invested</mat-label>
+      <input matInput type="text" formControlName="amount">
+    </mat-form-field>
+
+    <section fxFlex="100" fxLayoutAlign="space-between center">
+      <button mat-button class="invest-clear-btn">Clear</button>
+      <button mat-button type="submit" class="invest-save-btn" [disabled]="this.investForm.invalid">Save</button>
+    </section>
+  </form>
+</div>

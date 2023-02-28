@@ -67,4 +67,3 @@ export class ActivityComponent implements OnInit {
     });
   };
 }
-//TODO: add job post details in activity card

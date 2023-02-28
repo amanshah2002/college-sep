@@ -24,6 +24,7 @@ export enum apis {
   getCountry = 'https://api.countrystatecity.in/v1/countries',
   applyJob = 'job-apply.json',
   feedback = 'feedback.json',
+  invest = 'invest.json',
 }
 
 export enum emailjsIds {

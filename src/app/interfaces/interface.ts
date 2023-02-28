@@ -64,3 +64,12 @@ export interface feedback {
   rating: number;
   userEmail: string;
 }
+
+export interface investmentDetails {
+  amount: number,
+  companyName: string,
+  panNumber: string,
+  companyFounder: string,
+  companyEmail: string,
+  companyDescription: string,
+}

@@ -3,7 +3,6 @@ import { BecomeAClientComponent } from './become-a-client/become-a-client.compon
 import { FeedbackComponent } from './feedback/feedback.component';
 import { AdminGuard } from './guards/admin.guard';
 import { CompanyGuard } from './guards/company.guard';
-import { EmployeeGuard } from './guards/employee.guard';
 import { DisplayJobPostsComponent } from './employee/display-job-posts/display-job-posts.component';
 import { ActivityComponent } from './activity/activity.component';
 import { JobPostComponent } from './job-post/job-post.component';
@@ -34,7 +33,7 @@ const routes: Routes = [
   {path: 'feedback', component: FeedbackComponent, canActivate:[AuthGuard]},
   {path: 'invest/:id', component: InvestInCompanyComponent, canActivate:[AuthGuard, InvestorGuard]},
   {path: 'become-a-client/:id', component: BecomeAClientComponent, canActivate:[AuthGuard, clientGuard]},
-];
+]; //test branch
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

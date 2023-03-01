@@ -31,6 +31,7 @@ import { JobDetailsComponent } from './employee/job-details/job-details.componen
 import { JobDetailsDialogComponent } from './shared/job-details-dialog/job-details-dialog.component';
 import { WordCasePipe } from './shared/pipe/word-case.pipe';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { BecomeAClientComponent } from './become-a-client/become-a-client.component';
 
 
 @NgModule({
@@ -57,6 +58,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
     JobDetailsDialogComponent,
     FeedbackComponent,
     InvestInCompanyComponent,
+    BecomeAClientComponent,
    ],
   imports: [
     BrowserModule,

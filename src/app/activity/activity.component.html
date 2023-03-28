@@ -1,5 +1,6 @@
 <div class="activity-container" fxLayout="column" fxLayoutGap="40">
-    <sep-desc-header *ngIf="appliedJobs" [header]="'Activity'" [subHeader]="'View your activity here'"></sep-desc-header>
+    <sep-desc-header *ngIf="appliedJobs || investmentData" [header]="'Activity'" [subHeader]="'View your activity here'"></sep-desc-header>
+    <ng-container *ngIf="appliedJobs.length">
       <mat-card *ngFor="let job of appliedJobs" fxLayout="row" fxLayoutAlign="space-around center">
           <p fxFlex="20">{{job.userName ? (job.userName | wordCase) : '-'}} </p>
           <p fxFlex="20">{{job.userEmail ? job.userEmail : '-'}}</p>
@@ -8,8 +9,19 @@
               <mat-icon>info</mat-icon>
           </button>
       </mat-card>
+    </ng-container>
 
-      <div *ngIf="!appliedJobs.length" class="empty-container">
-        <h2>No one has applied for job in your company yet</h2>
+    <ng-container>
+      <mat-card *ngFor="let investment of investmentData" fxLayout="row" fxLayoutAlign="space-around center">
+        <p fxFlex="20">{{investment.name}} </p>
+        <p fxFlex="20">{{investment.amount}}</p>
+        <button fxFlex="20" mat-icon-button (click)="onInfo(investment)">
+            <mat-icon>info</mat-icon>
+        </button>
+    </mat-card>
+    </ng-container>
+
+      <div *ngIf="!appliedJobs.length || !investmentData.length" class="empty-container">
+        <h2>No Recent Activity</h2>
       </div>
     </div>

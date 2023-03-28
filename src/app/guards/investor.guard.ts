@@ -20,7 +20,7 @@ export class InvestorGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return this.authenticationService.getUser.pipe(take(1),map((data:loginData) => {
 
-        if(data.categoryType === accountType.investor){
+        if(data.categoryType?.toLowerCase() === accountType.investor.toLowerCase()){
           return true;
         }
         return this.router.createUrlTree(['/startups']);

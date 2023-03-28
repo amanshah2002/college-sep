@@ -79,6 +79,8 @@ export class CompanyComponent implements OnInit {
   }
 
   onRedirect(index: number): void {
+    console.log(index);
+
     this.router.navigate(['invest/' + index]);
   }
 }

@@ -87,6 +87,7 @@ export class InvestInCompanyComponent implements OnInit {
     const payload = {
       ...this.investForm.value,
       name: this.currentUser.name,
+      investorEmail: this.currentUser.email,
     }
     this.investmentService.invest(payload).subscribe(() => {
       const message =

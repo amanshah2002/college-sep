@@ -11,10 +11,14 @@
       </mat-card>
     </ng-container>
 
-    <ng-container>
+    <ng-container *ngIf="investmentData.length">
+      <div>
+        <h1>Investment</h1>
+      </div>
       <mat-card *ngFor="let investment of investmentData" fxLayout="row" fxLayoutAlign="space-around center">
         <p fxFlex="20">{{investment.name}} </p>
         <p fxFlex="20">{{investment.amount}}</p>
+        <p fxFlex="20">{{investment.investorEmail}}</p>
         <button fxFlex="20" mat-icon-button (click)="onInfo(investment)">
             <mat-icon>info</mat-icon>
         </button>

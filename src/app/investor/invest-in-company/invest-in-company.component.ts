@@ -84,7 +84,12 @@ export class InvestInCompanyComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.investmentService.invest(this.investForm.value).subscribe(() => {
+    const payload = {
+      ...this.investForm.value,
+      name: this.currentUser.name,
+      investorEmail: this.currentUser.email,
+    }
+    this.investmentService.invest(payload).subscribe(() => {
       const message =
         'The company has been notified about your interest of investment in them!';
       const emailPayload = {

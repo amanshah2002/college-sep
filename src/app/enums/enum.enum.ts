@@ -52,7 +52,7 @@ export enum companyAction {
 }
 
 export enum rating {
-  lowLikely = 'Not at all likely',
-  midLikely = 'Likely',
-  highLikely = 'Extremely likely',
+  lowLikely = 'Not Happy',
+  midLikely = 'Happy',
+  highLikely = 'Extremely Happy',
 }

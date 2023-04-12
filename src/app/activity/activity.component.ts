@@ -3,31 +3,35 @@ import { CompanyService } from 'src/app/services/company.service';
 import { JobService } from 'src/app/services/job.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Component, OnInit } from '@angular/core';
-import { appliedJobDetails, jobPost, loginData } from '../interfaces/interface';
-import { JobDetailsComponent } from '../employee/job-details/job-details.component';
+import { appliedJobDetails, investmentDetails, jobPost, loginData } from '../interfaces/interface';
 import { JobDetailsDialogComponent } from '../shared/job-details-dialog/job-details-dialog.component';
+import { InvestmentService } from '../services/investment.service';
 
 @Component({
   selector: 'sep-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.scss'],
 })
+
 export class ActivityComponent implements OnInit {
   user: loginData = {};
   appliedJobs: appliedJobDetails[] = [];
   jobs: jobPost[] = [];
   showJobDetails = false;
   selectedJob!: jobPost;
+  investmentData!: investmentDetails[];
 
   constructor(
     private authService: AuthenticationService,
     private jobService: JobService,
     private companyService: CompanyService,
+    private investmentService: InvestmentService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.getUser();
+    this.getInvestmentActivities();
   }
 
   getUser = () => {
@@ -41,10 +45,15 @@ export class ActivityComponent implements OnInit {
     this.jobService
       .getAppliedJobById(this.user.email as string)
       .subscribe((jobs: appliedJobDetails[]) => {
-        console.log('test');
         this.appliedJobs = jobs;
       });
   };
+
+ private getInvestmentActivities = (): void => {
+    this.investmentService.getInvestments().subscribe(data => {
+      this.investmentData = data;
+    })
+  }
 
   downloadResume = (job: appliedJobDetails) => {
     const linkSource = `data: application/pdf;base64,${job?.resume}`;
@@ -55,15 +64,15 @@ export class ActivityComponent implements OnInit {
     downloadLink.click();
   };
 
-  onInfo = (job: appliedJobDetails) => {
-    const id = job.jobPostId;
-    this.companyService.getJobs().subscribe((jobs) => {
-      this.jobs = jobs;
-      this.selectedJob = this.jobs[id];
-      this.showJobDetails = true;
-      const dialogRef = this.dialog.open(JobDetailsDialogComponent, {
-        data: { job: this.jobs[id] },
+  onInfo = (data: appliedJobDetails) => {
+      const id = data.jobPostId;
+      this.companyService.getJobs().subscribe((jobs) => {
+        this.jobs = jobs;
+        this.selectedJob = this.jobs[id];
+        this.showJobDetails = true;
+        const dialogRef = this.dialog.open(JobDetailsDialogComponent, {
+          data: { job: this.jobs[id] },
+        });
       });
-    });
   };
 }

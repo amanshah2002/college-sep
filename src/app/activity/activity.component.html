@@ -1,5 +1,15 @@
 <div class="activity-container" fxLayout="column" fxLayoutGap="40">
-    <sep-desc-header *ngIf="appliedJobs" [header]="'Activity'" [subHeader]="'View your activity here'"></sep-desc-header>
+    <sep-desc-header *ngIf="appliedJobs || investmentData" [header]="'Activity'" [subHeader]="'View your activity here'"></sep-desc-header>
+    <ng-container *ngIf="appliedJobs.length">
+      <div class="decorate">
+        <h1>Job Applications</h1>
+      </div>
+      <div class="header" fxLayoutAlign="space-around center">
+        <p fxFlex="20">Name</p>
+        <p fxFlex="20">Email</p>
+        <p fxFlex="20">Resume</p>
+        <p fxFlex="20">Job Info</p>
+      </div>
       <mat-card *ngFor="let job of appliedJobs" fxLayout="row" fxLayoutAlign="space-around center">
           <p fxFlex="20">{{job.userName ? (job.userName | wordCase) : '-'}} </p>
           <p fxFlex="20">{{job.userEmail ? job.userEmail : '-'}}</p>
@@ -8,8 +18,25 @@
               <mat-icon>info</mat-icon>
           </button>
       </mat-card>
+    </ng-container>
 
-      <div *ngIf="!appliedJobs.length" class="empty-container">
-        <h2>No one has applied for job in your company yet</h2>
+    <ng-container *ngIf="investmentData?.length">
+      <div class="invest-table-title decorate">
+        <h1>Investment</h1>
+      </div>
+      <div class="header" fxLayoutAlign="space-around center">
+        <p fxFlex="20">Investor name</p>
+        <p fxFlex="20">Invested amount</p>
+        <p fxFlex="20">Investor email</p>
+      </div>
+      <mat-card *ngFor="let investment of investmentData" fxLayout="row" fxLayoutAlign="space-around center">
+        <p fxFlex="20">{{investment.name}} </p>
+        <p fxFlex="20">{{investment.amount}}</p>
+        <p fxFlex="20">{{investment.investorEmail}}</p>
+    </mat-card>
+    </ng-container>
+
+      <div *ngIf="!appliedJobs.length || !investmentData.length" class="empty-container">
+        <h2>No Recent Activity</h2>
       </div>
     </div>

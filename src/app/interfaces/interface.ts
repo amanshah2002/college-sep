@@ -66,6 +66,8 @@ export interface feedback {
 }
 
 export interface investmentDetails {
+  name:string,
+  investorEmail: string,
   amount: number,
   companyName: string,
   panNumber: string,

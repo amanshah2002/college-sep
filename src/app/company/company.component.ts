@@ -4,6 +4,11 @@ import { CompanyService } from './../services/company.service';
 import { Component, OnInit } from '@angular/core';
 import { company, loginData } from '../interfaces/interface';
 import { startupCategory } from '../enums/enum.enum';
+
+export interface routeObj {
+  invest: string,
+  client: string,
+}
 @Component({
   selector: 'sep-company',
   templateUrl: './company.component.html',
@@ -19,6 +24,7 @@ export class CompanyComponent implements OnInit {
   companyArray: company[] = [];
   companyTypeObject = [];
   filteredCompany: company[] = [];
+  routeObj: routeObj = {invest: 'invest/', client: 'become-a-client/'}
 
   companyType = startupCategory;
   searchValue = '';
@@ -78,9 +84,9 @@ export class CompanyComponent implements OnInit {
     } )
   }
 
-  onRedirect(index: number): void {
+  onRedirect(index: number, uid: string): void {
     console.log(index);
 
-    this.router.navigate(['invest/' + index]);
+    this.router.navigate([this.routeObj[uid as keyof routeObj] + index]);
   }
 }

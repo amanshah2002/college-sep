@@ -25,6 +25,7 @@ export enum apis {
   applyJob = 'job-apply.json',
   feedback = 'feedback.json',
   invest = 'invest.json',
+  client = 'client.json'
 }
 
 export enum emailjsIds {
@@ -55,4 +56,9 @@ export enum rating {
   lowLikely = 'Not Happy',
   midLikely = 'Happy',
   highLikely = 'Extremely Happy',
+}
+
+export enum snackbarMessage {
+  assignWork = "The company has been notified about your interest to work with them, they will get back to you soon!",
+  error = "Oops something went wrong, please try again!"
 }

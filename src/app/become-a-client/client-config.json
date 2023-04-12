@@ -1,0 +1,50 @@
+{
+  "clientForm": {
+    "inputs": [
+      {
+        "name": "companyName",
+        "label": "Company Name",
+        "readOnly": true,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "name": "companyFounder",
+        "label": "Company Founder",
+        "readOnly": true,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "name": "companyEmail",
+        "label": "Company Email",
+        "readOnly": true,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "name": "companyDescription",
+        "label": "Company Description",
+        "readOnly": true,
+        "validators": {
+          "required": true
+        }
+      },
+      {
+        "name": "workDesc",
+        "label": "Work Description",
+        "readOnly": false,
+        "validators": {
+          "required": true
+        }
+      }
+    ]
+  },
+  "clientPage": {
+    "header": "Client",
+    "subHeader": "Assign work to companies that fits your requirements"
+  }
+}

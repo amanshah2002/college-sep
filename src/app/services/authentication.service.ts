@@ -38,20 +38,24 @@ export class AuthenticationService {
         console.log(data);
         data?.map((user: loginData) => {
           user?.email?.toLowerCase() == loginData.email?.toLowerCase() &&
-          (user?.categoryType?.toLowerCase() == loginData.categoryType?.toLowerCase() || user?.categoryType?.toLowerCase() === 'admin')
+          (user?.categoryType?.toLowerCase() ==
+            loginData.categoryType?.toLowerCase() ||
+            user?.categoryType?.toLowerCase() === 'admin')
             ? (flag = user)
             : null;
         });
 
         if (flag) {
           if (flag.password == loginData.password) {
-            this.successfulLogin(flag,rememberMe);
+            this.successfulLogin(flag, rememberMe);
           } else {
             this.unSuccessfulLogin('Email or password is incorrect');
             return;
           }
         } else {
-         this.unSuccessfulLogin('User does not exist, please sign up first or edit your role');
+          this.unSuccessfulLogin(
+            'User does not exist, please sign up first or edit your role'
+          );
         }
       });
     } else {
@@ -64,9 +68,9 @@ export class AuthenticationService {
 
         if (flag) {
           if (flag.password == loginData.password) {
-           this.successfulLogin(flag,rememberMe);
+            this.successfulLogin(flag, rememberMe);
           } else {
-         this.unSuccessfulLogin('Email or password is incorrect');
+            this.unSuccessfulLogin('Email or password is incorrect');
             return;
           }
         } else {
@@ -84,10 +88,13 @@ export class AuthenticationService {
     this.loadObservable.next(true);
     let flag = 0;
     this.getLoginData().subscribe((data) => {
-      data? loginArray = data : null;
+      data ? (loginArray = data) : null;
       data?.map((user: loginData) => {
-        if(user){
-          user.email?.trim()?.toLowerCase() == loginData.email?.trim()?.toLowerCase()
+        if (user) {
+          user.email?.trim()?.toLowerCase() ==
+            loginData.email?.trim()?.toLowerCase() &&
+          user.categoryType?.toLowerCase().trim() ==
+            loginData.categoryType?.toLowerCase().trim()
             ? (flag = 1)
             : null;
         }
@@ -138,10 +145,8 @@ export class AuthenticationService {
     return this.callApiService.callGetAPI(apis.authenticateApi).pipe(
       map((data) => {
         data.forEach((resp: any) => {
-          resp?
-          this.loginDetails.push(resp) :
-          null
-        })
+          resp ? this.loginDetails.push(resp) : null;
+        });
         return this.loginDetails;
       })
     );
@@ -169,7 +174,7 @@ export class AuthenticationService {
     this.router.navigate(['/login']);
   };
 
-  successfulLogin = (flag: any,rememberMe:boolean) => {
+  successfulLogin = (flag: any, rememberMe: boolean) => {
     this.snackbarService.open('Logged in successfully');
     this.loadObservable.next(false);
     this.loggedIn.next(true);
@@ -181,11 +186,10 @@ export class AuthenticationService {
     return;
   };
 
-
-  unSuccessfulLogin = (message:string) => {
+  unSuccessfulLogin = (message: string) => {
     this.snackbarService.open(message);
     this.loadObservable.next(false);
     this.loggedIn.next(false);
     return;
-  }
+  };
 }

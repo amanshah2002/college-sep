@@ -1,1 +1,18 @@
-<p>become-a-client works!</p>
+<div class="client-container">
+  <sep-desc-header [header]="header" [subHeader]="subHeader"></sep-desc-header>
+
+  <form [formGroup]="clientForm" fxLayout="column" class="client-form">
+    <ng-container *ngFor="let control of clientConfig.clientForm.inputs">
+      <mat-form-field [appearance]="appearance">
+        <mat-label>{{control.label}}</mat-label>
+        <input matInput type="text" [formControlName]="control.name" [readonly]="control.readOnly">
+      </mat-form-field>
+    </ng-container>
+
+    <section fxFlex="100" fxLayoutAlign="space-between center">
+      <button mat-button class="invest-clear-btn">Clear</button>
+      <button mat-button type="submit" class="invest-save-btn" [disabled]="this.clientForm.invalid"
+        (click)="onSubmit()">Save</button>
+    </section>
+  </form>
+</div>

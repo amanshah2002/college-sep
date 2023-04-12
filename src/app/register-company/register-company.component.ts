@@ -1,20 +1,7 @@
-import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
-import { SnacbarService } from './../services/snacbar.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { CompanyService } from './../services/company.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import * as _moment from 'moment';
-import {
-  MomentDateAdapter,
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-} from '@angular/material-moment-adapter';
-
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import _moment from 'moment';
 import { company } from '../interfaces/interface';
 import { accountType, startupCategory } from '../enums/enum.enum';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -37,15 +24,6 @@ export const MY_FORMATS = {
   selector: 'sep-register-company',
   templateUrl: './register-company.component.html',
   styleUrls: ['./register-company.component.scss'],
-  // providers: [
-  //   {
-  //     provide: DateAdapter,
-  //     useClass: MomentDateAdapter,
-  //     deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
-  //   },
-
-  //   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-  // ]
 })
 export class RegisterCompanyComponent implements OnInit {
   constructor(private companyService: CompanyService, private dialog: MatDialog) {}

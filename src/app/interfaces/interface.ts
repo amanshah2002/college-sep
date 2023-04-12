@@ -75,3 +75,29 @@ export interface investmentDetails {
   companyEmail: string,
   companyDescription: string,
 }
+export interface clientData {
+  clientForm: ClientForm,
+  clientPage: ClientPage
+}
+
+export interface ClientPage {
+  header: string,
+  subHeader: string
+}
+
+
+export interface ClientForm {
+  inputs: clientInput[]
+}
+
+export interface clientInput {
+  name: string,
+  label: string,
+  readOnly: boolean,
+  validators: clientValidators
+}
+
+export interface clientValidators {
+  required: boolean
+}
+

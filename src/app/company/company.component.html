@@ -11,8 +11,11 @@
     <mat-expansion-panel *ngFor="let company of filteredCompany; let i = index" class="companies-card">
 
       <mat-menu #investMenu="matMenu">
-        <div>
-          <span class="action-icon" (click)="onRedirect(i)">Invest</span>
+        <div *ngIf="user?.categoryType?.toLowerCase() === 'investor'">
+          <span class="action-icon" (click)="onRedirect(i, 'invest')">Invest</span>
+        </div>
+        <div *ngIf="user?.categoryType?.toLowerCase() === 'client'">
+          <span class="action-icon" (click)="onRedirect(i, 'client')">Become a client</span>
         </div>
       </mat-menu>
       <mat-expansion-panel-header [collapsedHeight]="'fit-content'" [expandedHeight]="'fit-content'">

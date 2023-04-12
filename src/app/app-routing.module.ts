@@ -33,7 +33,7 @@ const routes: Routes = [
   {path: 'feedback', component: FeedbackComponent, canActivate:[AuthGuard]},
   {path: 'invest/:id', component: InvestInCompanyComponent, canActivate:[AuthGuard, InvestorGuard]},
   {path: 'become-a-client/:id', component: BecomeAClientComponent, canActivate:[AuthGuard, clientGuard]},
-]; //test branch
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

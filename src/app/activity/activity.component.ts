@@ -64,20 +64,15 @@ export class ActivityComponent implements OnInit {
     downloadLink.click();
   };
 
-  onInfo = (data: Partial<appliedJobDetails & investmentDetails>) => {
-    if(data.jobPostId) {
-      const id = data?.jobPostId;
+  onInfo = (data: appliedJobDetails) => {
+      const id = data.jobPostId;
       this.companyService.getJobs().subscribe((jobs) => {
         this.jobs = jobs;
         this.selectedJob = this.jobs[id];
         this.showJobDetails = true;
         const dialogRef = this.dialog.open(JobDetailsDialogComponent, {
-          data: { data: this.jobs[id] },
+          data: { job: this.jobs[id] },
         });
       });
-    }
-    else {
-      // TODO: write code.
-    }
   };
 }

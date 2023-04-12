@@ -1,20 +1,63 @@
-@import '../../styles/main.scss';
+@import "../../styles/main.scss";
 
-.activity-container{
-    padding: 50px;
+.activity-container {
+  padding: 50px;
 
-    mat-card{
-        @include card;
-        background-color: $background-grey;
-        max-height: 100px;
-        .download-btn{
-            @include primary-yes-btn;
-        }
+  .invest-table-title {
+    margin-top: 40px;
+  }
+
+  .decorate {
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    width: fit-content;
+    ::before {
+      content: "";
+      position: absolute;
+      background-color: $black;
+      height: 2px;
+      width: 30%;
+      left: 36%;
+      bottom: 0;
+      transition: 0.4s ease-in-out;
+      transform: scaleX(0.7);
+      transform-origin: center;
     }
 
-    .empty-container{
-      h2{
-        text-align: center;
-      }
+    :hover::before {
+      transition: 0.4s ease-in-out;
+      transform: scaleX(1.5);
+      transform-origin: center;
     }
+  }
+  .header {
+    @include card;
+    text-align: center;
+    background-color: rgb(90, 88, 88);
+    max-height: 50px;
+    color: $white;
+    p {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  mat-card {
+    @include card;
+    background-color: $background-grey;
+    max-height: 50px;
+    text-align: center;
+    p {
+      margin-bottom: 0 !important;
+    }
+    .download-btn {
+      @include primary-yes-btn;
+    }
+  }
+
+  .empty-container {
+    h2 {
+      text-align: center;
+    }
+  }
 }

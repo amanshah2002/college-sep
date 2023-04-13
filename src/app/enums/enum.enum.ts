@@ -62,3 +62,7 @@ export enum snackbarMessage {
   assignWork = "The company has been notified about your interest to work with them, they will get back to you soon!",
   error = "Oops something went wrong, please try again!"
 }
+
+export enum emailMessage {
+  assignWork = " has shown interest to work with you please check your activity tab."
+}

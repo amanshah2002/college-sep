@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import clientDetails from './client-config.json';
-import { clientData, company } from '../interfaces/interface';
+import { clientData, company, loginData } from '../interfaces/interface';
 import { FormGroup } from '@angular/forms';
 import { createForm } from './client-utils';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
@@ -10,7 +10,6 @@ import { switchMap, tap } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 import { ClientService } from '../services/client.service';
 import { SnacbarService } from '../services/snacbar.service';
-import { snackbarMessage } from '../enums/enum.enum';
 @Component({
   selector: 'sep-become-a-client',
   templateUrl: './become-a-client.component.html',
@@ -30,12 +29,13 @@ export class BecomeAClientComponent implements OnInit {
 
   companyId: number = 0;
 
+  currentUser!: loginData;
+
   constructor(
     private companyService: CompanyService,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private clientService: ClientService,
-    private snackbarService: SnacbarService,
     private router: Router
   ) {
     this.clientForm = createForm(this.clientConfig.clientForm);
@@ -74,6 +74,7 @@ export class BecomeAClientComponent implements OnInit {
   private generatePayload(): { [key: string]: string } {
     let payload = {};
     this.authenticationService.getUser.subscribe((user) => {
+      this.currentUser = user;
       payload = {
         ...this.clientForm.value,
         clientName: `${user.name} ${user.lastName}`,
@@ -85,7 +86,7 @@ export class BecomeAClientComponent implements OnInit {
 
   onSubmit(): void {
     const payload = this.generatePayload();
-    this.clientService.assignWork(payload).subscribe(() => {
+    this.clientService.assignWork(payload,this.currentUser).subscribe(() => {
       this.router.navigate(['startups'])
     },
    )

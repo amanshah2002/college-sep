@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { appliedJobDetails, investmentDetails, jobPost, loginData } from '../interfaces/interface';
 import { JobDetailsDialogComponent } from '../shared/job-details-dialog/job-details-dialog.component';
 import { InvestmentService } from '../services/investment.service';
+import { ClientService } from '../services/client.service';
 
 @Component({
   selector: 'sep-activity',
@@ -19,19 +20,22 @@ export class ActivityComponent implements OnInit {
   jobs: jobPost[] = [];
   showJobDetails = false;
   selectedJob!: jobPost;
-  investmentData!: investmentDetails[];
+  investmentData: investmentDetails[] = [];
+  clientData: any[] = []
 
   constructor(
     private authService: AuthenticationService,
     private jobService: JobService,
     private companyService: CompanyService,
     private investmentService: InvestmentService,
+    private clientService: ClientService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.getUser();
     this.getInvestmentActivities();
+    this.getClientActivity();
   }
 
   getUser = () => {
@@ -48,12 +52,6 @@ export class ActivityComponent implements OnInit {
         this.appliedJobs = jobs;
       });
   };
-
- private getInvestmentActivities = (): void => {
-    this.investmentService.getInvestments().subscribe(data => {
-      this.investmentData = data;
-    })
-  }
 
   downloadResume = (job: appliedJobDetails) => {
     const linkSource = `data: application/pdf;base64,${job?.resume}`;
@@ -75,4 +73,18 @@ export class ActivityComponent implements OnInit {
         });
       });
   };
+
+  private getClientActivity = (): void => {
+    this.clientService.getClientById(this.user.email as string).subscribe(data => {
+      this.clientData = data;
+    })
+  }
+
+ private getInvestmentActivities = (): void => {
+    this.investmentService.getInvestmentById(this.user.email as string).subscribe(data => {
+      this.investmentData = data;
+    })
+  }
+
+
 }

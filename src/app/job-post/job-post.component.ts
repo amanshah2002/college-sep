@@ -68,7 +68,6 @@ export class JobPostComponent implements OnInit {
       ...this.jobPostForm2.value,
       ...this.jobPostForm3.value,
     };
-
     return jobPost;
   };
 
@@ -81,7 +80,7 @@ export class JobPostComponent implements OnInit {
   };
 
   postJob = () => {
-    this.companyService.postJob(this.jobPostArray).subscribe((data) => {
+    this.companyService.postJob(this.jobPostArray).subscribe(() => {
       this.router.navigate(['startups']).then(() => {
         this.snackbarService.open('Job post successfully uploaded!');
       });

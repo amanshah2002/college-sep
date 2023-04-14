@@ -86,7 +86,7 @@ export class BecomeAClientComponent implements OnInit {
 
   onSubmit(): void {
     const payload = this.generatePayload();
-    this.clientService.assignWork(payload,this.currentUser).subscribe(() => {
+    this.clientService.postClient(payload,this.currentUser).subscribe(() => {
       this.router.navigate(['startups'])
     },
    )

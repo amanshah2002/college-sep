@@ -26,13 +26,29 @@
       </div>
       <div class="header" fxLayoutAlign="space-around center">
         <p fxFlex="20">Investor name</p>
-        <p fxFlex="20">Invested amount</p>
         <p fxFlex="20">Investor email</p>
+        <p fxFlex="20">Invested amount</p>
       </div>
       <mat-card *ngFor="let investment of investmentData" fxLayout="row" fxLayoutAlign="space-around center">
         <p fxFlex="20">{{investment.name}} </p>
-        <p fxFlex="20">{{investment.amount}}</p>
         <p fxFlex="20">{{investment.investorEmail}}</p>
+        <p fxFlex="20">{{investment.amount}}</p>
+    </mat-card>
+    </ng-container>
+
+    <ng-container *ngIf="clientData?.length">
+      <div class="invest-table-title decorate">
+        <h1>Client</h1>
+      </div>
+      <div class="header" fxLayoutAlign="space-around center">
+        <p fxFlex="20">Client name</p>
+        <p fxFlex="20">Client email</p>
+        <p fxFlex="20">Work description</p>
+      </div>
+      <mat-card *ngFor="let client of clientData" fxLayout="row" fxLayoutAlign="space-around center">
+        <p fxFlex="20">{{client.clientName}} </p>
+        <p fxFlex="20">{{client.clientEmail}}</p>
+        <p fxFlex="20">{{client.workDesc}}</p>
     </mat-card>
     </ng-container>
 

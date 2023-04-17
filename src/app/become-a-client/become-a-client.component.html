@@ -10,7 +10,7 @@
     </ng-container>
 
     <section fxFlex="100" fxLayoutAlign="space-between center">
-      <button mat-button class="invest-clear-btn">Clear</button>
+      <button mat-button class="invest-clear-btn" (click)="clearForm()">Clear</button>
       <button mat-button type="submit" class="invest-save-btn" [disabled]="this.clientForm.invalid"
         (click)="onSubmit()">Save</button>
     </section>

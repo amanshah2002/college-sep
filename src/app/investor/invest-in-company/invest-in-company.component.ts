@@ -106,4 +106,8 @@ export class InvestInCompanyComponent implements OnInit {
       );
     });
   }
+
+  clearForm = (): void => {
+    this.investForm.reset();
+  }
 }

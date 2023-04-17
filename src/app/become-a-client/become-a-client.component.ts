@@ -92,4 +92,8 @@ export class BecomeAClientComponent implements OnInit {
    )
 
   }
+
+  clearForm = ():void => {
+    this.clientForm.reset();
+  }
 }

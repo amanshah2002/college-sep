@@ -31,97 +31,102 @@ export class AuthenticationService {
 
   login = (loginData: loginData, rememberMe: boolean) => {
     this.loadObservable.next(true);
-    let flag: any = null;
+    // let flag: any = null;
 
-    if (loginData.categoryType != 'Company') {
-      this.getLoginData().subscribe((data) => {
-        console.log(data);
-        data?.map((user: loginData) => {
-          user?.email?.toLowerCase() == loginData.email?.toLowerCase() &&
-          (user?.categoryType?.toLowerCase() ==
-            loginData.categoryType?.toLowerCase() ||
-            user?.categoryType?.toLowerCase() === 'admin')
-            ? (flag = user)
-            : null;
-        });
+    // if (loginData.categoryType != 'Company') {
+    //   this.getLoginData().subscribe((data) => {
+    //     console.log(data);
+    //     data?.map((user: loginData) => {
+    //       user?.email?.toLowerCase() == loginData.email?.toLowerCase() &&
+    //       (user?.categoryType?.toLowerCase() ==
+    //         loginData.categoryType?.toLowerCase() ||
+    //         user?.categoryType?.toLowerCase() === 'admin')
+    //         ? (flag = user)
+    //         : null;
+    //     });
 
-        if (flag) {
-          if (flag.password == loginData.password) {
-            this.successfulLogin(flag, rememberMe);
-          } else {
-            this.unSuccessfulLogin('Email or password is incorrect');
-            return;
-          }
-        } else {
-          this.unSuccessfulLogin(
-            'User does not exist, please sign up first or edit your role'
-          );
-        }
-      });
-    } else {
-      this.companyService.getCompanies().subscribe((data) => {
-        data.map((company: company) => {
-          company.email.toLowerCase() == loginData.email?.toLowerCase()
-            ? (flag = company)
-            : null;
-        });
+    //     if (flag) {
+    //       if (flag.password == loginData.password) {
+    //         this.successfulLogin(flag, rememberMe);
+    //       } else {
+    //         this.unSuccessfulLogin('Email or password is incorrect');
+    //         return;
+    //       }
+    //     } else {
+    //       this.unSuccessfulLogin(
+    //         'User does not exist, please sign up first or edit your role'
+    //       );
+    //     }
+    //   });
+    // } else {
+    //   this.companyService.getCompanies().subscribe((data) => {
+    //     data.map((company: company) => {
+    //       company.email.toLowerCase() == loginData.email?.toLowerCase()
+    //         ? (flag = company)
+    //         : null;
+    //     });
 
-        if (flag) {
-          if (flag.password == loginData.password) {
-            this.successfulLogin(flag, rememberMe);
-          } else {
-            this.unSuccessfulLogin('Email or password is incorrect');
-            return;
-          }
-        } else {
-          this.snackbarService.open(
-            'Company does not exist, please sign up first'
-          );
-          this.loadObservable.next(false);
-        }
-      });
-    }
+    //     if (flag) {
+    //       if (flag.password == loginData.password) {
+    //         this.successfulLogin(flag, rememberMe);
+    //       } else {
+    //         this.unSuccessfulLogin('Email or password is incorrect');
+    //         return;
+    //       }
+    //     } else {
+    //       this.snackbarService.open(
+    //         'Company does not exist, please sign up first'
+    //       );
+    //       this.loadObservable.next(false);
+    //     }
+    //   });
+    // }
+
+    return this.callApiService.callPostAPI(apis.login, loginData)
   };
 
   signUp = (loginData: loginData, rememberMe: boolean) => {
     let loginArray: any[] = [];
     this.loadObservable.next(true);
     let flag = 0;
-    this.getLoginData().subscribe((data) => {
-      data ? (loginArray = data) : null;
-      data?.map((user: loginData) => {
-        if (user) {
-          user.email?.trim()?.toLowerCase() ==
-            loginData.email?.trim()?.toLowerCase() &&
-          user.categoryType?.toLowerCase().trim() ==
-            loginData.categoryType?.toLowerCase().trim()
-            ? (flag = 1)
-            : null;
-        }
-      });
+    // this.getLoginData().subscribe((data) => {
+    //   data ? (loginArray = data) : null;
+    //   data?.map((user: loginData) => {
+    //     if (user) {
+    //       user.email?.trim()?.toLowerCase() ==
+    //         loginData.email?.trim()?.toLowerCase() &&
+    //       user.categoryType?.toLowerCase().trim() ==
+    //         loginData.categoryType?.toLowerCase().trim()
+    //         ? (flag = 1)
+    //         : null;
+    //     }
+    //   });
 
-      if (flag == 1) {
-        this.snackbarService.open('A user with this email already exists!');
-        this.loadObservable.next(false);
-      } else {
-        loginArray.push(loginData);
-        this.callApiService
-          .callPutAPI(apis.authenticateApi, {}, loginArray)
-          .subscribe((data) => {
-            console.log(data);
-            loginData['resume'] = '';
-            this.sendEmail(loginData);
-            this.snackbarService.open('Successfully signed up');
-            this.loadObservable.next(false);
-            this.user.next(loginData);
-            rememberMe
-              ? localStorage.setItem('user', JSON.stringify(flag))
-              : sessionStorage.setItem('user', JSON.stringify(flag));
-            this.loggedIn.next(true);
-            this.router.navigate(['startups']);
-          });
-      }
-    });
+    //   if (flag == 1) {
+    //     this.snackbarService.open('A user with this email already exists!');
+    //     this.loadObservable.next(false);
+    //   } else {
+    //     loginArray.push(loginData);
+    //     this.callApiService
+          // .callPutAPI(apis.authenticateApi, {}, loginArray)
+    //       .subscribe((data) => {
+    //         console.log(data);
+    //         loginData['resume'] = '';
+    //         this.sendEmail(loginData);
+    //         this.snackbarService.open('Successfully signed up');
+    //         this.loadObservable.next(false);
+    //         this.user.next(loginData);
+    //         rememberMe
+    //           ? localStorage.setItem('user', JSON.stringify(flag))
+    //           : sessionStorage.setItem('user', JSON.stringify(flag));
+    //         this.loggedIn.next(true);
+    //         this.router.navigate(['startups']);
+    //       });
+    //   }
+    // });
+
+    return this.callApiService.callPostAPI(apis.signup, loginData)
+
   };
 
   sendEmail = (loginData: loginData) => {
@@ -142,7 +147,7 @@ export class AuthenticationService {
 
   getLoginData = () => {
     this.loginDetails = [];
-    return this.callApiService.callGetAPI(apis.authenticateApi).pipe(
+    return this.callApiService.callGetAPI(apis.login).pipe(
       map((data) => {
         data.forEach((resp: any) => {
           resp ? this.loginDetails.push(resp) : null;

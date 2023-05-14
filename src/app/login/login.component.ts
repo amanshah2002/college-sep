@@ -90,9 +90,19 @@ export class LoginComponent implements OnInit {
       };
     }
 
-    this.isLogin
-      ? this.authenticationService.login(loginDetails, this.rememberMe)
-      : this.authenticationService.signUp(loginDetails, this.rememberMe);
+    // this.isLogin
+    //   ? this.authenticationService.login(loginDetails, this.rememberMe)
+    //   : this.authenticationService.signUp(loginDetails, this.rememberMe);
+
+    if(this.isLogin) {
+      this.authenticationService.login(loginDetails, this.rememberMe).subscribe(data => {
+        console.log('login data:', data);
+      })
+    } else {
+      this.authenticationService.signUp(loginDetails, this.rememberMe).subscribe(data => {
+        console.log('signup data', data);
+      })
+    }
   };
 
   onSignupToggle = () => {
@@ -142,9 +152,7 @@ export class LoginComponent implements OnInit {
 
   onCountrySelect = () => {
     let selectedCountry = this.loginForm.value?.country;
-    console.log('LoginComponent ~ selectedCountry', selectedCountry);
     this.states = State.getStatesOfCountry(selectedCountry);
-    console.log('LoginComponent ~ this.states', this.states);
     this.phoneCode = Country.getCountryByCode(selectedCountry)?.phonecode;
   };
 

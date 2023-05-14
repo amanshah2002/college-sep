@@ -17,7 +17,8 @@ export enum startupCategory {
 
 export enum apis {
   // signUp = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC4_HC3tgYLIi2eJjU00GXJYLrhpjCIcUo'
-  authenticateApi = 'authenticate.json',
+  signup = 'auth/signup',
+  login = 'auth/login',
   registerCompany = 'register-company.json',
   waitingList = 'waiting-list.json',
   postJob = 'job-posts.json',

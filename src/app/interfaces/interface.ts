@@ -1,5 +1,5 @@
 export interface loginData {
-  id?: string;
+  _id?: string;
   name?:string;
   lastName?: string;
   email?: string;
@@ -15,9 +15,17 @@ export interface loginData {
   address?:string;
   contactNumber?:string;
   resume?:string;
+  token?: string;
+}
+
+export interface message {
+  to: string,
+  from: string,
+  message: string
 }
 
 export interface company {
+  _id?: any,
   name: string;
   founder: string;
   email: string;
@@ -29,7 +37,8 @@ export interface company {
   type: companyCategory;
   dateOfReg: any;
   message?:string;
-  categoryType:string
+  categoryType:string,
+  status: string;
 }
 
 export interface companyCategory {
@@ -38,7 +47,6 @@ export interface companyCategory {
 }
 
 export interface jobPost {
-  companyName: string;
   email: string;
   type: number;
   position: string;
@@ -48,6 +56,7 @@ export interface jobPost {
   language: string;
   jobPost: string;
   jobDesc: string;
+  companyId: string
 }
 
 export interface appliedJobDetails{
@@ -96,7 +105,6 @@ export interface clientInput {
   readOnly: boolean,
   validators: clientValidators
 }
-
 export interface clientValidators {
   required: boolean
 }

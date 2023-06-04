@@ -77,7 +77,7 @@ export class EditCompanyAccountComponent implements OnInit {
       return;
     }else{
       this.companyArray[+this.companyId] = companyData;
-      this.companyService.postCompany(this.companyArray,companyAction.update);
+      // this.companyService.postCompany(this.companyArray,companyAction.update);
       this.router.navigate(['startups']);
       this.updateUserInStorage(companyData);
       this.authService.autoLogin();
@@ -109,7 +109,7 @@ export class EditCompanyAccountComponent implements OnInit {
     console.log(this.companyId);
     const deletedCompany = this.companyArray[this.companyId]
     this.companyArray.splice(this.companyId,1);
-    this.companyService.postCompany(this.companyArray,companyAction.deleted,deletedCompany);
+    // this.companyService.postCompany(this.companyArray,companyAction.deleted,deletedCompany);
   }
 
   getCompany = () => {

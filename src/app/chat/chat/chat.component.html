@@ -1,0 +1,21 @@
+<div class="chat">
+  <!-- <section>
+    <ul id="message-list"></ul>
+  </section>
+  <form [formGroup]="messageForm">
+    <mat-form-field>
+      <input type="text" matInput placeholder="Type a message" formControlName="msg">
+    </mat-form-field>
+
+    <button mat-button (click)="sendMessage()">Send</button>
+  </form> -->
+
+  <ng-container *ngFor="let user of userList">
+    <mat-card class="chat-users-card" fxLayout="row" fxLayoutGap="20px" (click)="onChat(user)">
+      <div class="chat-users-card-letter" fxLayoutAlign="center center">
+        <b>{{(user.name | firstLetter) || '-'}}</b>
+      </div>
+      <p fxLayoutAlign="center center">{{user.name}} - {{user.categoryType}}</p>
+    </mat-card>
+  </ng-container>
+  </div>

@@ -1,3 +1,4 @@
+import { company } from 'src/app/interfaces/interface';
 import { map, tap, filter, catchError, throwError, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CallAPIService } from '../core/call-api-service.service';
@@ -15,29 +16,36 @@ export class JobService {
   ) {}
 
   postAppliedJob = (appliedJobDetails: appliedJobDetails) => {
-    return this.getAllAppliedJobs().pipe(
-      map((resp: appliedJobDetails[]) => {
-        resp.forEach((ele) => {
-          if (
-            ele.jobPostId === appliedJobDetails.jobPostId &&
-            appliedJobDetails.userEmail === ele.userEmail
-          ) {
-            throw new Error('Already applied for job in this company');
-          }
-        });
-      }),
-      switchMap(() => {
-        return this.callApiService.callPostAPI(
-          apis.applyJob,
-          appliedJobDetails
-        );
-      }),
-      catchError((error) => {
-        console.log(error);
-        this.snackbarService.open(error);
-        throw error;
+    // return this.getAllAppliedJobs().pipe(
+    //   map((resp: appliedJobDetails[]) => {
+    //     resp.forEach((ele) => {
+    //       if (
+    //         ele.jobPostId === appliedJobDetails.jobPostId &&
+    //         appliedJobDetails.userEmail === ele.userEmail
+    //       ) {
+    //         throw new Error('Already applied for job in this company');
+    //       }
+    //     });
+    //   }),
+    //   switchMap(() => {
+    //     return this.callApiService.callPostAPI(
+    //       apis.applyJob,
+    //       appliedJobDetails
+    //     );
+    //   }),
+    //   catchError((error) => {
+    //     console.log(error);
+    //     this.snackbarService.open(error);
+    //     throw error;
+    //   })
+    // );
+
+    return this.callApiService.callPostAPI(apis.applyJob, appliedJobDetails).pipe(
+      catchError((err) => {
+        this.snackbarService.open(err.error.message);
+        throw(err);
       })
-    );
+    )
   };
 
   getAllAppliedJobs = () => {
@@ -54,16 +62,8 @@ export class JobService {
     );
   };
 
-  getAppliedJobById = (companyEmail: string) => {
-    return this.getAllAppliedJobs().pipe(
-      map((resp: any) => {
-        return resp.filter((res: any) => res?.companyId === companyEmail);
-      }),
-
-      catchError((error) => {
-        throw new Error(error);
-      })
-    );
+  getAppliedJobById = (companyId: any) => {
+    return this.callApiService.callGetAPI(apis.getJobs, {filter: companyId})
   };
 
   deleteAppliedJob = (jobId: string) => {

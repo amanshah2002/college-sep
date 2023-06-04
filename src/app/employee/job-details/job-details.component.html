@@ -3,13 +3,13 @@
   <div class="header" fxLayoutAlign="space-between center">
     <section>
       <h1>{{job?.position}}</h1>
-      <p class="company-name">{{job?.companyName}}</p>
+      <p class="company-name">{{job?.companyId?.name || '-'}}</p>
       <p>{{job?.email}}</p>
     </section>
 
     <section fxLayout="column">
       <p>Company Type: {{companyType}}</p>
-      <button mat-button class="apply-job-btn" (click)="onApplyJob()">Apply For Job</button>
+      <button mat-button class="apply-job-btn" (click)="onApplyJob(job)">Apply For Job</button>
     </section>
   </div>
 

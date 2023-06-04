@@ -6,8 +6,8 @@ import { company, loginData } from '../interfaces/interface';
 import { startupCategory } from '../enums/enum.enum';
 
 export interface routeObj {
-  invest: string,
-  client: string,
+  invest: string;
+  client: string;
 }
 @Component({
   selector: 'sep-company',
@@ -18,18 +18,17 @@ export class CompanyComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private authService: AuthenticationService,
-    private router: Router,
+    private router: Router
   ) {}
 
   companyArray: company[] = [];
   companyTypeObject = [];
   filteredCompany: company[] = [];
-  routeObj: routeObj = {invest: 'invest/', client: 'become-a-client/'}
+  routeObj: routeObj = { invest: 'invest/', client: 'become-a-client/' };
 
   companyType = startupCategory;
   searchValue = '';
   user: loginData = {};
-
 
   ngOnInit(): void {
     this.fetchCompanies();
@@ -38,6 +37,8 @@ export class CompanyComponent implements OnInit {
 
   fetchCompanies = () => {
     this.companyService.getCompanies().subscribe((data) => {
+      console.log('companies', data);
+
       this.companyArray = [...data];
       this.filteredCompany = this.companyArray;
     });
@@ -48,13 +49,13 @@ export class CompanyComponent implements OnInit {
     this.filteredCompany = this.filteredCompany.filter((company) => {
       return company.name.toLowerCase().includes(this.searchValue);
     });
-    console.log("CompanyComponent ~ filteredCompany", this.filteredCompany);
+    console.log('CompanyComponent ~ filteredCompany', this.filteredCompany);
   };
 
   onClearSearch = () => {
     this.searchValue = '';
     this.onSearch();
-  }
+  };
 
   // onDelete = (index: number) => {
   //   this.dialog
@@ -81,7 +82,7 @@ export class CompanyComponent implements OnInit {
   private getUser(): void {
     this.authService.getUser.subscribe((user: loginData) => {
       this.user = user;
-    } )
+    });
   }
 
   onRedirect(index: number, uid: string): void {

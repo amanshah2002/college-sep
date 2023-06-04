@@ -3,9 +3,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import _moment from 'moment';
 import { company } from '../interfaces/interface';
-import { accountType, startupCategory } from '../enums/enum.enum';
+import { accountType, companyStatus, startupCategory } from '../enums/enum.enum';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 const moment = _moment;
 export const MY_FORMATS = {
@@ -26,7 +27,7 @@ export const MY_FORMATS = {
   styleUrls: ['./register-company.component.scss'],
 })
 export class RegisterCompanyComponent implements OnInit {
-  constructor(private companyService: CompanyService, private dialog: MatDialog) {}
+  constructor(private companyService: CompanyService, private router: Router) {}
 
   companyId: number | 'new' = 0;
   isEdit = false;
@@ -76,10 +77,14 @@ export class RegisterCompanyComponent implements OnInit {
     const companyData: company = {
       ...this.registerCompanyForm.getRawValue(),
       categoryType: accountType.company,
+      status: companyStatus.inProgress
     };
 
-    this.companyService.registerCompany(companyData);
-    this.onClear();
+    this.companyService.registerCompany(companyData).subscribe(data => {
+      console.log('company Data:', data);
+      // this.onClear();
+      this.router.navigate(['/login']);
+    });
   };
 
   onClear = () => {

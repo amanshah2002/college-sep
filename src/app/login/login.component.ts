@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
       })
     } else {
       this.authenticationService.signUp(loginDetails, this.rememberMe).subscribe(data => {
-        console.log('signup data', data);
+        this.isLogin = true;
       })
     }
   };
@@ -166,18 +166,17 @@ export class LoginComponent implements OnInit {
 
   onFileSelect = ($event: any) => {
     let base64 = '';
-    console.log();
     const file = $event.target.files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    let component = this;
-    reader.onload = function() {
-      let inputData:string = reader.result as string;
-      let replaceValue = (inputData.split(',')[0]);
-      base64 = inputData.replace(replaceValue + ",","");
-      component.resume = base64;
-      console.log("LoginComponent ~ resume", component.resume);
-    }
+    this.resume = file;
+    // let reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // let component = this;
+    // reader.onload = function() {
+    //   let inputData:string = reader.result as string;
+    //   let replaceValue = (inputData.split(',')[0]);
+    //   base64 = inputData.replace(replaceValue + ",","");
+    //   component.resume = base64;
+    // }
   }
 
   checkFirstLetter(Uid: 'fname' | 'lname'): void {

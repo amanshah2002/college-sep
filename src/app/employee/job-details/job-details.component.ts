@@ -8,7 +8,7 @@ import { jobPost } from 'src/app/interfaces/interface';
 })
 export class JobDetailsComponent implements OnInit {
   @Input()
-  job!: jobPost;
+  job: any;
  @Input() companyType = '';
  @Output() jobClicked = new EventEmitter<any>();
   constructor() { }
@@ -16,8 +16,8 @@ export class JobDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onApplyJob = () => {
-    this.jobClicked.emit();
+  onApplyJob = (job: any) => {
+    this.jobClicked.emit(job);
   }
 
 }

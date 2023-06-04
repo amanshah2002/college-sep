@@ -76,9 +76,9 @@ export class BecomeAClientComponent implements OnInit {
     this.authenticationService.getUser.subscribe((user) => {
       this.currentUser = user;
       payload = {
-        ...this.clientForm.value,
-        clientName: `${user.name} ${user.lastName}`,
-        clientEmail: user.email,
+        workDescription: this.clientForm.value['workDesc'],
+        clientId: user._id,
+        companyId: this.company._id,
       };
     });
     return payload;
@@ -86,7 +86,8 @@ export class BecomeAClientComponent implements OnInit {
 
   onSubmit(): void {
     const payload = this.generatePayload();
-    this.clientService.postClient(payload,this.currentUser).subscribe(() => {
+    this.clientService.postClient(payload,this.currentUser, this.company.email).subscribe((data) => {
+      console.log(data);
       this.router.navigate(['startups'])
     },
    )

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FirstLetterPipe implements PipeTransform {
 
-  transform(value: string): string {
+  transform(value: any): string {
     let firstLetter = value.split('')[0];
     return firstLetter;
   }

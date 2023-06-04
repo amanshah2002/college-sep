@@ -27,7 +27,7 @@ export class DisplayJobPostsComponent implements OnInit {
     private emailService: EmailService
   ) {}
 
-  jobPosts: jobPost[] = [];
+  jobPosts: any[] = [];
   selectedJob!: jobPost;
   companyType = '';
   user: loginData = {};
@@ -51,32 +51,30 @@ export class DisplayJobPostsComponent implements OnInit {
     });
   };
 
-  onSelectJobPost = (job: jobPost) => {
+  onSelectJobPost = (job: any) => {
     Object.values(startupCategory).forEach((key: any) => {
       if (isNaN(key)) {
-        +startupCategory[key] === job?.type ? (this.companyType = key) : null;
+        +startupCategory[key] === job?.companyId.type ? (this.companyType = key) : null;
       }
     });
     this.selectedJob = job;
   };
 
-  onApplyJob = () => {
-    const appliedJobIds: appliedJobDetails = {
-      jobPostId: this.jobPosts.indexOf(this.selectedJob),
-      companyId: this.selectedJob.email,
-      userEmail: this.user.email as string,
-      resume: this.user.resume as string,
-      userName: this.user.name as string,
+  onApplyJob = (job: any) => {
+    const appliedJobIds: any = {
+      jobPostId: job._id,
+      companyId: job.companyId._id,
+      userId: this.user._id
     };
 
     this.jobService.postAppliedJob(appliedJobIds).subscribe(() => {
       this.snackbarService.open(
-        `Job applied in ${this.selectedJob.companyName}`
+        `Job applied in ${job.companyId.name}`
       );
 
       const payload = {
         message: `${this.user.name} has applied for a job in your company, please contact them at ${this.user.email} or view your activity tab!`,
-        email: appliedJobIds.companyId,
+        email: job.companyId.email,
       };
       this.emailService.send(
         emailjsIds.companyAddedServiceId,

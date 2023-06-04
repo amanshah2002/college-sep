@@ -18,13 +18,13 @@ export class ClientService {
 
   constructor(private callApiService: CallAPIService, private snackbarService: SnacbarService, private emailService: EmailService) { }
 
-  postClient(payload: {[key: string]:string}, currentUser: loginData):Observable<any> {
+  postClient(payload: {[key: string]:string}, currentUser: loginData, email: string):Observable<any> {
     return this.callApiService.callPostAPI(apis.client, payload).pipe(
       tap(() => {
         this.snackbarService.open(snackbarMessage.postClient)
       const emailPayload = {
         message: `${currentUser.name} ${emailMessage.postClient}`,
-        email: payload['companyEmail'],
+        email,
       };
       this.emailService.send(
         emailjsIds.companyAddedServiceId,
@@ -47,10 +47,17 @@ export class ClientService {
     )
   }
 
-  getClientById(companyEmail: string) {
-    return this.getAllClients().pipe(
-      map((res: any) => {
-        return res.filter((ele: any) => ele.companyEmail === companyEmail)
+  getClientById(companyId: string) {
+    // return this.getAllClients().pipe(
+    //   map((res: any) => {
+    //     return res.filter((ele: any) => ele.companyEmail === companyEmail)
+    //   })
+    // )
+
+    return this.callApiService.callGetAPI(`${apis.client}/${companyId}`).pipe(
+      catchError((err) => {
+        this.snackbarService.open(err.error.message);
+        throw err;
       })
     )
   }

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://college-sep-8c0cb-default-rtdb.asia-southeast1.firebasedatabase.app/'
+  // baseUrl: 'https://college-sep-8c0cb-default-rtdb.asia-southeast1.firebasedatabase.app/'
+  baseUrl: 'http://localhost:3000/'
 };
 
 /*

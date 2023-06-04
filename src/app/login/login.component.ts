@@ -90,9 +90,19 @@ export class LoginComponent implements OnInit {
       };
     }
 
-    this.isLogin
-      ? this.authenticationService.login(loginDetails, this.rememberMe)
-      : this.authenticationService.signUp(loginDetails, this.rememberMe);
+    // this.isLogin
+    //   ? this.authenticationService.login(loginDetails, this.rememberMe)
+    //   : this.authenticationService.signUp(loginDetails, this.rememberMe);
+
+    if(this.isLogin) {
+      this.authenticationService.login(loginDetails, this.rememberMe).subscribe(data => {
+        console.log('login data:', data);
+      })
+    } else {
+      this.authenticationService.signUp(loginDetails, this.rememberMe).subscribe(data => {
+        this.isLogin = true;
+      })
+    }
   };
 
   onSignupToggle = () => {
@@ -142,9 +152,7 @@ export class LoginComponent implements OnInit {
 
   onCountrySelect = () => {
     let selectedCountry = this.loginForm.value?.country;
-    console.log('LoginComponent ~ selectedCountry', selectedCountry);
     this.states = State.getStatesOfCountry(selectedCountry);
-    console.log('LoginComponent ~ this.states', this.states);
     this.phoneCode = Country.getCountryByCode(selectedCountry)?.phonecode;
   };
 
@@ -158,18 +166,17 @@ export class LoginComponent implements OnInit {
 
   onFileSelect = ($event: any) => {
     let base64 = '';
-    console.log();
     const file = $event.target.files[0];
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    let component = this;
-    reader.onload = function() {
-      let inputData:string = reader.result as string;
-      let replaceValue = (inputData.split(',')[0]);
-      base64 = inputData.replace(replaceValue + ",","");
-      component.resume = base64;
-      console.log("LoginComponent ~ resume", component.resume);
-    }
+    this.resume = file;
+    // let reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // let component = this;
+    // reader.onload = function() {
+    //   let inputData:string = reader.result as string;
+    //   let replaceValue = (inputData.split(',')[0]);
+    //   base64 = inputData.replace(replaceValue + ",","");
+    //   component.resume = base64;
+    // }
   }
 
   checkFirstLetter(Uid: 'fname' | 'lname'): void {

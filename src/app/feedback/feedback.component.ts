@@ -7,6 +7,7 @@ import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Component, OnInit } from '@angular/core';
 import { rating } from '../enums/enum.enum';
 import { AuthenticationService } from '../services/authentication.service';
+import { loginData } from '../interfaces/interface';
 
 @Component({
   selector: 'sep-feedback',
@@ -23,18 +24,18 @@ export class FeedbackComponent implements OnInit {
     feedback: new FormControl(null, Validators.required),
     rating: new FormControl(null, Validators.required),
   });
-  userEmail = '';
+  user: loginData = {};
 
   constructor(
     private feedbackService: FeedbackService,
     private authService: AuthenticationService,
     private dialog: MatDialog,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.authService.getUser.subscribe((user) => {
-      this.userEmail = user.email as string;
+      this.user = user;
     });
   }
 
@@ -53,11 +54,21 @@ export class FeedbackComponent implements OnInit {
   onSubmit = () => {
     const payload = {
       ...this.ratingForm.value,
-      userEmail: this.userEmail,
+      userId: this.user._id,
+      userType: this.user.categoryType,
     };
-    this.feedbackService.postFeedback(payload).subscribe(() => {
-      const dialofRef = this.dialog.open(DialogComponent, {data: {heading: 'Feedback sent', content: 'We’re so happy to hear from you! Thank you for your valuable feedback.', button: 3, btnText: 'Close'}})
-      this.router.navigate(['startups'])
+    this.feedbackService.postFeedback(payload).subscribe((data) => {
+      console.log(data);
+      const dialofRef = this.dialog.open(DialogComponent, {
+        data: {
+          heading: 'Feedback sent',
+          content:
+            'We’re so happy to hear from you! Thank you for your valuable feedback.',
+          button: 3,
+          btnText: 'Close',
+        },
+      });
+      this.router.navigate(['startups']);
     });
   };
 }

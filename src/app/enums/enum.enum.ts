@@ -17,15 +17,20 @@ export enum startupCategory {
 
 export enum apis {
   // signUp = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC4_HC3tgYLIi2eJjU00GXJYLrhpjCIcUo'
-  authenticateApi = 'authenticate.json',
-  registerCompany = 'register-company.json',
-  waitingList = 'waiting-list.json',
-  postJob = 'job-posts.json',
+  signup = 'auth/signup',
+  login = 'auth/login',
+  getAllUsers = 'auth/users',
+  registerCompany = 'companies/approve',
+  deleteCompany = 'companies/reject',
+  waitingList = 'companies/waitingList',
+  getCompanies = 'companies',
+  postJob = 'jobPost/create',
+  getJobs = 'jobPost/get',
   getCountry = 'https://api.countrystatecity.in/v1/countries',
-  applyJob = 'job-apply.json',
-  feedback = 'feedback.json',
+  applyJob = 'employee/apply-job',
+  feedback = 'feedback',
   invest = 'invest.json',
-  client = 'client.json'
+  client = 'assignWork'
 }
 
 export enum emailjsIds {
@@ -65,4 +70,9 @@ export enum snackbarMessage {
 
 export enum emailMessage {
   postClient = " has shown interest to work with you please check your activity tab."
+}
+
+export enum companyStatus {
+  approved = 'Approved',
+  inProgress = 'In progress'
 }

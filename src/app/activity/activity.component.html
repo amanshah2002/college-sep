@@ -10,14 +10,16 @@
         <p fxFlex="20">Resume</p>
         <p fxFlex="20">Job Info</p>
       </div>
-      <mat-card *ngFor="let job of appliedJobs" fxLayout="row" fxLayoutAlign="space-around center">
-          <p fxFlex="20">{{job.userName ? (job.userName | wordCase) : '-'}} </p>
-          <p fxFlex="20">{{job.userEmail ? job.userEmail : '-'}}</p>
-          <button fxFlex="20" class="download-btn" mat-button (click)="downloadResume(job)">Download Resume</button>
+      <ng-container *ngFor="let job of appliedJobs">
+        <mat-card *ngFor="let applied of job.applied" fxLayout="row" fxLayoutAlign="space-around center">
+          <p fxFlex="20">{{applied.name ? (applied.name | wordCase) : '-'}} </p>
+          <p fxFlex="20">{{applied.email ? applied.email : '-'}}</p>
+          <button fxFlex="20" class="download-btn" mat-button (click)="downloadResume(applied)">Download Resume</button>
           <button fxFlex="20" mat-icon-button (click)="onInfo(job)">
               <mat-icon>info</mat-icon>
           </button>
-      </mat-card>
+        </mat-card>
+      </ng-container>
     </ng-container>
 
     <ng-container *ngIf="investmentData?.length">
@@ -45,14 +47,16 @@
         <p fxFlex="20">Client email</p>
         <p fxFlex="20">Work description</p>
       </div>
-      <mat-card *ngFor="let client of clientData" fxLayout="row" fxLayoutAlign="space-around center">
-        <p fxFlex="20">{{client.clientName}} </p>
-        <p fxFlex="20">{{client.clientEmail}}</p>
-        <p fxFlex="20">{{client.workDesc}}</p>
-    </mat-card>
+      <ng-container *ngFor="let client of clientData" >
+        <mat-card *ngFor="let work of client.clientsDetails; let i = index" fxLayout="row" fxLayoutAlign="space-around center">
+          <p fxFlex="20">{{work.name}} </p>
+          <p fxFlex="20">{{client.email}}</p>
+          <p fxFlex="20">{{client.assignWork[i].workDescription}}</p>
+        </mat-card>
+      </ng-container>
     </ng-container>
 
-      <div *ngIf="!appliedJobs.length || !investmentData.length" class="empty-container">
+      <div *ngIf="!appliedJobs.length && !investmentData.length && !clientData.length" class="empty-container">
         <h2>No Recent Activity</h2>
       </div>
     </div>

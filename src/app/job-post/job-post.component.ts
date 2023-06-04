@@ -53,14 +53,15 @@ export class JobPostComponent implements OnInit {
 
   onSubmit = () => {
     const parsedJobData = this.parseJobPost();
-    this.parseJobArray(parsedJobData);
+    this.companyService.postJob(parsedJobData).subscribe(data => {
+      this.snackbarService.open(data.msg);
+      this.router.navigate(['/startups']);
+    })
   };
 
   parseJobPost = () => {
     const companyData = {
-      companyName: this.currentUser.name,
-      email: this.currentUser.email,
-      type: this.currentUser.categoryType,
+      companyId: this.currentUser['_id']
     };
     const jobPost: jobPost = {
       ...companyData,
@@ -69,21 +70,5 @@ export class JobPostComponent implements OnInit {
       ...this.jobPostForm3.value,
     };
     return jobPost;
-  };
-
-  parseJobArray = (jobPost: jobPost) => {
-    this.companyService.getJobs().subscribe((data) => {
-      data ? this.jobPostArray.push(...data) : (this.jobPostArray = []);
-      this.jobPostArray.push(jobPost);
-      this.postJob();
-    });
-  };
-
-  postJob = () => {
-    this.companyService.postJob(this.jobPostArray).subscribe(() => {
-      this.router.navigate(['startups']).then(() => {
-        this.snackbarService.open('Job post successfully uploaded!');
-      });
-    });
   };
 }

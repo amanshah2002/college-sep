@@ -1,0 +1,39 @@
+@import '../../../../styles/main.scss';
+
+.message {
+  padding: 20px;
+  position: fixed;
+  &-header{
+    @include card;
+    height: 30px;
+
+    &-user-letter{
+      width: 5%;
+      background-color: $image-grey;
+      border-radius: 70px;
+      height: 40px;
+
+      b {
+        margin: 0;
+      }
+    }
+  }
+
+  &-user-chat {
+    section {
+      height: 70vh;
+      overflow: auto;
+    }
+
+    &-form {
+      mat-form-field {
+        width: 90vw;
+      }
+
+      button {
+        @include primary-yes-btn;
+        height: 52px;
+      }
+    }
+  }
+}

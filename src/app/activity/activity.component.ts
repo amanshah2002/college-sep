@@ -7,6 +7,7 @@ import { appliedJobDetails, investmentDetails, jobPost, loginData } from '../int
 import { JobDetailsDialogComponent } from '../shared/job-details-dialog/job-details-dialog.component';
 import { InvestmentService } from '../services/investment.service';
 import { ClientService } from '../services/client.service';
+import openSocket, { io } from 'socket.io-client';
 
 @Component({
   selector: 'sep-activity',
@@ -16,12 +17,13 @@ import { ClientService } from '../services/client.service';
 
 export class ActivityComponent implements OnInit {
   user: loginData = {};
-  appliedJobs: appliedJobDetails[] = [];
+  appliedJobs: any[] = [];
   jobs: jobPost[] = [];
   showJobDetails = false;
   selectedJob!: jobPost;
   investmentData: investmentDetails[] = [];
-  clientData: any[] = []
+  clientData: any[] = [];
+  socket: any;
 
   constructor(
     private authService: AuthenticationService,
@@ -30,11 +32,13 @@ export class ActivityComponent implements OnInit {
     private investmentService: InvestmentService,
     private clientService: ClientService,
     private dialog: MatDialog
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.getUser();
-    this.getInvestmentActivities();
+    // this.getInvestmentActivities();
     this.getClientActivity();
   }
 
@@ -47,19 +51,25 @@ export class ActivityComponent implements OnInit {
 
   getJobPosts = () => {
     this.jobService
-      .getAppliedJobById(this.user.email as string)
-      .subscribe((jobs: appliedJobDetails[]) => {
+      .getAppliedJobById(this.user._id)
+      .subscribe((jobs: any) => {
         this.appliedJobs = jobs;
+        console.log(this.appliedJobs);
       });
   };
 
-  downloadResume = (job: appliedJobDetails) => {
-    const linkSource = `data: application/pdf;base64,${job?.resume}`;
-    const downloadLink = document.createElement('a');
-    const fileName = `${job.userName}-resume.pdf`;
-    downloadLink.href = linkSource;
-    downloadLink.download = fileName;
-    downloadLink.click();
+  downloadResume = (job: any) => {
+    console.log(job);
+
+    const linkSource = job.resume;
+    this.companyService.downloadPdf(linkSource).subscribe(data => {
+      console.log('file', data);
+    })
+    // const downloadLink = document.createElement('a');
+    // const fileName = `${job.name}-resume.pdf`;
+    // downloadLink.href = linkSource;
+    // downloadLink.download = fileName;
+    // downloadLink.click();
   };
 
   onInfo = (data: appliedJobDetails) => {
@@ -75,8 +85,9 @@ export class ActivityComponent implements OnInit {
   };
 
   private getClientActivity = (): void => {
-    this.clientService.getClientById(this.user.email as string).subscribe(data => {
+    this.clientService.getClientById(this.user._id as any).subscribe(data => {
       this.clientData = data;
+      console.log(this.clientData);
     })
   }
 

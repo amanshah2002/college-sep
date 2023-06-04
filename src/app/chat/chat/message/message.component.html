@@ -1,0 +1,25 @@
+<div class="message" fxLayout="column">
+  <mat-card class="message-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <section class="message-header-user-letter" fxLayoutAlign="center center">
+      <b>{{(selectedUser.name| firstLetter) || '-'}}</b>
+    </section>
+    <b>{{selectedUser.name}} - {{selectedUser.categoryType}}</b>
+    <mat-icon (click)="onBack()">close</mat-icon>
+  </mat-card>
+  <div class="message-user-chat">
+    <section>
+      <ul id="message-list"></ul>
+    </section>
+    <form [formGroup]="messageForm" class="message-user-chat-form" fxLayout="row">
+      <mat-form-field appearance="fill">
+        <input type="text" matInput placeholder="Type a message" formControlName="msg">
+      </mat-form-field>
+
+      <button mat-button (click)="sendMessage()">
+        <mat-icon class="material-icons-outlined">
+          send
+        </mat-icon>
+      </button>
+    </form>
+  </div>
+</div>

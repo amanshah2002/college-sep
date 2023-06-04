@@ -1,0 +1,21 @@
+@import '../../../styles/main.scss';
+
+.chat {
+  padding: 50px;
+
+  &-users-card {
+    @include card;
+    margin-bottom: 20px;
+
+    &-letter {
+      width: 5%;
+      background-color: $image-grey;
+      border-radius: 70px;
+      height: 40px;
+
+      b{
+        margin: 0;
+      }
+    }
+  }
+}

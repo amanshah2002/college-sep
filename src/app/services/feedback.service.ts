@@ -11,7 +11,7 @@ export class FeedbackService {
 constructor(private callApiService: CallAPIService) { }
 
 postFeedback = (feedbackPayload: feedback) => {
-  return this.callApiService.callPostAPI(apis.feedback,feedbackPayload)
+  return this.callApiService.callPostAPI(apis.feedback,feedbackPayload);
 }
 
 }

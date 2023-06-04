@@ -1,3 +1,4 @@
+import { MessageComponent } from './chat/chat/message/message.component';
 import { InvestInCompanyComponent } from './investor/invest-in-company/invest-in-company.component';
 import { ActivityCardComponent } from './shared/activity-card/activity-card.component';
 import { EditCompanyAccountComponent } from './edit-account/edit-company-account/edit-company-account.component';
@@ -12,7 +13,7 @@ import { MaterialModule } from './material/material.module';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CompanyComponent } from './company/company.component';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { QRCodeModule } from 'angular2-qrcode';
@@ -32,8 +33,8 @@ import { JobDetailsDialogComponent } from './shared/job-details-dialog/job-detai
 import { WordCasePipe } from './shared/pipe/word-case.pipe';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { BecomeAClientComponent } from './become-a-client/become-a-client.component';
-
-
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { ChatComponent } from './chat/chat/chat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +60,8 @@ import { BecomeAClientComponent } from './become-a-client/become-a-client.compon
     FeedbackComponent,
     InvestInCompanyComponent,
     BecomeAClientComponent,
+    ChatComponent,
+    MessageComponent
    ],
   imports: [
     BrowserModule,
@@ -75,6 +78,10 @@ import { BecomeAClientComponent } from './become-a-client/become-a-client.compon
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService, multi: true
     },
   ],
   bootstrap: [AppComponent]

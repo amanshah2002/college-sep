@@ -18,12 +18,17 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
 import { AwaitConfirmationComponent } from './await-confirmation/await-confirmation.component';
 import { InvestInCompanyComponent } from './investor/invest-in-company/invest-in-company.component';
 import { InvestorGuard } from './guards/investor.guard';
+import { ChatComponent } from './chat/chat/chat.component';
+import { EmployeeGuard } from './guards/employee.guard';
+import { MessageComponent } from './chat/chat/message/message.component';
 
 const routes: Routes = [
   {path:'',pathMatch:'full',redirectTo:'login'},
   {path:'login',component:LoginComponent,canActivate:[LoginGuard]},
   {path:'register-company/:id',component:RegisterCompanyComponent},
   {path: 'startups',component:CompanyComponent,canActivate:[AuthGuard]},
+  {path: 'chat',component:ChatComponent,canActivate:[AuthGuard]},
+  {path: 'message', component: MessageComponent, canActivate:[AuthGuard]},
   {path: 'edit-account',component:EditAccountComponent,canActivate:[AuthGuard]},
   {path: 'waiting-list',component:WaitingListComponent,canActivate:[AuthGuard,AdminGuard]},
   {path:'await-confirmation',component:AwaitConfirmationComponent},

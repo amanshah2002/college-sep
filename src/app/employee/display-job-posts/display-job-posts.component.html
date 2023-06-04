@@ -15,7 +15,7 @@
 
         <div fxFlex="70" fxLayout="center center" fxLayout="column" class="jobs-container-cards-card-details">
           <b> {{job?.position}}</b>
-          <p> {{job?.companyName}}</p>
+          <p> {{job?.companyId?.name}}</p>
           <p> {{job?.email}}</p>
           <section fxLayoutAlign="space-between center">
             <p> Experience: {{job?.experience}}</p>
@@ -26,7 +26,7 @@
     </section>
 
     <section fxFlex="60" class="jobs-container-detail">
-      <sep-job-details [job]="selectedJob" [companyType]="companyType" (jobClicked)="onApplyJob()"></sep-job-details>
+      <sep-job-details [job]="selectedJob" [companyType]="companyType" (jobClicked)="onApplyJob($event)"></sep-job-details>
     </section>
   </div>
 

@@ -1,6 +1,6 @@
 import { CompanyService } from './company.service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { company, loginData } from './../interfaces/interface';
 import { CallAPIService } from './../core/call-api-service.service';
 import { Injectable } from '@angular/core';
@@ -9,6 +9,7 @@ import { SnacbarService } from './snacbar.service';
 import { BehaviorSubject } from 'rxjs';
 import { apis } from '../enums/enum.enum';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class AuthenticationService {
     private callApiService: CallAPIService,
     private snackbarService: SnacbarService,
     private router: Router,
-    private companyService: CompanyService
+    private http: HttpClient
   ) {}
   baseUrl = environment.baseUrl;
   loginDetails: loginData[] = [];
@@ -31,98 +32,49 @@ export class AuthenticationService {
 
   login = (loginData: loginData, rememberMe: boolean) => {
     this.loadObservable.next(true);
-    let flag: any = null;
 
-    if (loginData.categoryType != 'Company') {
-      this.getLoginData().subscribe((data) => {
-        console.log(data);
-        data?.map((user: loginData) => {
-          user?.email?.toLowerCase() == loginData.email?.toLowerCase() &&
-          (user?.categoryType?.toLowerCase() ==
-            loginData.categoryType?.toLowerCase() ||
-            user?.categoryType?.toLowerCase() === 'admin')
-            ? (flag = user)
-            : null;
-        });
-
-        if (flag) {
-          if (flag.password == loginData.password) {
-            this.successfulLogin(flag, rememberMe);
-          } else {
-            this.unSuccessfulLogin('Email or password is incorrect');
-            return;
-          }
-        } else {
-          this.unSuccessfulLogin(
-            'User does not exist, please sign up first or edit your role'
-          );
-        }
-      });
-    } else {
-      this.companyService.getCompanies().subscribe((data) => {
-        data.map((company: company) => {
-          company.email.toLowerCase() == loginData.email?.toLowerCase()
-            ? (flag = company)
-            : null;
-        });
-
-        if (flag) {
-          if (flag.password == loginData.password) {
-            this.successfulLogin(flag, rememberMe);
-          } else {
-            this.unSuccessfulLogin('Email or password is incorrect');
-            return;
-          }
-        } else {
-          this.snackbarService.open(
-            'Company does not exist, please sign up first'
-          );
-          this.loadObservable.next(false);
-        }
-      });
-    }
+    return this.callApiService.callPostAPI(apis.login, loginData).pipe(tap((data) => {
+      this.successfulLogin(data.user, rememberMe);
+    }),
+    catchError((err) => {
+      this.unSuccessfulLogin(err.error.message)
+      throw err;
+    }))
   };
 
-  signUp = (loginData: loginData, rememberMe: boolean) => {
-    let loginArray: any[] = [];
+  signUp = (loginData: any, rememberMe: boolean) => {
     this.loadObservable.next(true);
-    let flag = 0;
-    this.getLoginData().subscribe((data) => {
-      data ? (loginArray = data) : null;
-      data?.map((user: loginData) => {
-        if (user) {
-          user.email?.trim()?.toLowerCase() ==
-            loginData.email?.trim()?.toLowerCase() &&
-          user.categoryType?.toLowerCase().trim() ==
-            loginData.categoryType?.toLowerCase().trim()
-            ? (flag = 1)
-            : null;
-        }
-      });
-
-      if (flag == 1) {
-        this.snackbarService.open('A user with this email already exists!');
-        this.loadObservable.next(false);
-      } else {
-        loginArray.push(loginData);
-        this.callApiService
-          .callPutAPI(apis.authenticateApi, {}, loginArray)
-          .subscribe((data) => {
-            console.log(data);
-            loginData['resume'] = '';
-            this.sendEmail(loginData);
-            this.snackbarService.open('Successfully signed up');
-            this.loadObservable.next(false);
-            this.user.next(loginData);
-            rememberMe
-              ? localStorage.setItem('user', JSON.stringify(flag))
-              : sessionStorage.setItem('user', JSON.stringify(flag));
-            this.loggedIn.next(true);
-            this.router.navigate(['startups']);
-          });
-      }
+    const formData = new FormData();
+    if(loginData.categoryType.toLowerCase() === 'investor') {
+      formData.append('preferredStartupName', loginData.preferredStartupType.label)
+      formData.append('preferredStartupValue', loginData.preferredStartupType.value)
+      delete loginData['preferredStartupType'];
+    }
+    Object.keys(loginData).forEach((key) => {
+      formData.append(key, loginData[key]);
     });
+
+    return this.http.post(this.baseUrl + apis.signup, formData).pipe(
+        tap(() => {
+          this.sendEmail(loginData);
+          this.loadObservable.next(false);
+          this.snackbarService.open('Successfully signed up');
+        }),
+        catchError((err) => {
+          this.loadObservable.next(false);
+          this.unSuccessfulLogin(err.error.message)
+          throw err;
+        }));
   };
+
+  getAllUsers = () => {
+    return this.callApiService.callGetAPI(apis.getAllUsers).pipe(
+      catchError((err) => {
+        this.snackbarService.open(err.error?.message);
+        throw err;
+      })
+    )
+  }
 
   sendEmail = (loginData: loginData) => {
     emailjs
@@ -138,18 +90,6 @@ export class AuthenticationService {
           this.snackbarService.open(error.text);
         }
       );
-  };
-
-  getLoginData = () => {
-    this.loginDetails = [];
-    return this.callApiService.callGetAPI(apis.authenticateApi).pipe(
-      map((data) => {
-        data.forEach((resp: any) => {
-          resp ? this.loginDetails.push(resp) : null;
-        });
-        return this.loginDetails;
-      })
-    );
   };
 
   autoLogin = () => {
@@ -187,6 +127,7 @@ export class AuthenticationService {
   };
 
   unSuccessfulLogin = (message: string) => {
+    console.log('err msg:', message);
     this.snackbarService.open(message);
     this.loadObservable.next(false);
     this.loggedIn.next(false);
